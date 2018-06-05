@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class FoodDay extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,15 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        //
+        Schema::create('food_day', function (Blueprint $table) {
             $table->increments('id');            
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->integer('user_type_id');
-            $table->integer('hotel_id');
-            $table->tinyInteger('status');
+            $table->string('day_name');            
+            $table->string('short_name');            
+            $table->integer('food_type');            
+            $table->tinyInteger('status');            
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
-            $table->rememberToken();
             $table->timestamps();            
         });
     }
@@ -33,6 +32,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        //
+        Schema::drop('food_day');
     }
 }

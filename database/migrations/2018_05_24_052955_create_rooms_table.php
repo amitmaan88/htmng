@@ -17,6 +17,8 @@ class CreateRoomsTable extends Migration
             $table->integer('room_no');
             $table->integer('floor_no')->nullable();
             $table->string('room_type');
+            $table->integer('hotel_id');
+            $table->tinyInteger('status');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

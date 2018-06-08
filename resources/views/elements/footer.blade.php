@@ -9,4 +9,9 @@
 <script src="{{url('js/morris/morris.js')}}"></script>
 <!-- CUSTOM SCRIPTS -->
 <script src="{{url('js/custom.js')}}"></script>
+<script src="{{url('js/htmng.js')}}"></script>
+<script>
+    htmng.currClass = "active-menu";
+    htmng.activeInactive();
+</script>
 

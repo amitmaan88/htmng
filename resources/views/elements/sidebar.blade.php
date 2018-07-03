@@ -8,15 +8,7 @@
                 <a href="/home"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
             </li>
             <li>
-                <a href="/user"><i class="fa fa-desktop fa-3x"></i> User Management</a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a href="/usertype">Type</a>
-                    </li>
-                    <li>
-                        <a href="/useradd">Add User</a>
-                    </li>                    
-                </ul>
+                <a href="{{url('/users')}}"><i class="fa fa-desktop fa-3x"></i> User Management</a>                
             </li>
             <li>
                 <a href="/rooms"><i class="fa fa-qrcode fa-3x"></i>Rooms</a>

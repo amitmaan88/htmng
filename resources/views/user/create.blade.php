@@ -1,80 +1,93 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="wrapper wrapper-content animated fadeInRight user-management">
-    <div class="row">
-        <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action="{{route('branches.store')}}">
-        {{ csrf_field() }}
-            <div class="col-lg-12">
-                <div class="ibox-title">
-                    <h5>Please add new branch</h5>
-                </div>
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                        <div class="form-group col-sm-6{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Branch Name <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="name" placeholder="Enter Branch Name" class="form-control" value="{{ old('name') }}"><!--autofocus="autofocus"-->
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-6{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Email <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="email" placeholder="Enter Email Id" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('mobile') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Mobile <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="mobile" placeholder="Enter Mobile Number" class="form-control" value="{{ old('mobile') }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('advance_amount') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Advance Amount</label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="advance_amount" placeholder="Enter Advance Amount" class="form-control" value="{{ old('advance_amount') }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('amount_type') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Amount Type</label>
-                            <div class="col-sm-8">
-                                <select name="amount_type" class="form-control">
-                                    <option value="Fixed">Fixed</option>
-                                    <option value="Variable">Variable</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('no_installment') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">No. of Milestone</label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="no_installment" placeholder="Enter Number of Milestore" class="form-control" value="{{ old('no_installment') }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('amount') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Amount <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="amount" placeholder="Enter Amount" class="form-control" value="{{ old('amount') }}">
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-10">
-                            <div class="pull-right">
-                                <button class="btn btn-primary" type="submit">Save changes</button>
-                                &nbsp;
-                                <button class="btn btn-white" name="cancel" value="1">Cancel</button>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        @include('elements.error')
+<div id="page-wrapper" >
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{$pageHeading}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Add User
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <form role="form" method="post" enctype="multipart/form-data" action="{{route('users.index')}}">
+                                <div class="col-md-6">                                
+                                    <div class="form-group">
+                                        <label>First Name<span class="red">*</span></label>
+                                        <input class="form-control" name="first_name" id="first_name" type="text" value="" required="required" />
+                                        <p class="help-block"></p>
+                                    </div>                          
+                                    <div class="form-group">
+                                        <label>User Type<span class="red">*</span></label>
+                                        <select class="form-control" name="user_type" id="user_type">
+                                            <option value="">Select</option>                                            
+                                            <option value="1">Owner</option>                                            
+                                            <option value="2">Tenant</option>                                            
+                                        </select>
+                                        <p class="help-block"></p>
+                                    </div>                                                                        
+                                    <div class="form-group">
+                                        <label>Password<span class="red">*</span></label>
+                                        <input class="form-control" name="pass" id="pass" type="password" value="" />
+                                        <p class="help-block"></p>
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <label>Mobile No<span class="red">*</span> </label>
+                                        <input class="form-control" name="mob" id="mob" type="tel" maxlength="15" value="" />
+                                        <p class="help-block"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Upload Photo<span class="red">*</span></label>
+                                        <input type="file" class="form-control" name="up_photo" />
+                                        <p class="help-block"></p>
+                                    </div>
+                                    <div class="form-group">                                        
+                                        <input type="submit" class="btn btn-primary" name="addusr" id="addusr" value="Create" />
+                                        <input type="submit" class="btn btn-default" name="cancelusr" id="cancelusr" value="Cancel" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input class="form-control" name="last_name" id="last_name" type="text" value="" />
+                                        <p class="help-block"></p>
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <label>Email<span class="red">*</span></label>
+                                        <input class="form-control" name="email" id="email" type="email" value="" />
+                                        <p class="help-block"></p>
+                                    </div>                                                                                                            
+                                    <div class="form-group">
+                                        <label>Confirm Password<span class="red">*</span></label>
+                                        <input class="form-control" name="cnf_pass" id="cnf_pass" type="password" value="" />
+                                        <p class="help-block"></p>
+                                    </div>                                                                                                            
+                                    <div class="form-group">
+                                        <label>Landline</label>
+                                        <input class="form-control" name="landline" id="landline" type="tel" maxlength="15" value="" />
+                                        <p class="help-block"></p>
+                                    </div>                                                                                                            
+                                    <div class="form-group">
+                                        <label>Upload Photo Id<span class="red">*</span></label>
+                                        <input type="file" class="form-control" name="up_photo_id" />
+                                        <p class="help-block"></p>
+                                    </div>                                                                        
+                                </div>
+                            </form>
+                        </div>  
                     </div>
                 </div>
             </div>
-        </form>
+        </div>        
     </div>
+    <div class="clearfix"></div>
+    @include('elements.error')
+    <!-- /. PAGE INNER  -->
 </div>
 @endsection

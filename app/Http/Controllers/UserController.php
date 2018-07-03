@@ -38,7 +38,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $records['data'] = User::get();
+        $records['pageHeading'] = 'User Management: Create';
+        return view('user/create', $records);
     }
 
     /**

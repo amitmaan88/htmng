@@ -18,27 +18,43 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
+                            <a href="{{url('users/create')}}" class="btn btn-primary">Create User</a>
+                            <button type="reset" class="btn btn-default">Delete User</button>
                             <table class="table table-striped table-bordered table-hover dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>#
+                                            <label>Select All</label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox"/>
+                                            </label>
+                                        </th>
                                         <th>Name</th>
                                         <th>Mobile</th>
                                         <th>Email</th>
                                         <th>User Type</th>
                                         <th>Hotel</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($data as $k=>$val)
-                                        <tr>
-                                            <td>1</td>
-                                            <td>{{$val->name}}</td>
-                                            <td>{{$val->mobile}}</td>
-                                            <td>{{$val->email}}</td>
-                                            <td>{{$val->email}}</td>
-                                            <td>{{@$val->hotel()->name}}</td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                            <label>1</label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox"/>
+                                            </label></td>
+                                        <td>{{$val->name}}</td>
+                                        <td>{{$val->mobile}}</td>
+                                        <td>{{$val->email}}</td>
+                                        <td>{{$val->email}}</td>
+                                        <td>{{@$val->hotel()->name}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary">Edit</button>                                           
+                                            <button type="button" class="btn btn-primary">Inactive/Active</button>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>

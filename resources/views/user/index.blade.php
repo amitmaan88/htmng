@@ -10,7 +10,7 @@
             <div class="col-md-6">
                 <div class="btn-toolbar">
                     <button type="reset" class="btn btn-danger pull-right">Delete User</button>
-                    <a href="{{url('users/create')}}" class="btn btn-primary pull-right">Create User</a>                    
+                    <a href="{{url('users/create')}}" class="btn btn-primary pull-right">Create User</a>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                                         <td>{{@$val->hotel()->name}}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary">Edit</button>
-                                            <button type="button" class="btn btn-primary" id="actinc">Active</button>
+                                            <button type="button" class="btn btn-primary" id="actinc" data-var="0" data-id="{{$val->id}}">Active</button>
                                         </td>
                                     </tr>
                                     @endforeach

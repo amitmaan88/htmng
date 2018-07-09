@@ -2,10 +2,12 @@
 
 namespace App;
 
+use App\Traits\Status;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    use Status;
     /**
      * The attributes that are mass assignable.
      *

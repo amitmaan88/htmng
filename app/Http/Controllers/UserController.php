@@ -8,15 +8,16 @@ use Validator;
 
 class UserController extends Controller
 {
+    public $user;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -71,6 +72,21 @@ class UserController extends Controller
         request()->session()->flash('message', 'User Created Successfully');
         request()->session()->flash('type', 'success');
         return redirect('/users');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changeSatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $user = $this->user->find($request->id);
+            $user->changeField($request->all());
+            return response()->json(['response'=>'Field saved successfully!', 'status'=>'success', 'code'=>'200', 'data'=>$saved->id]);
+        }
+        return response()->json(['status'=>'fail', 'code'=>'104']);
     }
 
     /**

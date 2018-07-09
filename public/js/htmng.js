@@ -1,5 +1,6 @@
 var htmng = {
     currClass: '',
+    baseUrl:'',
     activeInactive: function () {
         if (this.currClass !== '') {
             var href = window.location.href;
@@ -20,8 +21,24 @@ var htmng = {
             } else {
                 $(this).val("Active");
             }
+            var args = {
+                '_token': $('meta[name="csrf-token"]').attr('content'),
+                'status': $(this).attr('data-var'),
+                'id': $(this).attr('data-id')
+            };
             $.ajax({
-                url: '',
+                url: this.baseUrl+'/changeSatus',
+                type: "POST",
+                data: args,
+                async: false,
+                success: function(rsp) {
+                    if(rsp.code==200) {
+                        result = rsp.data;
+                    }
+                    if(rsp.code==100) {
+                        alert(rsp.data);
+                    }
+                }
             });
         });
     }

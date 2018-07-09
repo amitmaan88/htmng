@@ -7,6 +7,11 @@
 <script src="{{url('js/htmng.js')}}"></script>
 <script>
     htmng.currClass = "active-menu";
+    htmng.baseUrl = "{{url('/')}}";
     htmng.activeInactive();
+
+    $(document).ready(function(){
+        htmng.btnActiveInactive();
+    })
 </script>
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Http\Requests;
+use Validator;
 
 class UserController extends Controller
 {
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $records['data'] = User::get();
+        $records['data'] = User::all();
         $records['pageHeading'] = 'User Management';
         return view('user/index', $records);
     }
@@ -51,7 +51,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params = $request->all();
+        if (isset($request->cancel) && $request->cancel==1) {
+            return redirect('/users');
+        }
+
+        $validator = Validator::make($params, [
+            'name'   => 'required',
+            'email' => 'required|email',
+            'mobile' => 'required|numeric',
+            'user_type_id' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/users/create')->withErrors($validator)->withInput();
+        }
+        $profile_info = User::create($params);
+        $profile_id = $profile_info->id;
+
+        request()->session()->flash('message', 'User Created Successfully');
+        request()->session()->flash('type', 'success');
+        return redirect('/users');
     }
 
     /**

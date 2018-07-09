@@ -4,8 +4,12 @@
 <div id="page-wrapper" >
     <div id="page-inner">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <h2>{{$pageHeading}}</h2>
+            </div>
+            <div class="col-md-6">
+                <a href="{{url('users/create')}}" class="btn btn-primary pull-right">Create User</a>
+                <button type="reset" class="btn btn-danger pull-right">Delete User</button>
             </div>
         </div>
 
@@ -18,17 +22,16 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <a href="{{url('users/create')}}" class="btn btn-primary">Create User</a>
-                            <button type="reset" class="btn btn-default">Delete User</button>
+
                             <table class="table table-striped table-bordered table-hover dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>#
-                                            <label>Select All</label>
+                                        <th title="Select All">#
                                             <label class="checkbox-inline">
                                                 <input type="checkbox"/>
                                             </label>
                                         </th>
+                                        <th>Sr</th>
                                         <th>Name</th>
                                         <th>Mobile</th>
                                         <th>Email</th>
@@ -41,17 +44,17 @@
                                     @foreach($data as $k=>$val)
                                     <tr>
                                         <td>
-                                            <label>1</label>
                                             <label class="checkbox-inline">
                                                 <input type="checkbox"/>
                                             </label></td>
+                                        <td>{{++$k}}.</td>
                                         <td>{{$val->name}}</td>
                                         <td>{{$val->mobile}}</td>
                                         <td>{{$val->email}}</td>
-                                        <td>{{$val->email}}</td>
+                                        <td>{{$val->user_type_id}}</td>
                                         <td>{{@$val->hotel()->name}}</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary">Edit</button>                                           
+                                            <button type="button" class="btn btn-primary">Edit</button>
                                             <button type="button" class="btn btn-primary">Inactive/Active</button>
                                         </td>
                                     </tr>

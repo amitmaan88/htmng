@@ -11,15 +11,7 @@
                 <a href="{{url('/users')}}"><i class="fa fa-desktop fa-3x"></i> User Management</a>                
             </li>
             <li>
-                <a href="/rooms"><i class="fa fa-qrcode fa-3x"></i>Rooms</a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a href="/addrooms">Add Rooms</a>
-                    </li>                                        
-                    <li>
-                        <a href="/allotrooms">Allot Rooms</a>
-                    </li>                                        
-                </ul>
+                <a href="{{url('/room')}}"><i class="fa fa-qrcode fa-3x"></i>Rooms</a>                
             </li>
             <li>
                 <a href="/notice"><i class="fa fa-bar-chart-o fa-3x"></i> Notice</a>

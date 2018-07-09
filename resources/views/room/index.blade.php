@@ -9,8 +9,8 @@
             </div>
             <div class="col-md-6">
                 <div class="btn-toolbar">
-                    <button type="reset" class="btn btn-danger pull-right">Delete User</button>
-                    <a href="{{url('users/create')}}" class="btn btn-primary pull-right">Create User</a>                    
+                    <button type="reset" class="btn btn-danger pull-right">Delete Room</button>
+                    <a href="{{url('room/create')}}" class="btn btn-primary pull-right">Create Room</a>                    
                 </div>
             </div>
         </div>
@@ -34,10 +34,8 @@
                                             </label>
                                         </th>
                                         <th>Sr</th>
-                                        <th>Name</th>
-                                        <th>Mobile</th>
-                                        <th>Email</th>
-                                        <th>User Type</th>
+                                        <th>Room Name</th>                                        
+                                        <th>Room Description</th>                                        
                                         <th>Hotel</th>
                                         <th>Action</th>
                                     </tr>
@@ -50,10 +48,7 @@
                                                 <input type="checkbox"/>
                                             </label></td>
                                         <td>{{++$k}}.</td>
-                                        <td>{{$val->name}}</td>
-                                        <td>{{$val->mobile}}</td>
-                                        <td>{{$val->email}}</td>
-                                        <td>{{$val->user_type_id}}</td>
+                                        <td>{{$val->room_name}}</td>                                        
                                         <td>{{@$val->hotel()->name}}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary">Edit</button>

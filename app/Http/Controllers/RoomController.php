@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Room;
+use App\RoomType;
 use Validator;
 
-class RoomController extends Controller
-{
+class RoomController extends Controller {
+
+    public $room;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
+    public function __construct(Room $room) {
+        $this->room = $room;
     }
 
     /**
@@ -23,8 +25,7 @@ class RoomController extends Controller
      *
      * @return void
      */
-    public function index()
-    {
+    public function index() {
         $records['data'] = Room::all();
         $records['pageHeading'] = 'Room Management';
         return view('room/index', $records);
@@ -35,8 +36,7 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $records['data'] = Room::get();
         $records['pageHeading'] = 'Room Management: Create';
         return view('room/create', $records);
@@ -48,19 +48,18 @@ class RoomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $params = $request->all();
-        if (isset($request->cancel) && $request->cancel==1) {
+        if (isset($request->cancel) && $request->cancel == 1) {
             return redirect('/room');
         }
 
         $validator = Validator::make($params, [
-            'room_name'   => 'required',
-            'room_no' => 'required|numeric',
-            'floor_no' => 'required|numeric',            
-            'room_type' => 'required|string',
-            'status' => 'required',
+                    'room_name' => 'required',
+                    'room_no' => 'required|numeric',
+                    'floor_no' => 'required|numeric',
+                    'room_type' => 'required|string',
+                    'status' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect('/room/create')->withErrors($validator)->withInput();
@@ -79,8 +78,7 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -90,8 +88,7 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -102,8 +99,7 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -113,8 +109,20 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function roomtype() {
+        $records['data'] = RoomType::get();
+        $records['pageHeading'] = 'Room Management: Type';
+        return view('room/roomtype', $records);
+    }
+
 }

@@ -9,15 +9,28 @@
             </li>
             <li>
                 <a href="{{url('/users')}}"><i class="fa fa-desktop fa-3x"></i> User Management</a>                
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{url('/users/upload')}}">Bulk Users</a>
+                    </li>                                        
+                </ul>
             </li>
             <li>
                 <a href="{{url('/room')}}"><i class="fa fa-qrcode fa-3x"></i>Rooms</a>                
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{url('/room/roomtype')}}">Room Type</a>
+                    </li>                                        
+                </ul>
             </li>
             <li>
-                <a href="/notice"><i class="fa fa-bar-chart-o fa-3x"></i> Notice</a>
+                <a href="{{url('/notice')}}"><i class="fa fa-bar-chart-o fa-3x"></i> Notice</a>
             </li>
             <li>
                 <a  href="/complaints"><i class="fa fa-table fa-3x"></i> Complaints</a>
+            </li>
+            <li>
+                <a  href="/complaints"><i class="fa fa-table fa-3x"></i> Report</a>
             </li>
             <li>
                 <a  href="/food"><i class="fa fa-edit fa-3x"></i> Food Menu </a>

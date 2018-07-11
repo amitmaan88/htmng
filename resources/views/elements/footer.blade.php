@@ -6,12 +6,14 @@
 <script src="{{url('js/jquery.metisMenu.js')}}"></script>
 <script src="{{url('js/htmng.js')}}"></script>
 <script>
-    htmng.currClass = "active-menu";
-    htmng.baseUrl = "{{url('/')}}";
-    htmng.activeInactive();
+htmng.currClass = "active-menu";
+htmng.baseUrl = "{{url('/')}}";
+htmng.activeInactive();
 
-    $(document).ready(function(){
-        htmng.btnActiveInactive();
-    })
+$(document).ready(function () {
+    $("#actinc").on('click', function () {
+        htmng.btnActiveInactive($(this));
+    });
+})
 </script>
 

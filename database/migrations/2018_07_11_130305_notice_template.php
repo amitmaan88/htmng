@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoomsTable extends Migration
+class NoticeTemplate extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,11 @@ class CreateRoomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('notice_templates', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('room_name');            
-            $table->tinyInteger('room_type');            
-            $table->integer('hotel_id');
+            $table->longText('template');
+            $table->string('template_desc');
             $table->tinyInteger('status');
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateRoomsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('rooms');
+        Schema::drop('notice_templates');
     }
 }

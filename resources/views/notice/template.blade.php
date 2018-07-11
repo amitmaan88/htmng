@@ -12,23 +12,15 @@
             <div class="col-md-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        Add Rooms
+                        Templates
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <form role="form" method="post" enctype="multipart/form-data" action="{{route('room.store')}}">
                             {{ csrf_field() }}
-                                <div class="col-md-12">
+                                <div class="col-md-12">                                    
                                     <div class="form-group form_field">
-                                        <label>Room Name <span class="red">*</span></label>
-                                        <input class="form-control" name="room_name" type="text" value="{{old('room_name')}}"  />
-                                    </div>                                                                        
-                                    <div class="form-group form_field">
-                                        <label>Room Photo <span class="red">*</span></label>
-                                        <input type="file" class="form-control" name="up_photo" />
-                                    </div>
-                                    <div class="form-group form_field">
-                                        <label>Room Type <span class="red">*</span></label>
+                                        <label>Template <span class="red">*</span></label>
                                         <select class="form-control" name="room_type" id="room_type">
                                             <option value="">Select</option>
                                             <option>Deluxe</option>

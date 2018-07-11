@@ -133,4 +133,16 @@ class UserController extends Controller
     {
         //
     }
+
+    /**
+     * Upload the users in bulk mode.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function upload()
+    {
+        $records['pageHeading'] = 'User Management: Upload';
+        return view('user/upload', $records);
+    }
 }

@@ -22,8 +22,10 @@
                                     <div class="form-group form_field">
                                         <label>Room Type <span class="red">*</span></label>
                                         <input class="form-control" name="room_type" type="text" value="{{old('room_type')}}"  />
-                                    </div>                                                                                                            
-                                    <div class="form-group pull-right">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group pull-left">
                                         <input type="submit" class="btn btn-primary" name="addrtype" id="addrtype" value="Create" />
                                         <button id="cancelBtn" data-url="{{url('/room/roomtype')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
                                     </div>

@@ -17,42 +17,68 @@
                     <div class="panel-body">
                         <div class="row">
                             <form role="form" method="post" enctype="multipart/form-data" action="{{route('room.store')}}">
-                            {{ csrf_field() }}
+                                {{ csrf_field() }}
                                 <div class="col-md-12">
                                     <div class="form-group form_field">
-                                        <label>Room Name <span class="red">*</span></label>
+                                        <label>Room <span class="red">*</span></label>
                                         <input class="form-control" name="room_name" type="text" value="{{old('room_name')}}"  />
                                     </div>                                                                        
                                     <div class="form-group form_field">
                                         <label>Room Photo <span class="red">*</span></label>
-                                        <input type="file" class="form-control" name="up_photo" />
+                                        <input type="file" class="form-control" name="room_photo" />
                                     </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group form_field">
                                         <label>Room Type <span class="red">*</span></label>
                                         <select class="form-control" name="room_type" id="room_type">
-                                            <option value="">Select</option>
-                                            <option>Deluxe</option>
-                                            <option>Semi-Deluxe</option>
-                                            <option>Double</option>
-                                            <option>Single</option>                                            
+                                            <option value="">Select</option>                                            
                                         </select>
                                     </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group form_field">
-                                        <label>Room Photo <span class="red">*</span></label>
-                                        <input type="file" class="form-control" name="up_photo" />
+                                        <label>Chairs <span class="red">*</span></label>
+                                        <input type="number" class="form-control" name="chairs" id="chairs" />
                                     </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group form_field">
-                                        <label>Room Photo <span class="red">*</span></label>
-                                        <input type="file" class="form-control" name="up_photo" />
+                                        <label>Tables <span class="red">*</span></label>
+                                        <input type="number" class="form-control" name="tables" id="tables" />
                                     </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group form_field">
-                                        <label>Room Photo <span class="red">*</span></label>
-                                        <input type="file" class="form-control" name="up_photo" />
+                                        <label>Beds <span class="red">*</span></label>
+                                        <input type="number" class="form-control" name="beds" id="beds" />
                                     </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group form_field">
-                                        <label>Room Photo <span class="red">*</span></label>
-                                        <input type="file" class="form-control" name="up_photo" />
+                                        <label>Size <span class="red">*</span></label>
+                                        <input type="number" class="form-control" name="room_size" id="room_size" />
                                     </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Floor No. <span class="red">*</span></label>
+                                        <input type="number" class="form-control" name="floor_no" id="floor_no" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Daily Cost <span class="red">*</span></label>
+                                        <input type="number" class="form-control" name="cost" id="cost" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group form_field">
+                                        <label>Other Facilities <span class="red">*</span></label>
+                                        <textarea name="facility" id="facility" class="form-control"></textarea>
+                                    </div>
+                                </div>                                
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="submit" class="btn btn-primary" name="addroom" id="addroom" value="Create" />
                                         <button id="cancelBtn" data-url="{{url('/room')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>

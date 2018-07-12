@@ -41,7 +41,27 @@ class NoticeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $params = $request->all();
+        if (isset($request->cancel) && $request->cancel == 1) {
+            return redirect('/notice');
+        }
+
+        $validator = Validator::make($params, [
+                    'room_name' => 'required',
+                    'room_no' => 'required|numeric',
+                    'floor_no' => 'required|numeric',
+                    'room_type' => 'required|string',
+                    'status' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/notice')->withErrors($validator)->withInput();
+        }
+        $profile_info = User::create($params);
+        $profile_id = $profile_info->id;
+
+        request()->session()->flash('message', 'Room Created Successfully');
+        request()->session()->flash('type', 'success');
+        return redirect('/notice');
     }
 
     /**

@@ -8,16 +8,22 @@
                 <a href="/home"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
             </li>
             <li>
-                <a href="{{url('/users')}}"><i class="fa fa-desktop fa-3x"></i> User Management</a>                
+                <a href="#"><i class="fa fa-desktop fa-3x"></i> User Management<span class="fa arrow"></span></a>                
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="{{url('/users/upload')}}">Bulk Users</a>
+                        <a href="{{url('/users')}}">User List</a>
+                    </li>                                        
+                    <li>
+                        <a href="{{url('/users/upload')}}">Bulk Upload</a>
                     </li>                                        
                 </ul>
             </li>
             <li>
-                <a href="{{url('/room')}}"><i class="fa fa-qrcode fa-3x"></i>Rooms</a>                
+                <a href="#"><i class="fa fa-qrcode fa-3x"></i>Room Management<span class="fa arrow"></span></a>                
                 <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{url('/room')}}">Room List</a>
+                    </li>                                        
                     <li>
                         <a href="{{url('/room/roomtype')}}">Room Type</a>
                     </li>                                        
@@ -27,19 +33,19 @@
                 <a href="{{url('/notice')}}"><i class="fa fa-bar-chart-o fa-3x"></i> Notice</a>
             </li>
             <li>
-                <a  href="/complaints"><i class="fa fa-table fa-3x"></i> Complaints</a>
+                <a  href="{{url('/complaint')}}"><i class="fa fa-table fa-3x"></i> Complaints</a>
             </li>
             <li>
-                <a  href="/complaints"><i class="fa fa-table fa-3x"></i> Report</a>
+                <a  href="{{url('/report')}}"><i class="fa fa-table fa-3x"></i> Report</a>
             </li>
             <li>
-                <a  href="/food"><i class="fa fa-edit fa-3x"></i> Food Menu </a>
-                <ul class="nav nav-second-level">
+                <a  href="#"><i class="fa fa-edit fa-3x"></i> Food Menu<span class="fa arrow"></span> </a>
+                <ul class="nav nav-second-level collapse">
                     <li>
-                        <a href="/foodtype">Type</a>
+                        <a href="{{url('/fooditems')}}">Type</a>
                     </li>
                     <li>
-                        <a href="/addfood">Add Food</a>
+                        <a href="{{url('/food')}}">Add Food</a>
                     </li>                    
                 </ul>
             </li>            

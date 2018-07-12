@@ -28,3 +28,4 @@ Route::get('/notice/template', array('as' => 'notice.template', 'uses' => 'Notic
 Route::resource('/users', 'UserController');
 Route::resource('/room', 'RoomController');
 Route::resource('/notice', 'NoticeController');
+Route::resource('/complaint', 'ComplaintController');

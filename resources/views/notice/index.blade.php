@@ -23,41 +23,21 @@
                         Responsive Table Example
                     </div>
                     <div class="panel-body">
-                        <div class="table-responsive">
+                        <div class="col-md-12">                                    
+                            <div class="form-group form_field">
+                                <label>Template <span class="red">*</span></label>
+                                <select class="form-control" name="template" id="template">
+                                    <option value="">Select</option>                                            
+                                </select>
+                            </div>
+                            <div class="form-group" id="notice_view">
 
-                            <table class="table table-striped table-bordered table-hover dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th title="Select All">#
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox"/>
-                                            </label>
-                                        </th>
-                                        <th>Sr</th>
-                                        <th>Room Name</th>                                        
-                                        <th>Room Description</th>                                        
-                                        <th>Hotel</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($data as $k=>$val)
-                                    <tr>
-                                        <td>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox"/>
-                                            </label></td>
-                                        <td>{{++$k}}.</td>
-                                        <td>{{$val->room_name}}</td>                                        
-                                        <td>{{@$val->hotel()->name}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary">Edit</button>
-                                            <button type="button" class="btn btn-primary" id="actinc">Active</button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group pull-left">                                
+                                <button id="cancelBtn" data-url="{{url('/notice')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>

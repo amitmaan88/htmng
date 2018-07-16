@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Validator;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
+
     public $user;
 
     /**
@@ -15,8 +15,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct(User $user)
-    {
+    public function __construct(User $user) {
         $this->user = $user;
     }
 
@@ -25,8 +24,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function index()
-    {
+    public function index() {
         $records['data'] = User::all();
         $records['pageHeading'] = 'User Management';
         return view('user/index', $records);
@@ -37,8 +35,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $records['data'] = User::get();
         $records['pageHeading'] = 'User Management: Create';
         return view('user/create', $records);
@@ -50,24 +47,30 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $params = $request->all();
-        if (isset($request->cancel) && $request->cancel==1) {
-            return redirect('/users');
-        }
 
         $validator = Validator::make($params, [
-            'name'   => 'required',
-            'email' => 'required|email',
-            'mobile' => 'required|numeric',
-            'user_type_id' => 'required',
+                    'name' => 'required|max:255',
+                    'user_type_id' => 'required',
+                    'email' => 'required|unique:users|email',
+                    'password' => 'required|confirmed|min:6|max:10',
+                    'mobile' => 'required|numeric',
         ]);
         if ($validator->fails()) {
             return redirect('/users/create')->withErrors($validator)->withInput();
         }
-        $profile_info = User::create($params);
-        $profile_id = $profile_info->id;
+
+        $profile = new User;
+        $profile->name = $params['name'] . " " . $params['last_name'];
+        $profile->user_type_id = $params['user_type_id'];
+        $profile->email = $params['email'];
+        $profile->password = bcrypt($params['password']);
+        $profile->mobile = $params['mobile'];
+        $profile->landline = $params['landline'];
+        $profile->status = 1;
+        $status = $profile->saveOrFail();
+        //$profile_id = $profile->id;
 
         request()->session()->flash('message', 'User Created Successfully');
         request()->session()->flash('type', 'success');
@@ -79,14 +82,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function changeSatus(Request $request)
-    {
+    public function changeSatus(Request $request) {
         if ($request->ajax()) {
             $user = $this->user->find($request->id);
             $user->changeField($request->all());
-            return response()->json(['response'=>'Field saved successfully!', 'status'=>'success', 'code'=>'200', 'data'=>$saved->id]);
+            return response()->json(['response' => 'Field saved successfully!', 'status' => 'success', 'code' => '200', 'data' => $saved->id]);
         }
-        return response()->json(['status'=>'fail', 'code'=>'104']);
+        return response()->json(['status' => 'fail', 'code' => '104']);
     }
 
     /**
@@ -95,8 +97,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -150,8 +151,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
 
@@ -161,9 +161,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function upload()
-    {
+    public function upload() {
         $records['pageHeading'] = 'User Management: Upload';
         return view('user/upload', $records);
     }
+
 }

@@ -12,16 +12,21 @@ var htmng = {
             //console.log(hrefSplit);
             if (hrefSplit.length >= 4 && hrefSplit[hrefSplit.length - 1] !== "") {
                 var searchUrl = hrefSplit[hrefSplit.length - 1];
-                if ($('#main-menu li a[href*=' + searchUrl + ']').length > 0) {
-                    $('#main-menu li a[href*=' + searchUrl + ']').addClass(this.currClass);
-                    $('#main-menu li a[href*=' + searchUrl + ']').parent('li').addClass(this.activeClass);
+                if ($('a[href*=' + searchUrl + ']').length > 0) {
+                    $('a[href$=' + searchUrl + ']').addClass(this.currClass);
+                    $('a[href*=' + searchUrl + ']').closest('li.parent').addClass(this.activeClass);
                 } else {
                     searchUrl = hrefSplit[hrefSplit.length - 2];
-                    $('#main-menu li a[href*=' + searchUrl + ']').addClass(this.currClass);
-                    $('#main-menu li a[href*=' + searchUrl + ']').parent('li').addClass(this.activeClass);
+                    $('a[href$=' + searchUrl + ']').addClass(this.currClass);
+                    $('a[href*=' + searchUrl + ']').closest('li.parent').addClass(this.activeClass);
                 }
             }
         }
+    },
+    btnCancel: function (btnThis) {
+        var url = btnThis.attr('data-url');
+        //console.log(url);return false;
+        window.location.href = url;
     },
     btnActiveInactive: function (btnId) {
 

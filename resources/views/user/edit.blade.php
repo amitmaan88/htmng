@@ -32,9 +32,10 @@
                             <div class="form-group form_field">
                                 <label>User Type <span class="red">*</span></label>
                                 <select class="form-control" name="user_type_id" id="user_type">
-                                    <option value="">Select</option>
-                                    <option value="1" >Owner</option>
-                                    <option value="2" >Tenant</option>
+                                    <?php $userType = staticDropdown("userType"); ?>
+                                    @foreach($userType as $uk=>$uv)
+                                    <option value="{{$uk}}" {{ (old('user_type_id',$data->user_type_id)==$uk)?'selected="selected"':'' }} >{{$uv}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group form_field">
@@ -51,7 +52,6 @@
                                 <input class="form-control" name="landline" id="landline" type="tel" maxlength="15" value="{{ old('landline', $data->landline) }}" />
                             </div>
 
-
                         </div>
 
 
@@ -60,7 +60,7 @@
                             <div class="pull-right">
                                 <button class="btn btn-primary" type="submit">Update</button>
                                 &nbsp;
-                                <button class="btn btn-white" name="cancel" value="1">Cancel</button>
+                                <input type="button" id="cancelBtn" data-url="{{url('/users')}}" class="btn btn-white" name="cancel" value="Cancel" />
                             </div>
                         </div>
                         <div class="clearfix"></div>

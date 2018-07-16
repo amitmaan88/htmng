@@ -1,12 +1,14 @@
 <?php
 
-function staticDropdown($type) {
+function staticDropdown($type, $empty='') {
+    $dropdown =  array();
+    if($empty!='')  $dropdown[] = $empty;
     switch ($type) {
         case 'userType':
-            $dropdown = [1 => 'Owner', 2 => 'Tenant'];
+            $dropdown = $dropdown + [1 => 'Owner', 2 => 'Tenant'];
             break;
         case 'foodDay':
-            $dropdown = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            $dropdown = $dropdown + ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
             break;
     }
     return $dropdown;

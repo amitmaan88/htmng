@@ -25,7 +25,7 @@ class UserController extends Controller {
      * @return void
      */
     public function index() {
-        $records['data'] = User::all();
+        $records['data'] = $this->user->all();
         $records['pageHeading'] = 'User Management';
         return view('user/index', $records);
     }
@@ -36,7 +36,7 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $records['data'] = User::get();
+        $records['data'] = $this->user->get();
         $records['pageHeading'] = 'User Management: Create';
         return view('user/create', $records);
     }
@@ -109,7 +109,7 @@ class UserController extends Controller {
      */
     public function edit($id)
     {
-        $records['data'] = User::find($id);
+        $records['data'] = $this->user->find($id);
         $records['pageHeading'] = 'User Management: Edit';
         return view('user/edit', $records);
     }
@@ -124,9 +124,6 @@ class UserController extends Controller {
     public function update(Request $request, $id)
     {
         $params = $request->all();
-        if (isset($request->cancel) && $request->cancel==1) {
-            return redirect('/users');
-        }
 
         $validator = Validator::make($params, [
             'name'   => 'required',
@@ -137,8 +134,8 @@ class UserController extends Controller {
         if ($validator->fails()) {
              return redirect('/users/'.$id.'/edit')->withErrors($validator)->withInput();
         }
-        $profile_info = User::create($params);
-        $profile_id = $profile_info->id;
+        unset($params['_token']);unset($params['_method']);
+        $profile_info = $this->user->where('id', $id)->update($params);
 
         request()->session()->flash('message', 'User Updated Successfully');
         request()->session()->flash('type', 'success');

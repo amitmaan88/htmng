@@ -108,7 +108,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $records['data'] = User::find($id);
+        $records['pageHeading'] = 'User Management: Edit';
+        return view('user/edit', $records);
     }
 
     /**
@@ -120,7 +122,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $params = $request->all();
+        if (isset($request->cancel) && $request->cancel==1) {
+            return redirect('/users');
+        }
+
+        $validator = Validator::make($params, [
+            'name'   => 'required',
+            'email' => 'required|email',
+            'mobile' => 'required|numeric',
+            'user_type_id' => 'required',
+        ]);
+        if ($validator->fails()) {
+             return redirect('/users/'.$id.'/edit')->withErrors($validator)->withInput();
+        }
+        $profile_info = User::create($params);
+        $profile_id = $profile_info->id;
+
+        request()->session()->flash('message', 'User Updated Successfully');
+        request()->session()->flash('type', 'success');
+        return redirect('/users');
     }
 
     /**

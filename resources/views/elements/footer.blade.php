@@ -29,11 +29,15 @@ $(document).ready(function () {
         } else {
             $('div.sidebar-collapse').removeClass('collapse')
         }
-    });   
-    
+    });
+
     // ==================================== CONTROL ACTIVE BUTTON ======================================
     $("#actinc").on('click', function () {
         htmng.btnActiveInactive($(this));
+    });
+    // ==================================== CANCEL BUTTON ======================================
+    $("#cancelBtn").on('click', function () {        
+        htmng.btnCancel($(this));
     });
     $("#food_menu select.chosen-select").chosen();
 })

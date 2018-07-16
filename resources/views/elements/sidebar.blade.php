@@ -5,9 +5,9 @@
                 <img src="img/find_user.png" class="user-image img-responsive"/>
             </li>
             <li>
-                <a href="/home"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                <a href="{{url('/home')}}"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
             </li>
-            <li>
+            <li class="parent">
                 <a href="#"><i class="fa fa-desktop fa-3x"></i> User Management<span class="fa arrow"></span></a>                
                 <ul class="nav nav-second-level">
                     <li>
@@ -18,7 +18,7 @@
                     </li>                                        
                 </ul>
             </li>
-            <li>
+            <li class="parent">
                 <a href="#"><i class="fa fa-qrcode fa-3x"></i>Room Management<span class="fa arrow"></span></a>                
                 <ul class="nav nav-second-level">
                     <li>
@@ -38,7 +38,7 @@
             <li>
                 <a  href="{{url('/report')}}"><i class="fa fa-table fa-3x"></i> Report</a>
             </li>
-            <li>
+            <li class="parent">
                 <a  href="#"><i class="fa fa-edit fa-3x"></i> Food Management<span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
                     <li>

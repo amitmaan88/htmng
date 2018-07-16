@@ -43,6 +43,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $userType = staticDropdown("userType"); ?>
                                     @foreach($data as $k=>$val)
                                     <tr>
                                         <td>
@@ -53,7 +54,7 @@
                                         <td>{{$val->name}}</td>
                                         <td>{{$val->mobile}}</td>
                                         <td>{{$val->email}}</td>
-                                        <td>{{$val->user_type_id}}</td>
+                                        <td>{{$userType[$val->user_type_id]}}</td>
                                         <td>{{@$val->hotel()->name}}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary">Edit</button>

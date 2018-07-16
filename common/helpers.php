@@ -2,8 +2,8 @@
 
 function staticDropdown($type) {
     switch ($type) {
-        case 'room':
-            $dropdown = ['1' => 'D', '2' => 'E'];
+        case 'userType':
+            $dropdown = [1 => 'Owner', 2 => 'Tenant'];
             break;
         case 'foodDay':
             $dropdown = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];

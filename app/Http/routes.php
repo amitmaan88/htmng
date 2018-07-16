@@ -33,3 +33,5 @@ Route::resource('/complaint', 'ComplaintController');
 Route::resource('/hotel', 'HotelController');
 Route::resource('/food', 'FoodController');
 Route::resource('/report', 'ReportController');
+
+Route::get('/logout', 'Auth\AuthController@logout');

@@ -49,3 +49,9 @@
     <!-- /. PAGE INNER  -->
 </div>
 @endsection
+
+@section('ckeditorscript')
+<script src="{{url('ckeditor/ckeditor.js')}}"></script>
+<script>var editor = CKEDITOR.replace('editor1');</script>
+@stop
+

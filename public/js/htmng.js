@@ -1,5 +1,6 @@
 var htmng = {
     currClass: '',
+    activeClass: '',
     baseUrl: '',
     activeInactive: function () {
         if (this.currClass !== '') {
@@ -13,9 +14,11 @@ var htmng = {
                 var searchUrl = hrefSplit[hrefSplit.length - 1];
                 if ($('#main-menu li a[href*=' + searchUrl + ']').length > 0) {
                     $('#main-menu li a[href*=' + searchUrl + ']').addClass(this.currClass);
+                    $('#main-menu li a[href*=' + searchUrl + ']').parent('li').addClass(this.activeClass);
                 } else {
                     searchUrl = hrefSplit[hrefSplit.length - 2];
                     $('#main-menu li a[href*=' + searchUrl + ']').addClass(this.currClass);
+                    $('#main-menu li a[href*=' + searchUrl + ']').parent('li').addClass(this.activeClass);
                 }
             }
         }
@@ -48,5 +51,5 @@ var htmng = {
                 }
             }
         });
-    },   
+    },
 };

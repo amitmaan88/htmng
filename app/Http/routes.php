@@ -24,8 +24,12 @@ Route::post('/changeSatus', 'UserController@changeSatus');
 Route::get('/users/upload', array('as' => 'user.upload', 'uses' => 'UserController@upload'));
 Route::get('/room/roomtype', array('as' => 'room.roomtype', 'uses' => 'RoomController@roomtype'));
 Route::get('/notice/template', array('as' => 'notice.template', 'uses' => 'NoticeController@template'));
+Route::get('/food/item', array('as' => 'food.item', 'uses' => 'FoodController@item'));
 
 Route::resource('/users', 'UserController');
 Route::resource('/room', 'RoomController');
 Route::resource('/notice', 'NoticeController');
 Route::resource('/complaint', 'ComplaintController');
+Route::resource('/hotel', 'HotelController');
+Route::resource('/food', 'FoodController');
+Route::resource('/report', 'ReportController');

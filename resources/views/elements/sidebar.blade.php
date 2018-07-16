@@ -39,13 +39,13 @@
                 <a  href="{{url('/report')}}"><i class="fa fa-table fa-3x"></i> Report</a>
             </li>
             <li>
-                <a  href="#"><i class="fa fa-edit fa-3x"></i> Food Menu<span class="fa arrow"></span> </a>
+                <a  href="#"><i class="fa fa-edit fa-3x"></i> Food Management<span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
                     <li>
-                        <a href="{{url('/fooditems')}}">Type</a>
+                        <a href="{{url('/food/item')}}">Add Food</a>
                     </li>
                     <li>
-                        <a href="{{url('/food')}}">Add Food</a>
+                        <a href="{{url('/food')}}">Food Menu</a>
                     </li>                    
                 </ul>
             </li>            

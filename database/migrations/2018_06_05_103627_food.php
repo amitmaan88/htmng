@@ -13,12 +13,13 @@ class Food extends Migration
     public function up()
     {
         //
-        Schema::create('food_menu', function (Blueprint $table) {
+        Schema::create('foods', function (Blueprint $table) {
             $table->increments('id');            
             $table->string('food_name');
-            $table->tinyInteger('food_type');
-            $table->tinyInteger('status');
+            $table->string('food_type');
+            $table->string('food_day');
             $table->integer('hotel_id');
+            $table->tinyInteger('status');            
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();            
@@ -32,7 +33,6 @@ class Food extends Migration
      */
     public function down()
     {
-        //
-        Schema::drop('food_menu');
+        Schema::drop('foods');
     }
 }

@@ -4,27 +4,31 @@
 <div id="page-wrapper" >
     <div id="page-inner">
         <div class="row">
-            <div class="col-md-6">
-                <h2>{{$pageHeading}}</h2>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
+                <h2>{{$pageHeading}}</h2>            
                 <div class="btn-toolbar">
                     <button type="reset" class="btn btn-danger pull-right">Delete User</button>
-                    <a href="{{url('users/create')}}" class="btn btn-primary pull-right">Create User</a>
-                </div>
+                    <a href="{{url('users/create')}}" class="btn btn-primary pull-right">Create User</a>                    
+                    <form class="form-inline" role="form" method="get" action="{{route('users.index')}}">
+                        <div class="form-group">                            
+                            <input type="text" class="form-control" id="search" name="s" placeholder="Search..." value="{{$s}}">
+                        </div>                        
+                        <button type="submit" class="btn btn-default">Search</button>
+                        <input type="button" id="cancelBtn" data-url="{{url('/users')}}" class="btn btn-default" name="cancel" value="Reset" />
+                    </form>                    
+                </div>                
             </div>
         </div>
-
+        <p>&nbsp;</p>
         <!-- /. ROW  -->
         <div class="row" >
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Responsive Table Example
+                        Responsive Table Example                        
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-
                             <table class="table table-striped table-bordered table-hover dataTables-example">
                                 <thead>
                                     <tr>
@@ -65,13 +69,21 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="pull-left">Total Records: {{count($data)}}</div>
+                            <div class="text-center">
+                                <nav aria-label="Page navigation example">
+                                    {{ $data->appends(Request::except('page'))->links() }}
+                                </nav>
+                            </div>    
+                        </div>
                     </div>
                 </div>
-
             </div>
-        </div>
-        <!-- /. ROW  -->
+        </div>        
     </div>
-    <!-- /. PAGE INNER  -->
+    <!-- /. ROW  -->
+</div>
+<!-- /. PAGE INNER  -->
 </div>
 @endsection

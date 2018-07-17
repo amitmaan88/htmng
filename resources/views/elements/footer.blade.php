@@ -17,6 +17,7 @@ htmng.currClass = "active-menu";
 htmng.activeClass = "active";
 htmng.baseUrl = "{{url('/')}}";
 htmng.activeInactive();
+htmng.paginationInit();
 
 $(document).ready(function () {
     // ==================================== METIS MENU ======================================
@@ -36,7 +37,7 @@ $(document).ready(function () {
         htmng.btnActiveInactive($(this));
     });
     // ==================================== CANCEL BUTTON ======================================
-    $("#cancelBtn").on('click', function () {        
+    $("#cancelBtn").on('click', function () {
         htmng.btnCancel($(this));
     });
     $("#food_menu select.chosen-select").chosen();

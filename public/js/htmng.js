@@ -5,6 +5,7 @@ var htmng = {
     activeInactive: function () {
         if (this.currClass !== '') {
             var href = window.location.href;
+            href = href.substring(0, href.indexOf('?'));
             //console.log(href);
             var hrefSplit = href.replace("http://", "");
             hrefSplit = hrefSplit.replace("https://", "");
@@ -27,6 +28,14 @@ var htmng = {
         var url = btnThis.attr('data-url');
         //console.log(url);return false;
         window.location.href = url;
+    },
+    paginationInit: function () {
+        $('ul.pagination').addClass('justify-content-center');
+        $('.pagination li').addClass('page-item');
+        $('.pagination li a').addClass('page-link');
+        $('.pagination span').addClass('page-link');
+        $('.pagination li:first-child span, .pagination li:first-child a').text('Previous');
+        $('.pagination li:last-child span, .pagination li:last-child a').text('Next');
     },
     btnActiveInactive: function (btnId) {
 

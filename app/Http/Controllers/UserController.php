@@ -21,11 +21,15 @@ class UserController extends Controller {
 
     /**
      * Create a list page.
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * 
      * @return void
      */
-    public function index() {
-        $records['data'] = User::all();
+    public function index(Request $request) {
+        $params = $request->all();
+        //print_r($params);
+        $records['data'] = $this->user->search($params);
+        $records['s'] = $params['s']??'';
         $records['pageHeading'] = 'User Management';
         return view('user/index', $records);
     }
@@ -48,14 +52,14 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $params = $request->all();       
+        $params = $request->all();
 
         $validator = Validator::make($params, [
                     'name' => 'required|max:255',
                     'user_type_id' => 'required',
                     'email' => 'required|unique:users|email',
                     'password' => 'required|confirmed|min:6|max:10',
-                    'mobile' => 'required|numeric',                    
+                    'mobile' => 'required|numeric',
         ]);
         if ($validator->fails()) {
             return redirect('/users/create')->withErrors($validator)->withInput();
@@ -69,7 +73,7 @@ class UserController extends Controller {
         $profile->mobile = $params['mobile'];
         $profile->landline = $params['landline'];
         $profile->status = 1;
-        $status = $profile->saveOrFail();        
+        $status = $profile->saveOrFail();
         //$profile_id = $profile->id;
 
         request()->session()->flash('message', 'User Created Successfully');

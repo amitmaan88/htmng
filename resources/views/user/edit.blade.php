@@ -1,73 +1,66 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="wrapper wrapper-content animated fadeInRight user-management">
-    <div class="row">
-        <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action="{{ route('branches.update', $data->id) }}">
-        {{ csrf_field() }}
-            <input name="_method" type="hidden" value="PATCH">
-            <div class="col-lg-12">
-                <div class="ibox-title">
+<div id="page-wrapper" >
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{$pageHeading}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
                     <h5>Please Update below fields</h5>
                 </div>
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                        <div class="form-group col-sm-6{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Branch Name <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="name" placeholder="Enter Branch Name" class="form-control" value="{{ old('name', $data->name) }}"><!--autofocus="autofocus"-->
+                <div class="panel-body">
+                    <div class="row">
+                    <form role="form" method="post" enctype="multipart/form-data" action="{{ route('users.update', $data->id) }}">
+                        {{ csrf_field() }}
+                        <input name="_method" type="hidden" value="PATCH">
+                        <div class="col-md-12">
+                            <div class="form-group form_field">
+                                <label>Full Name <span class="red">*</span></label>
+                                <input class="form-control" name="name" type="text" value="{{old('name',$data->name)}}"  />
                             </div>
-                        </div>
-                        <div class="form-group col-sm-6{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Email <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="email" placeholder="Enter Email Id" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email', $data->email) }}">
+                            <div class="form-group form_field">
+                                <label>Last Name</label>
+                                <input class="form-control" name="last_name" id="last_name" type="text" value="{{old('last_name',$data->last_name)}}" />
                             </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('mobile') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Mobile <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="mobile" placeholder="Enter Mobile Number" class="form-control" value="{{ old('mobile', $data->mobile) }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('advance_amount') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Advance Amount</label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="advance_amount" placeholder="Enter Advance Amount" class="form-control" value="{{ old('advance_amount', $data->advance_amount) }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('amount_type') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Amount Type</label>
-                            <div class="col-sm-8">
-                                <select name="amount_type" class="form-control">
-                                    <option value="Fixed" {{ (old('amount_type', $data->amount_type)=='Fixed')?"selected='selected'":''}}>Fixed</option>
-                                    <option value="Variable" {{ (old('amount_type', $data->amount_type)=='Variable')?"selected='selected'":''}}>Variable</option>
+                            <div class="form-group form_field">
+                                <label>User Type <span class="red">*</span></label>
+                                <select class="form-control" name="user_type_id" id="user_type">
+                                    <?php $userType = staticDropdown("userType"); ?>
+                                    @foreach($userType as $uk=>$uv)
+                                    <option value="{{$uk}}" {{ (old('user_type_id',$data->user_type_id)==$uk)?'selected="selected"':'' }} >{{$uv}}</option>
+                                    @endforeach
                                 </select>
                             </div>
+                            <div class="form-group form_field">
+                                <label>Email<span class="red">*</span></label>
+                                <input class="form-control" name="email" id="email" type="email" value="{{old('email',$data->email)}}" />
+                            </div>
+
+                            <div class="form-group form_field">
+                                <label>Mobile No <span class="red">*</span> </label>
+                                <input class="form-control" name="mobile" id="mob" type="tel" maxlength="15" value="{{old('mobile',$data->mobile)}}" />
+                            </div>
+                            <div class="form-group form_field {{ $errors->has('landline') ? ' has-error' : '' }}">
+                                <label>Landline</label>
+                                <input class="form-control" name="landline" id="landline" type="tel" maxlength="15" value="{{ old('landline', $data->landline) }}" />
+                            </div>
+
                         </div>
 
-                        <div class="form-group col-sm-6{{ $errors->has('no_installment') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">No. of Milestone</label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="no_installment" placeholder="Enter Number of Milestore" class="form-control" value="{{ old('no_installment', $data->no_installment) }}">
-                            </div>
-                        </div>
 
-                        <div class="form-group col-sm-6{{ $errors->has('amount') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Amount <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="amount" placeholder="Enter Amount" class="form-control" value="{{ old('amount', $data->amount) }}">
-                            </div>
-                        </div>
                         <div class="clearfix"></div>
                         <div class="form-group col-sm-10">
                             <div class="pull-right">
                                 <button class="btn btn-primary" type="submit">Update</button>
                                 &nbsp;
-                                <button class="btn btn-white" name="cancel" value="1">Cancel</button>
+                                <input type="button" id="cancelBtn" data-url="{{url('/users')}}" class="btn btn-white" name="cancel" value="Cancel" />
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -76,6 +69,8 @@
                 </div>
             </div>
         </form>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

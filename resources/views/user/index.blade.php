@@ -61,7 +61,7 @@
                                         <td>{{$userType[$val->user_type_id]}}</td>
                                         <td>{{@$val->hotel()->name}}</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary">Edit</button>
+                                            <a href="{{url('/users/'.$val->id.'/edit')}}"><button type="button" class="btn btn-primary">Edit</button></a>
                                             <button type="button" class="btn btn-primary" id="actinc" data-var="0" data-id="{{$val->id}}">Active</button>
                                         </td>
                                     </tr>

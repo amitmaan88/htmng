@@ -3,29 +3,29 @@
 @section('content')
 <div id="page-wrapper" >
     <div id="page-inner">
-        <div class="row">
+        <div class="row m-t10">
             <div class="col-md-12">
-                <h2>{{$pageHeading}}</h2>            
-                <div class="btn-toolbar">
-                    <button type="reset" class="btn btn-danger pull-right">Delete User</button>
-                    <a href="{{url('users/create')}}" class="btn btn-primary pull-right">Create User</a>                    
+                <h2>{{$pageHeading}}</h2>
+                <div class="btn-toolbarX">
+                    <button type="reset" class="btn btn-danger pull-right m-r2">Delete User</button>
+                    <a href="{{url('users/create')}}" class="btn btn-primary pull-right m-r2">Create User</a>
                     <form class="form-inline" role="form" method="get" action="{{route('users.index')}}">
-                        <div class="form-group">                            
+                        <div class="form-group">
                             <input type="text" class="form-control" id="search" name="s" placeholder="Search..." value="{{$s}}">
-                        </div>                        
+                        </div>
                         <button type="submit" class="btn btn-default">Search</button>
                         <input type="button" id="cancelBtn" data-url="{{url('/users')}}" class="btn btn-default" name="cancel" value="Reset" />
-                    </form>                    
-                </div>                
+                    </form>
+                </div>
             </div>
         </div>
-        <p>&nbsp;</p>
+        <div class="clearfix"></div>
         <!-- /. ROW  -->
         <div class="row" >
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Responsive Table Example                        
+                        Responsive Table Example
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
@@ -54,7 +54,7 @@
                                             <label class="checkbox-inline">
                                                 <input type="checkbox"/>
                                             </label></td>
-                                        <td>{{++$k}}.</td>
+                                        <td>{{++$k + (($data->currentPage()-1) * $data->perPage())}}.</td>
                                         <td>{{$val->name}}</td>
                                         <td>{{$val->mobile}}</td>
                                         <td>{{$val->email}}</td>
@@ -70,17 +70,17 @@
                             </table>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="pull-left">Total Records: {{count($data)}}</div>
+                            <div class="pull-left">Total Records: {{$data->total()}}</div>
                             <div class="text-center">
                                 <nav aria-label="Page navigation example">
                                     {{ $data->appends(Request::except('page'))->links() }}
                                 </nav>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
     <!-- /. ROW  -->
 </div>

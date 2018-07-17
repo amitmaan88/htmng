@@ -382,3 +382,10 @@ line-height: 1.428571429;
     padding: 0 10px;
     margin-bottom: 10px;
 }
+.m-t10{
+    margin-top:-30px;
+    padding: 10px 0;
+}
+.m-r2{
+    margin: 0 2px;
+}

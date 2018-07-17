@@ -1,4 +1,5 @@
 <?php
+define('LIMIT', 3);
 
 function staticDropdown($type, $empty='') {
     $dropdown =  array();

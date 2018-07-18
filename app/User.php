@@ -33,7 +33,7 @@ class User extends Authenticatable {
 
     public function search($params) {
         $userType = array_flip(staticDropdown("userType"));
-        $paginateCount = 1;
+        $paginateCount = 20;
         $qry = $this->query();
         if (!empty($params['s'])) {
             $query = $params['s'];

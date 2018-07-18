@@ -18,9 +18,9 @@ class CreateUsersTable extends Migration {
             $table->string('password');
             $table->tinyInteger('user_type_id')->unsigned()->default(0);
             $table->integer('hotel_id')->unsigned()->default(0);
-            $table->integer('mobile')->unsigned()->default(0);
-            $table->integer('landline')->unsigned()->default(0);
-            $table->tinyInteger('status')->unsigned()->default(0);
+            $table->string('mobile',15)->nullable();
+            $table->string('landline',15)->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->rememberToken();

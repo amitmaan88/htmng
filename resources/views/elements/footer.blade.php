@@ -40,6 +40,10 @@ $(document).ready(function () {
     $("#cancelBtn").on('click', function () {
         htmng.btnCancel($(this));
     });
+    // ==================================== DELETE BUTTON ======================================
+    $("#deleteBtn").on('click', function () {
+        htmng.btnDelete($(this));
+    });
     $("#food_menu select.chosen-select").chosen();
 })
 </script>

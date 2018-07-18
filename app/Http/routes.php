@@ -20,7 +20,7 @@ Route::auth();
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
-Route::post('/changeSatus', 'UserController@changeSatus');
+Route::post('/changeStatus', 'UserController@changeStatus');
 Route::get('/users/upload', array('as' => 'user.upload', 'uses' => 'UserController@upload'));
 Route::get('/room/roomtype', array('as' => 'room.roomtype', 'uses' => 'RoomController@roomtype'));
 Route::get('/notice/template', array('as' => 'notice.template', 'uses' => 'NoticeController@template'));

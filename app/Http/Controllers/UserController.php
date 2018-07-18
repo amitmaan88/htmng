@@ -40,7 +40,7 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $records['data'] = $this->user->get();
+        //$records['data'] = $this->user->get();
         $records['pageHeading'] = 'User Management: Create';
         return view('user/create', $records);
     }
@@ -64,17 +64,10 @@ class UserController extends Controller {
         if ($validator->fails()) {
             return redirect('/users/create')->withErrors($validator)->withInput();
         }
-
-        $profile = new User;
-        $profile->name = $params['name'] . " " . $params['last_name'];
-        $profile->user_type_id = $params['user_type_id'];
-        $profile->email = $params['email'];
-        $profile->password = bcrypt($params['password']);
-        $profile->mobile = $params['mobile'];
-        $profile->landline = $params['landline'];
-        $profile->status = 1;
-        $status = $profile->saveOrFail();
-        //$profile_id = $profile->id;
+        
+        $params['password'] = bcrypt($params['password']);
+        unset($params['password_confirmation']);
+        $profile_id = $this->userRepo->editAdd($params);
 
         request()->session()->flash('message', 'User Created Successfully');
         request()->session()->flash('type', 'success');
@@ -86,11 +79,12 @@ class UserController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function changeSatus(Request $request) {
+    public function changeStatus(Request $request) {
         if ($request->ajax()) {
-            $user = $this->user->find($request->id);
-            $user->changeField($request->all());
-            return response()->json(['response' => 'Field saved successfully!', 'status' => 'success', 'code' => '200', 'data' => $saved->id]);
+            $params['id'] = $request->id;
+            $params['status'] = $request->status;
+            $user = $this->userRepo->editAdd($params);
+            return response()->json(['response' => 'Field saved successfully!', 'status' => 'success', 'code' => '200', 'data' => $user->id]);
         }
         return response()->json(['status' => 'fail', 'code' => '104']);
     }
@@ -113,7 +107,7 @@ class UserController extends Controller {
      */
     public function edit($id)
     {
-        $records['data'] = $this->user->find($id);
+        $records['data'] = $this->userRepo->get($id);
         $records['pageHeading'] = 'User Management: Edit';
         return view('user/edit', $records);
     }
@@ -138,8 +132,9 @@ class UserController extends Controller {
         if ($validator->fails()) {
              return redirect('/users/'.$id.'/edit')->withErrors($validator)->withInput();
         }
-        unset($params['_token']);unset($params['_method']);
-        $profile_info = $this->user->where('id', $id)->update($params);
+        unset($params['_method']);
+        $params['id'] = $id;
+        $profile_info = $this->userRepo->editAdd($params);
 
         request()->session()->flash('message', 'User Updated Successfully');
         request()->session()->flash('type', 'success');

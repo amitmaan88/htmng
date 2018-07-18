@@ -30,35 +30,54 @@ var htmng = {
         window.location.href = url;
     },
     paginationInit: function () {
-        $('ul.pagination').addClass('justify-content-center');
-        $('.pagination li').addClass('page-item');
-        $('.pagination li a').addClass('page-link');
-        $('.pagination span').addClass('page-link');
+        $('.pagination li').addClass('paginate_button').attr('aria-controls', "dataTables-example");
+        $('.pagination li:first-child').addClass('previous');
         $('.pagination li:first-child span, .pagination li:first-child a').text('Previous');
+        $('.pagination li:last-child').addClass('next');
         $('.pagination li:last-child span, .pagination li:last-child a').text('Next');
     },
-    btnActiveInactive: function (btnId) {
-
-        if (btnId.text() === "Active") {
-            btnId.text("Inactive");
-            btnId.attr('data-var', 1)
-        } else {
-            btnId.text("Active");
-            btnId.attr('data-var', 0)
-        }
+    btnDelete: function (btnId) {
         var args = {
-            '_token': $('meta[name="csrf-token"]').attr('content'),
-            'status': btnId.attr('data-var'),
+            '_token': $('meta[name="token"]').attr('content'),
+            'status': 2,
             'id': btnId.attr('data-id')
         };
         $.ajax({
-            url: this.baseUrl + '/changeSatus',
+            url: this.baseUrl + '/changeStatus',
             type: "POST",
             data: args,
             async: false,
             success: function (rsp) {
                 if (rsp.code == 200) {
                     result = rsp.data;
+                }
+                if (rsp.code == 100) {
+                    alert(rsp.data);
+                }
+            }
+        });
+    },
+    btnActiveInactive: function (btnId) {
+
+        var args = {
+            '_token': $('meta[name="token"]').attr('content'),
+            'status': btnId.attr('data-var'),
+            'id': btnId.attr('data-id')
+        };
+        $.ajax({
+            url: this.baseUrl + '/changeStatus',
+            type: "POST",
+            data: args,
+            async: false,
+            success: function (rsp) {
+                if (rsp.code == 200) {
+                    if (btnId.text() === "Active") {
+                        btnId.text("Inactive");
+                        btnId.attr('data-var', 1)
+                    } else {
+                        btnId.text("Active");
+                        btnId.attr('data-var', 0)
+                    }
                 }
                 if (rsp.code == 100) {
                     alert(rsp.data);

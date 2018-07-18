@@ -1,5 +1,5 @@
 <?php
-define('LIMIT', 3);
+define('LIMIT', 1);
 
 function staticDropdown($type, $empty='') {
     $dropdown =  array();
@@ -7,6 +7,9 @@ function staticDropdown($type, $empty='') {
     switch ($type) {
         case 'userType':
             $dropdown = $dropdown + [1 => 'Owner', 2 => 'Tenant'];
+            break;
+        case 'status':
+            $dropdown = $dropdown + [0 => 'Inactive', 1 => 'Active'];
             break;
         case 'foodDay':
             $dropdown = $dropdown + ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];

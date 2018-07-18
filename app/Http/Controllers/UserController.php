@@ -3,32 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Repos\UserRepo;
 use Validator;
 
 class UserController extends Controller {
 
-    public $user;
+    public $userRepo;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(User $user) {
-        $this->user = $user;
+    public function __construct(UserRepo $user) {
+        $this->userRepo = $user;
     }
 
     /**
      * Create a list page.
      * @param  \Illuminate\Http\Request  $request
-     * 
+     *
      * @return void
      */
     public function index(Request $request) {
         $params = $request->all();
         //print_r($params);
-        $records['data'] = $this->user->search($params);
+        $records['data'] = $this->userRepo->search($params);
         $records['s'] = $params['s']??'';
         $records['pageHeading'] = 'User Management';
         return view('user/index', $records);

@@ -16,7 +16,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <form role="form" method="post" action="{{route('room.store')}}">
+                            <form role="form" method="post" action="{{route('room.rtype')}}">
                                 {{ csrf_field() }}
                                 <div class="col-md-12">
                                     <div class="form-group form_field">
@@ -24,7 +24,7 @@
                                         <input class="form-control" name="room_type" type="text" value="{{old('room_type')}}"  />
                                     </div>                                                                                                            
                                     <div class="form-group pull-right">
-                                        <input type="submit" class="btn btn-primary" name="addrtype" id="addrtype" value="Create" />
+                                        <input type="submit" class="btn btn-primary" value="Create" />
                                         <button id="cancelBtn" data-url="{{url('/room/roomtype')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
                                     </div>
                                 </div>

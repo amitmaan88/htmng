@@ -3,21 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Room;
+use App\Repos\RoomRepo;
 use App\RoomType;
+use App\Repos\RoomTypeRepo;
 use Validator;
 
 class RoomController extends Controller {
 
-    public $room;
+    public $roomRepo;
+    public $roomTypeRepo;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(Room $room) {
-        $this->room = $room;
+    public function __construct(RoomRepo $room) {
+        $this->roomRepo = $room;
+        $this->roomTypeRepo = new RoomTypeRepo(new RoomType());
     }
 
     /**
@@ -114,15 +117,37 @@ class RoomController extends Controller {
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
+     * Create the type of rooms to offer.
+     *     
      * @return \Illuminate\Http\Response
      */
     public function roomtype() {
-        $records['data'] = RoomType::get();
+        $records['data'] = $this->roomTypeRepo->search();
         $records['pageHeading'] = 'Room Management: Type';
         return view('room/roomtype', $records);
+    }
+
+    /**
+     * Management of room types
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function rtype(Request $request) {
+        $params = $request->all();        
+
+        $validator = Validator::make($params, [
+                'room_type' => 'required|max:255',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/room/roomtype')->withErrors($validator)->withInput();
+        }
+        
+        $rtype_info = $this->roomTypeRepo->editAdd($params);
+        request()->session()->flash('message', 'Room Type Created Successfully');
+        request()->session()->flash('type', 'success');
+        return redirect('/room/roomtype');
     }
 
 }

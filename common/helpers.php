@@ -1,5 +1,6 @@
 <?php
-define('LIMIT', 1);
+define('LIMIT', 5);
+define('DESTINATION_IMAGE', "\\image\\");
 
 function staticDropdown($type, $empty='') {
     $dropdown =  array();

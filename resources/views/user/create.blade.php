@@ -22,15 +22,11 @@
                                     <div class="form-group form_field">
                                         <label>Full Name <span class="red">*</span></label>
                                         <input class="form-control" name="name" type="text" value="{{old('name')}}"  />
-                                    </div>
-                                    <div class="form-group form_field">
-                                        <label>Last Name</label>
-                                        <input class="form-control" name="last_name" id="last_name" type="text" value="{{old('last_name')}}" />
-                                    </div>
+                                    </div>                                    
                                     <div class="form-group form_field">
                                         <label>User Type <span class="red">*</span></label>
                                         <select class="form-control" name="user_type_id" id="user_type">
-                                            <?php $userType = staticDropdown("userType",'Select'); ?>
+                                            <?php $userType = staticDropdown("userType", 'Select'); ?>
                                             @foreach($userType as $uk=>$uv)
                                             <option value="{{$uk}}" {{ (old('user_type_id')==1)?'selected="selected"':'' }} >{{$uv}}</option>
                                             @endforeach
@@ -57,11 +53,11 @@
                                         <input class="form-control" name="landline" id="landline" type="tel" maxlength="15" value="{{old('landline')}}" />
                                     </div>
                                     <div class="form-group form_field">
-                                        <label>Upload Photo <span class="red">*</span></label>
+                                        <label>Upload Photo</label>
                                         <input type="file" class="form-control" name="up_photo" />
                                     </div>
                                     <div class="form-group form_field">
-                                        <label>Upload Photo Id<span class="red">*</span></label>
+                                        <label>Upload Photo Id</label>
                                         <input type="file" class="form-control" name="up_photo_id" />
                                     </div>
                                     <div class="clearfix"></div>

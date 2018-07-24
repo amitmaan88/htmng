@@ -29,7 +29,7 @@ class UserController extends Controller {
         $params = $request->all();
         //print_r($params);
         $records['data'] = $this->userRepo->search($params);
-        $records['s'] = $params['s']??'';
+        $records['s'] = $params['s'] ?? '';
         $records['pageHeading'] = 'User Management';
         return view('user/index', $records);
     }
@@ -64,10 +64,23 @@ class UserController extends Controller {
         if ($validator->fails()) {
             return redirect('/users/create')->withErrors($validator)->withInput();
         }
-        
+
         $params['password'] = bcrypt($params['password']);
         unset($params['password_confirmation']);
-        $profile_id = $this->userRepo->editAdd($params);
+        $profile_info = $this->userRepo->editAdd($params);
+        $file = $request->file('up_photo');
+        $file_id = $request->file('up_photo_id');
+        $path = public_path() . DESTINATION_IMAGE . "\\" . base64_encode($profile_info->id);
+        if (!\Illuminate\Support\Facades\File::exists($path)) {
+            \Illuminate\Support\Facades\File::makeDirectory($path);
+        }
+        if ($file->isValid()) {
+            $file->move($path . "\\", $file->getClientOriginalName());
+        }
+
+        if ($file_id->isValid()) {
+            $file_id->move($path . "\\", $file_id->getClientOriginalName());
+        }
 
         request()->session()->flash('message', 'User Created Successfully');
         request()->session()->flash('type', 'success');
@@ -105,8 +118,7 @@ class UserController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $records['data'] = $this->userRepo->get($id);
         $records['pageHeading'] = 'User Management: Edit';
         return view('user/edit', $records);
@@ -119,22 +131,34 @@ class UserController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $params = $request->all();
 
         $validator = Validator::make($params, [
-            'name'   => 'required',
-            'email' => 'required|email',
-            'mobile' => 'required|numeric',
-            'user_type_id' => 'required',
+                    'name' => 'required',
+                    'email' => 'required|email',
+                    'mobile' => 'required|numeric',
+                    'user_type_id' => 'required',
         ]);
         if ($validator->fails()) {
-             return redirect('/users/'.$id.'/edit')->withErrors($validator)->withInput();
+            return redirect('/users/' . $id . '/edit')->withErrors($validator)->withInput();
         }
         unset($params['_method']);
         $params['id'] = $id;
         $profile_info = $this->userRepo->editAdd($params);
+        $file = $request->file('up_photo');
+        $file_id = $request->file('up_photo_id');
+        $path = public_path() . DESTINATION_IMAGE . "\\" . base64_encode($profile_info->id);
+        if (!\Illuminate\Support\Facades\File::exists($path)) {
+            \Illuminate\Support\Facades\File::makeDirectory($path);
+        }
+        if ($file->isValid()) {
+            $file->move($path . "\\", $file->getClientOriginalName());
+        }
+
+        if ($file_id->isValid()) {
+            $file_id->move($path . "\\", $file_id->getClientOriginalName());
+        }
 
         request()->session()->flash('message', 'User Updated Successfully');
         request()->session()->flash('type', 'success');

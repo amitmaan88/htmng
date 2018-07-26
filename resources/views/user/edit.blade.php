@@ -37,11 +37,12 @@
                                     <div class="form-group form_field">
                                         <label>Email<span class="red">*</span></label>
                                         <input class="form-control" name="email" id="email" type="email" value="{{old('email',$data->email)}}" />
+                                        <input name="email_confirmation" type="hidden" value="{{$data->email}}" />
                                     </div>
 
                                     <div class="form-group form_field">
                                         <label>Mobile No <span class="red">*</span> </label>
-                                        <input class="form-control" name="mobile" id="mob" type="tel" maxlength="15" value="{{old('mobile',$data->mobile)}}" />
+                                        <input class="form-control" name="mobile" id="mobile" type="tel" maxlength="15" value="{{old('mobile',$data->mobile)}}" />
                                     </div>
                                     <div class="form-group form_field {{ $errors->has('landline') ? ' has-error' : '' }}">
                                         <label>Landline</label>

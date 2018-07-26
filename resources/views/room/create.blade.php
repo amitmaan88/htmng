@@ -33,54 +33,69 @@
                                         <label>Room Type <span class="red">*</span></label>
                                         <select class="form-control" name="room_type" id="room_type">
                                             <option value="">Select</option>                                            
+                                            @foreach($type as $key=>$value)
+                                                <option {{old('room_type')?"selected='selected'":""}} value="{{$value->id}}">{{$value->room_type}}</option>
+                                            @endforeach                                            
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form_field">
                                         <label>Chairs <span class="red">*</span></label>
-                                        <input type="number" class="form-control" name="chairs" id="chairs" />
+                                        <input type="number" class="form-control" name="chair_no" id="chair_no" value="{{old('chair_no')}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form_field">
                                         <label>Tables <span class="red">*</span></label>
-                                        <input type="number" class="form-control" name="tables" id="tables" />
+                                        <input type="number" class="form-control" name="table_no" id="table_no" value="{{old('table_no')}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form_field">
                                         <label>Beds <span class="red">*</span></label>
-                                        <input type="number" class="form-control" name="beds" id="beds" />
+                                        <input type="number" class="form-control" name="bed_no" id="bed_no" value="{{old('bed_no')}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form_field">
-                                        <label>Size <span class="red">*</span></label>
-                                        <input type="number" class="form-control" name="room_size" id="room_size" />
+                                        <label>Area <span class="red">*</span></label>
+                                        <input maxlength="5" type="text" class="form-control" name="room_size" id="room_size" value="{{old('room_size')}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form_field">
                                         <label>Floor No. <span class="red">*</span></label>
-                                        <input type="number" class="form-control" name="floor_no" id="floor_no" />
+                                        <input type="number" class="form-control" name="floor_no" id="floor_no" value="{{old('floor_no')}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form_field">
                                         <label>Daily Cost <span class="red">*</span></label>
-                                        <input type="number" class="form-control" name="cost" id="cost" />
+                                        <input maxlength="5" type="text" class="form-control" name="daily_cost" id="daily_cost" value="{{old('daily_cost')}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Monthly Cost <span class="red">*</span></label>
+                                        <input maxlength="5" type="text" class="form-control" name="monthly_cost" id="monthly_cost" value="{{old('monthly_cost')}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Yearly Cost <span class="red">*</span></label>
+                                        <input maxlength="5" type="text" class="form-control" name="yearly_cost" id="yearly_cost" value="{{old('yearly_cost')}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group form_field">
                                         <label>Other Facilities <span class="red">*</span></label>
-                                        <textarea name="facility" id="facility" class="form-control"></textarea>
+                                        <textarea name="description" id="description" class="form-control"> {{old('description')}}</textarea>
                                     </div>
                                 </div>                                
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-primary" name="addroom" id="addroom" value="Create" />
+                                        <input type="submit" class="btn btn-primary" value="Create" />
                                         <button id="cancelBtn" data-url="{{url('/room')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
                                     </div>
                                 </div>

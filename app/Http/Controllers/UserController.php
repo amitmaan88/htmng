@@ -60,6 +60,7 @@ class UserController extends Controller {
                     'email' => 'required|unique:users|email',
                     'password' => 'required|confirmed|min:6|max:10',
                     'mobile' => 'required|numeric',
+                    'landline' => 'required|numeric',
         ]);
         if ($validator->fails()) {
             return redirect('/users/create')->withErrors($validator)->withInput();
@@ -70,16 +71,18 @@ class UserController extends Controller {
         $profile_info = $this->userRepo->editAdd($params);
         $file = $request->file('up_photo');
         $file_id = $request->file('up_photo_id');
-        $path = public_path() . DESTINATION_IMAGE . "\\" . base64_encode($profile_info->id);
-        if (!\Illuminate\Support\Facades\File::exists($path)) {
-            \Illuminate\Support\Facades\File::makeDirectory($path);
-        }
-        if ($file->isValid()) {
-            $file->move($path . "\\", $file->getClientOriginalName());
-        }
+        if ($file !== "" && $file !== NULL && $file_id !== "" && $file_id !== NULL) {
+            $path = public_path() . DESTINATION_IMAGE . "\\" . base64_encode($profile_info->id);
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            if ($file->isValid()) {
+                $file->move($path . "\\", $file->getClientOriginalName());
+            }
 
-        if ($file_id->isValid()) {
-            $file_id->move($path . "\\", $file_id->getClientOriginalName());
+            if ($file_id->isValid()) {
+                $file_id->move($path . "\\", $file_id->getClientOriginalName());
+            }
         }
 
         request()->session()->flash('message', 'User Created Successfully');
@@ -136,9 +139,10 @@ class UserController extends Controller {
 
         $validator = Validator::make($params, [
                     'name' => 'required',
-                    'email' => 'required|email',
-                    'mobile' => 'required|numeric',
+                    'email' => 'required|unique:users|email',
                     'user_type_id' => 'required',
+                    'mobile' => 'required|numeric',
+                    'landline' => 'numeric',
         ]);
         if ($validator->fails()) {
             return redirect('/users/' . $id . '/edit')->withErrors($validator)->withInput();
@@ -148,16 +152,18 @@ class UserController extends Controller {
         $profile_info = $this->userRepo->editAdd($params);
         $file = $request->file('up_photo');
         $file_id = $request->file('up_photo_id');
-        $path = public_path() . DESTINATION_IMAGE . "\\" . base64_encode($profile_info->id);
-        if (!\Illuminate\Support\Facades\File::exists($path)) {
-            \Illuminate\Support\Facades\File::makeDirectory($path);
-        }
-        if ($file->isValid()) {
-            $file->move($path . "\\", $file->getClientOriginalName());
-        }
+        if ($file !== "" && $file !== NULL && $file_id !== "" && $file_id !== NULL) {
+            $path = public_path() . DESTINATION_IMAGE . "\\" . base64_encode($profile_info->id);
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            if ($file->isValid()) {
+                $file->move($path . "\\", $file->getClientOriginalName());
+            }
 
-        if ($file_id->isValid()) {
-            $file_id->move($path . "\\", $file_id->getClientOriginalName());
+            if ($file_id->isValid()) {
+                $file_id->move($path . "\\", $file_id->getClientOriginalName());
+            }
         }
 
         request()->session()->flash('message', 'User Updated Successfully');

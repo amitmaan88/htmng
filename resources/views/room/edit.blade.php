@@ -1,81 +1,114 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="wrapper wrapper-content animated fadeInRight user-management">
-    <div class="row">
-        <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action="{{ route('branches.update', $data->id) }}">
-        {{ csrf_field() }}
-            <input name="_method" type="hidden" value="PATCH">
-            <div class="col-lg-12">
-                <div class="ibox-title">
-                    <h5>Please Update below fields</h5>
-                </div>
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                        <div class="form-group col-sm-6{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Branch Name <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="name" placeholder="Enter Branch Name" class="form-control" value="{{ old('name', $data->name) }}"><!--autofocus="autofocus"-->
-                            </div>
+<div id="page-wrapper" >
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{$pageHeading}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Update Rooms
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <form role="form" method="post" enctype="multipart/form-data" action="{{ route('room.update', $data->id) }}">
+                                {{ csrf_field() }}
+                                <input name="_method" type="hidden" value="PATCH">
+                                <div class="col-md-12">
+                                    <div class="form-group form_field">
+                                        <label>Room <span class="red">*</span></label>
+                                        <input class="form-control" name="room_name" type="text" value="{{old('room_name',$data->room_name)}}"  />
+                                    </div>                                                                        
+                                    <div class="form-group form_field">
+                                        <label>Room Photo <span class="red">*</span></label>
+                                        <input type="file" class="form-control" name="room_photo" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Room Type <span class="red">*</span></label>
+                                        <select class="form-control" name="room_type" id="room_type">
+                                            <option value="">Select</option>                                            
+                                            @foreach($type as $key=>$value)
+                                            <option {{ (old('room_type',$data->room_type)==$value->id)?'selected=selected':"" }} value="{{$value->id}}">{{$value->room_type}}</option>
+                                            @endforeach                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Chairs <span class="red">*</span></label>
+                                        <input type="number" class="form-control" name="chair_no" id="chair_no" value="{{old('chair_no',$data->chair_no)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Tables <span class="red">*</span></label>
+                                        <input type="number" class="form-control" name="table_no" id="table_no" value="{{old('table_no',$data->table_no)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Beds <span class="red">*</span></label>
+                                        <input type="number" class="form-control" name="bed_no" id="bed_no" value="{{old('bed_no',$data->bed_no)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Area <span class="red">*</span></label>
+                                        <input maxlength="5" type="text" class="form-control" name="room_size" id="room_size" value="{{old('room_size',$data->room_size)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Floor No. <span class="red">*</span></label>
+                                        <input type="number" class="form-control" name="floor_no" id="floor_no" value="{{old('floor_no',$data->floor_no)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Daily Cost <span class="red">*</span></label>
+                                        <input maxlength="5" type="text" class="form-control" name="daily_cost" id="daily_cost" value="{{old('daily_cost',$data->daily_cost)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Monthly Cost <span class="red">*</span></label>
+                                        <input maxlength="5" type="text" class="form-control" name="monthly_cost" id="monthly_cost" value="{{old('monthly_cost',$data->monthly_cost)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form_field">
+                                        <label>Yearly Cost <span class="red">*</span></label>
+                                        <input maxlength="5" type="text" class="form-control" name="yearly_cost" id="yearly_cost" value="{{old('yearly_cost',$data->yearly_cost)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group form_field">
+                                        <label>Other Facilities <span class="red">*</span></label>
+                                        <textarea name="description" id="description" class="form-control"> {{old('description',$data->description)}}</textarea>
+                                    </div>
+                                </div>                                
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">Update</button>
+                                        <button id="cancelBtn" data-url="{{url('/room')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group col-sm-6{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Email <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="email" placeholder="Enter Email Id" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email', $data->email) }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('mobile') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Mobile <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="mobile" placeholder="Enter Mobile Number" class="form-control" value="{{ old('mobile', $data->mobile) }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('advance_amount') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Advance Amount</label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="advance_amount" placeholder="Enter Advance Amount" class="form-control" value="{{ old('advance_amount', $data->advance_amount) }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('amount_type') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Amount Type</label>
-                            <div class="col-sm-8">
-                                <select name="amount_type" class="form-control">
-                                    <option value="Fixed" {{ (old('amount_type', $data->amount_type)=='Fixed')?"selected='selected'":''}}>Fixed</option>
-                                    <option value="Variable" {{ (old('amount_type', $data->amount_type)=='Variable')?"selected='selected'":''}}>Variable</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('no_installment') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">No. of Milestone</label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="no_installment" placeholder="Enter Number of Milestore" class="form-control" value="{{ old('no_installment', $data->no_installment) }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6{{ $errors->has('amount') ? ' has-error' : '' }}">
-                            <label class="col-sm-4 control-label">Amount <span class="red">*</span></label>
-                            <div class="col-sm-8">
-                                <input autocomplete="off" type="text" name="amount" placeholder="Enter Amount" class="form-control" value="{{ old('amount', $data->amount) }}">
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-10">
-                            <div class="pull-right">
-                                <button class="btn btn-primary" type="submit">Update</button>
-                                &nbsp;
-                                <button class="btn btn-white" name="cancel" value="1">Cancel</button>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
                         @include('elements.error')
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
+
+    <!-- /. PAGE INNER  -->
 </div>
 @endsection

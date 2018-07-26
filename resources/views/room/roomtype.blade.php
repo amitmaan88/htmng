@@ -23,9 +23,9 @@
                                         <label>Room Type <span class="red">*</span></label>
                                         <input class="form-control" name="room_type" type="text" value="{{old('room_type')}}"  />
                                     </div>                                                                                                            
-                                    <div class="form-group pull-right">
+                                    <div class="form-group pull-right">                                        
                                         <input type="submit" class="btn btn-primary" value="Create" />
-                                        <button id="cancelBtn" data-url="{{url('/room/roomtype')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
+                                        <input type="button" id="cancelBtn" data-url="{{url('/room/roomtype')}}" class="btn btn-default" name="cancel" value="Cancel" />
                                     </div>
                                 </div>
                             </form>
@@ -34,42 +34,39 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-
-                            <table class="table table-striped table-bordered table-hover dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th title="Select All">#
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox"/>
-                                            </label>
-                                        </th>
-                                        <th>Sr</th>
-                                        <th>Room Type</th>                                        
-                                        <th>Room Description</th>                                        
-                                        <th>Hotel</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($data as $k=>$val)
-                                    <tr>
-                                        <td>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox"/>
-                                            </label></td>
-                                        <td>{{++$k}}.</td>
-                                        <td>{{$val->room_name}}</td>                                        
-                                        <td>{{@$val->hotel()->name}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary">Edit</button>
-                                            <button type="button" class="btn btn-primary" id="actinc">Active</button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        @include('elements.error')
+                            <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                                <table id="dataTables-example" class="table table-striped table-bordered table-hover dataTable no-footer" aria-describedby="dataTables-example_info">
+                                    <thead>
+                                        <tr>                                        
+                                            <th>S No.</th>
+                                            <th>Room Type</th>                                        
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $Status = staticDropdown("status"); ?>
+                                        @foreach($data as $k=>$val)
+                                        <tr class="gradeA">                                        
+                                            <td>{{++$k + (($data->currentPage()-1) * $data->perPage())}}.</td>
+                                            <td>{{$val->room_type}}</td>                                                                                
+                                            <td>
+                                                <a href="{{url('/room/'.$val->id.'/rtedit')}}"><button type="button" class="btn btn-primary">Edit</button></a>
+                                                <button type="button" class="btn btn-primary actinc" data-var="{{($val->status == 1)?0:1}}" data-id="{{$val->id}}">{{$Status[$val->status]}}</button>
+                                                <button type="button" class="btn btn-danger deleteBtn" data-id="{{$val->id}}">Delete</button>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-6"><div role="alert" aria-live="polite" aria-relevant="all">Total Records: {{$data->total()}}</div></div>
+                                    <div class="col-md-6">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">{{ $data->appends(Request::except('page'))->links() }}
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>                        
+                        </div>                        
                     </div>
                 </div>
             </div>

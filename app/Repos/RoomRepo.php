@@ -11,22 +11,13 @@ class RoomRepo extends Repo {
     }
 
     public function search($params) {
-        $userType = array_flip(staticDropdown("userType"));
-
-        $qry = $this->model;
-        $qry = $qry->where('status','!=',2);
+        $qryModel = $this->model;
+        $qry = $qryModel->where('status', '!=', 2);
         if (!empty($params['s'])) {
-            $s = $params['s'];
+            $s = strtolower($params['s']);
             $qry = $qry->where(
-                    function ($qry) use ($s, $userType) {
-                $qry->where('name', 'like', '%' . $s . '%')
-                        ->orWhere('mobile', 'like', '%' . $s . '%');
-                if (!empty($userType[$s])) {
-                    $qry->orWhere('user_type_id', 'like', '%' . $userType[$s] . '%');
-                }
-
-                $qry->orWhere('hotel_id', 'like', '%' . $s . '%')
-                        ->orWhere('email', 'like', '%' . $s . '%');
+                    function ($qry) use ($s) {
+                $qry->where('room_name', 'like', '%' . $s . '%');
             }
             );
         }
@@ -36,4 +27,3 @@ class RoomRepo extends Repo {
     }
 
 }
-

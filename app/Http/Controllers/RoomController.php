@@ -28,9 +28,11 @@ class RoomController extends Controller {
      *
      * @return void
      */
-    public function index() {
-        $records['data'] = Room::all();
+    public function index(Request $request) {
+        $params = $request->all();
+        $records['data'] = $this->roomRepo->search($params);
         $records['pageHeading'] = 'Room Management';
+        $records['s'] = $params['s'] ?? '';
         return view('room/index', $records);
     }
 
@@ -40,8 +42,8 @@ class RoomController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $records['data'] = Room::get();
         $records['pageHeading'] = 'Room Management: Create';
+        $records['type'] = $this->roomTypeRepo->activeTypes();
         return view('room/create', $records);
     }
 
@@ -53,23 +55,39 @@ class RoomController extends Controller {
      */
     public function store(Request $request) {
         $params = $request->all();
-        if (isset($request->cancel) && $request->cancel == 1) {
-            return redirect('/room');
-        }
 
         $validator = Validator::make($params, [
-                    'room_name' => 'required',
-                    'room_no' => 'required|numeric',
-                    'floor_no' => 'required|numeric',
-                    'room_type' => 'required|string',
-                    'status' => 'required',
+                    'room_name' => 'required|max:255',
+                    'room_type' => 'required',
+                    'chair_no' => 'required|numeric|max:50',
+                    'table_no' => 'required|numeric|max:50',
+                    'bed_no' => 'required|numeric|max:50',
+                    'floor_no' => 'required|numeric|max:50',
+                    'room_size' => 'required|numeric',
+                    'daily_cost' => 'required|numeric',
+                    'monthly_cost' => 'required|numeric',
+                    'yearly_cost' => 'required|numeric',
+                    'description' => 'required|string|max:255'
         ]);
         if ($validator->fails()) {
             return redirect('/room/create')->withErrors($validator)->withInput();
         }
-        $profile_info = User::create($params);
-        $profile_id = $profile_info->id;
 
+        $profile_info = $this->roomRepo->editAdd($params);
+        $file = $request->file('room_photo');
+        if ($file !== "" && $file !== NULL) {
+            $path = public_path() . DESTINATION_IMAGE . "\\room";
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            $path .= "\\" . base64_encode($profile_info->id);
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            if ($file->isValid()) {
+                $file->move($path . "\\", $file->getClientOriginalName());
+            }
+        }
         request()->session()->flash('message', 'Room Created Successfully');
         request()->session()->flash('type', 'success');
         return redirect('/room');
@@ -92,7 +110,10 @@ class RoomController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        //
+        $records['data'] = $this->roomRepo->get($id);
+        $records['pageHeading'] = 'Room Management: Edit';
+        $records['type'] = $this->roomTypeRepo->activeTypes();
+        return view('room/edit', $records);
     }
 
     /**
@@ -103,7 +124,46 @@ class RoomController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        //
+        $params = $request->all();
+
+        $validator = Validator::make($params, [
+                    'room_name' => 'required|max:255',
+                    'room_type' => 'required',
+                    'chair_no' => 'required|numeric|max:50',
+                    'table_no' => 'required|numeric|max:50',
+                    'bed_no' => 'required|numeric|max:50',
+                    'floor_no' => 'required|numeric|max:50',
+                    'room_size' => 'required|numeric',
+                    'daily_cost' => 'required|numeric',
+                    'monthly_cost' => 'required|numeric',
+                    'yearly_cost' => 'required|numeric',
+                    'description' => 'required|string|max:500'
+        ]);
+        if ($validator->fails()) {
+            return redirect('/room/' . $id . '/edit')->withErrors($validator)->withInput();
+        }
+
+        unset($params['_method']);
+        $params['id'] = $id;
+        $profile_info = $this->roomRepo->editAdd($params);
+        $file = $request->file('room_photo');
+        //var_dump($file);die;
+        if ($file !== "" && $file !== NULL) {
+            $path = public_path() . DESTINATION_IMAGE . "\\room";
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            $path .= "\\" . base64_encode($profile_info->id);
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            if ($file->isValid()) {
+                $file->move($path . "\\", $file->getClientOriginalName());
+            }
+        }
+        request()->session()->flash('message', 'Room Updated Successfully');
+        request()->session()->flash('type', 'success');
+        return redirect('/room');
     }
 
     /**
@@ -123,8 +183,23 @@ class RoomController extends Controller {
      */
     public function roomtype() {
         $records['data'] = $this->roomTypeRepo->search();
-        $records['pageHeading'] = 'Room Management: Type';
+        $records['pageHeading'] = 'Room Management: Room Type';
         return view('room/roomtype', $records);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changeStatus(Request $request) {
+        if ($request->ajax()) {
+            $params['id'] = $request->id;
+            $params['status'] = $request->status;
+            $user = $this->roomTypeRepo->editAdd($params);
+            return response()->json(['response' => 'Field saved successfully!', 'status' => 'success', 'code' => '200', 'data' => $user->id]);
+        }
+        return response()->json(['status' => 'fail', 'code' => '104']);
     }
 
     /**
@@ -135,15 +210,15 @@ class RoomController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function rtype(Request $request) {
-        $params = $request->all();        
+        $params = $request->all();
 
         $validator = Validator::make($params, [
-                'room_type' => 'required|max:255',
+                    'room_type' => 'required|unique:room_types|max:255',
         ]);
         if ($validator->fails()) {
             return redirect('/room/roomtype')->withErrors($validator)->withInput();
         }
-        
+
         $rtype_info = $this->roomTypeRepo->editAdd($params);
         request()->session()->flash('message', 'Room Type Created Successfully');
         request()->session()->flash('type', 'success');

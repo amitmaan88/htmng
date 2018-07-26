@@ -36,8 +36,7 @@
                                             <th>Name</th>
                                             <th>Mobile</th>
                                             <th>Email</th>
-                                            <th>User Type</th>
-                                            <th>Hotel</th>
+                                            <th>User Type</th>                                            
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -47,17 +46,16 @@
                                         $Status = staticDropdown("status");
                                         ?>
                                         @foreach($data as $k=>$val)
-                                        <tr>                                            
+                                        <tr class="gradeA">                                            
                                             <td>{{++$k + (($data->currentPage()-1) * $data->perPage())}}.</td>
                                             <td>{{$val->name}}</td>
                                             <td>{{$val->mobile}}</td>
                                             <td>{{$val->email}}</td>
-                                            <td>{{$userType[$val->user_type_id]}}</td>
-                                            <td>{{@$val->hotel()->name}}</td>
+                                            <td>{{$userType[$val->user_type_id]}}</td>                                            
                                             <td>
                                                 <a href="{{url('/users/'.$val->id.'/edit')}}"><button type="button" class="btn btn-primary">Edit</button></a>
-                                                <button type="button" class="btn btn-primary" id="actinc" data-var="{{($val->status == 1)?0:1}}" data-id="{{$val->id}}">{{$Status[$val->status]}}</button>
-                                                <button type="button" class="btn btn-danger" data-id="{{$val->id}}" id="deleteBtn">Delete</button>
+                                                <button type="button" class="btn btn-primary actinc" data-var="{{($val->status == 1)?0:1}}" data-id="{{$val->id}}">{{$Status[$val->status]}}</button>
+                                                <button type="button" class="btn btn-danger deleteBtn" data-id="{{$val->id}}">Delete</button>
                                             </td>
                                         </tr>
                                         @endforeach

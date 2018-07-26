@@ -20,30 +20,32 @@ htmng.activeInactive();
 htmng.paginationInit();
 
 $(document).ready(function () {
-    // ==================================== METIS MENU ======================================
+    // ==================================== METIS MENU ================================================
     $('#main-menu').metisMenu();
 
-    // ==================================== LOAD APPROPRIATE MENU BAR ======================================
+    // ==================================== LOAD APPROPRIATE MENU BAR ==================================
     $(window).bind("load resize", function () {
         if ($(this).width() < 768) {
-            $('div.sidebar-collapse').addClass('collapse')
+            $('div.sidebar-collapse').addClass('collapse');
         } else {
-            $('div.sidebar-collapse').removeClass('collapse')
+            $('div.sidebar-collapse').removeClass('collapse');
         }
     });
-
     // ==================================== CONTROL ACTIVE BUTTON ======================================
-    $("#actinc").on('click', function () {
+    $(".actinc").on('click', function () {
         htmng.btnActiveInactive($(this));
     });
-    // ==================================== CANCEL BUTTON ======================================
+    // ==================================== CANCEL BUTTON ==============================================
     $("#cancelBtn").on('click', function () {
         htmng.btnCancel($(this));
     });
-    // ==================================== DELETE BUTTON ======================================
-    $("#deleteBtn").on('click', function () {
+    // ==================================== DELETE BUTTON ==============================================
+    $(".deleteBtn").on('click', function () {
         htmng.btnDelete($(this));
+        var href = window.location.href;
+        window.location.href = href;
     });
+    // ==================================== INITIALIZE CHOSEN DROPDOWN ==================================
     $("#food_menu select.chosen-select").chosen();
 })
 </script>

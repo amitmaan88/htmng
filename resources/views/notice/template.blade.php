@@ -16,24 +16,34 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <form role="form" method="post" enctype="multipart/form-data" action="{{route('notice.store')}}">
+                            <form role="form" method="post" action="{{route('notice.store')}}">
                                 {{ csrf_field() }}
-                                <div class="col-md-12">                                    
+                                <div class="col-md-6">                                    
                                     <div class="form-group form_field">
                                         <label>Template <span class="red">*</span></label>
                                         <select class="form-control" name="template" id="template">
                                             <option value="">New Template</option>                                            
+                                            @foreach($alldata as $key=>$val)
+                                            <option {{old('template', $id)==$val->id?"selected=selected":""}} value="{{$val->id}}">{{$val->title}}</option>                                            
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12">                                    
-                                    <div class="form-group">                                        
-                                        <textarea name="editor1" id="editor1">  </textarea>
+                                <div class="col-md-6">                                    
+                                    <div class="form-group form_field">
+                                        <label>Template Title<span class="red">*</span></label>
+                                        <input value="{{old('title')}}" type="text" class="form-control" name="title" id="title" />
+                                        <input value="{{old('title_id', $id)}}" type="hidden" name="title_id" id="title_id" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">                                    
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-primary" name="addtemplate" id="addtemplate" value="Create" />
+                                        <textarea name="template_html" id="editor1">{{$data->template_html}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">                                    
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-primary" value="Create" />
                                         <button id="cancelBtn" data-url="{{url('/notice/template')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
                                     </div>
                                 </div>

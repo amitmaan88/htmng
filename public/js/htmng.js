@@ -85,4 +85,13 @@ var htmng = {
             }
         });
     },
+    templateLoad: function (selectId) {
+        if (selectId.val() === "") {
+            $("#title").closest().parent().show();
+        } else {            
+            $("#title_id").val(selectId.val());            
+            document.forms[0].action = "";
+            document.forms[0].submit();
+        }
+    }
 };

@@ -35,6 +35,10 @@ $(document).ready(function () {
     $(".actinc").on('click', function () {
         htmng.btnActiveInactive($(this));
     });
+    // ==================================== CONTROL TEMPLATE LOAD ======================================
+    $("#template").on('click', function () {
+        htmng.templateLoad($(this));
+    });
     // ==================================== CANCEL BUTTON ==============================================
     $("#cancelBtn").on('click', function () {
         htmng.btnCancel($(this));

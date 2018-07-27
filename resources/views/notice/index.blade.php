@@ -25,7 +25,7 @@
                     <div class="panel-body">
                         <div class="col-md-12">                                    
                             <div class="form-group form_field">
-                                <label>Template <span class="red">*</span></label>
+                                <label>Current Template <span class="red">*</span></label>
                                 <select class="form-control" name="template" id="template">
                                     <option value="">Select</option>                                            
                                 </select>
@@ -33,12 +33,7 @@
                             <div class="form-group" id="notice_view">
 
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group pull-left">                                
-                                <button id="cancelBtn" data-url="{{url('/notice')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
 

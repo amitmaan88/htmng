@@ -14,11 +14,12 @@ class Notice extends Migration
     {
         Schema::create('notices', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->integer('template_id');
-            $table->longText('notice_text');
-            $table->tinyInteger('status');
-            $table->timestamps();
+            $table->string('title')->nullable();
+            $table->longText('template_html')->nullable();            
+            $table->tinyInteger('status')->default(1);
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->timestamps();            
         });
     }
 

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Notice;
-use App\NoticeTemplate;
+use Illuminate\Http\Request;
+use App\Repos\NoticeRepo;
 use Validator;
 
 class NoticeController extends Controller {
 
-    public $notice;
+    public $noticeRepo;
 
-    public function __construct(Notice $notice) {
-        $this->notice = $notice;
+    public function __construct(NoticeRepo $notice) {
+        $this->noticeRepo = $notice;
     }
 
     /**
@@ -19,8 +19,10 @@ class NoticeController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $records['data'] = Notice::all();
+    public function index(Request $request) {
+        $params = $request->all();
+        //print_r($params);
+        $records['data'] = $this->noticeRepo->activeNotices();
         $records['pageHeading'] = 'Notice Management';
         return view('notice/index', $records);
     }
@@ -42,26 +44,14 @@ class NoticeController extends Controller {
      */
     public function store(Request $request) {
         $params = $request->all();
-        if (isset($request->cancel) && $request->cancel == 1) {
-            return redirect('/notice');
+        if (isset($params['title_id']) === true && $params['title_id'] !== "") {
+            $params['id'] = $params['title_id'];
         }
+        $notice = $this->noticeRepo->editAdd($params);
 
-        $validator = Validator::make($params, [
-                    'room_name' => 'required',
-                    'room_no' => 'required|numeric',
-                    'floor_no' => 'required|numeric',
-                    'room_type' => 'required|string',
-                    'status' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect('/notice')->withErrors($validator)->withInput();
-        }
-        $profile_info = User::create($params);
-        $profile_id = $profile_info->id;
-
-        request()->session()->flash('message', 'Room Created Successfully');
+        request()->session()->flash('message', 'Notice Created Successfully');
         request()->session()->flash('type', 'success');
-        return redirect('/notice');
+        return redirect('/notice/template');
     }
 
     /**
@@ -110,9 +100,16 @@ class NoticeController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function template() {
-        $records['data'] = NoticeTemplate::all();
-        $records['pageHeading'] = 'Notice Template Management';
+    public function template(Request $request) {
+        $params = $request->all();
+        $records['data'] = $this->noticeRepo->search($params);
+        $records['alldata'] = $this->noticeRepo->all();        
+        if (isset($params['title_id']) === true && $params['title_id'] !== "") {
+            $records['id'] = $params['title_id'];
+        } else {
+            $records['id'] = "";
+        }        
+        $records['pageHeading'] = 'Notice Management';
         return view('notice/template', $records);
     }
 

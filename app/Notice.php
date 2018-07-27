@@ -12,7 +12,7 @@ class Notice extends Model {
      * @var array
      */
     protected $fillable = [
-        'id', 'title', 'notice_text','template_id', 'status', 'created_at', 'updated_at'
+        'id', 'title', 'template_html', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'
     ];
 
     /**

@@ -21,8 +21,12 @@ class NoticeController extends Controller {
      */
     public function index(Request $request) {
         $params = $request->all();
-        //print_r($params);
-        $records['data'] = $this->noticeRepo->activeNotices();
+        $records['alldata'] = $this->noticeRepo->all();
+        $records['id'] = isset($params['title_id']) ? $params['title_id'] : "";
+        if (!empty($records['id'])) {
+            $this->noticeRepo->updateTemplate($records['id']);
+        }
+        $records['data'] = $this->noticeRepo->activeNotices($params);
         $records['pageHeading'] = 'Notice Management';
         return view('notice/index', $records);
     }
@@ -48,7 +52,7 @@ class NoticeController extends Controller {
             $params['id'] = $params['title_id'];
         }
         $notice = $this->noticeRepo->editAdd($params);
-
+        $this->noticeRepo->updateTemplate($notice->id);
         request()->session()->flash('message', 'Notice Created Successfully');
         request()->session()->flash('type', 'success');
         return redirect('/notice/template');
@@ -103,13 +107,17 @@ class NoticeController extends Controller {
     public function template(Request $request) {
         $params = $request->all();
         $records['data'] = $this->noticeRepo->search($params);
-        $records['alldata'] = $this->noticeRepo->all();        
+        $records['alldata'] = $this->noticeRepo->all();
         if (isset($params['title_id']) === true && $params['title_id'] !== "") {
             $records['id'] = $params['title_id'];
+            $records['btnText'] = 'Update';
         } else {
             $records['id'] = "";
-        }        
+            $records['btnText'] = 'Create';
+        }
         $records['pageHeading'] = 'Notice Management';
+
+        //print_r($records['data']);
         return view('notice/template', $records);
     }
 

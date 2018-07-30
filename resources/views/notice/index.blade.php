@@ -23,17 +23,29 @@
                         Responsive Table Example
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-12">                                    
-                            <div class="form-group form_field">
-                                <label>Current Template <span class="red">*</span></label>
-                                <select class="form-control" name="template" id="template">
-                                    <option value="">Select</option>                                            
-                                </select>
+                        <form role="form" method="get">                            
+                            <div class="col-md-6">                                    
+                                <div class="form-group">
+                                    <label>Current Template <span class="red">*</span></label>
+                                    <select class="form-control input-small" name="title_id" id="template">
+                                        <option value="">Select</option>                                    
+                                        @foreach($alldata as $key=>$val)
+                                        <option {{old('template', $id)==$val->id || $val->current_template === 1?"selected=selected":""}} value="{{$val->id}}">{{$val->title}}</option>                                            
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group" id="notice_view">
-
+                            <div class="col-md-6"></div>                                
+                            <div class="col-md-12">                                    
+                                <div class="form-group" id="notice_view">
+                                    @if(!empty($data)) 
+                                    @foreach($data as $kv=>$vk) 
+                                    {!! $vk->template_html !!}
+                                    @endforeach
+                                    @endif
+                                </div>
                             </div>
-                        </div>                        
+                        </form>
                     </div>
                 </div>
 

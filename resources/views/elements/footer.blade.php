@@ -36,12 +36,13 @@ $(document).ready(function () {
         htmng.btnActiveInactive($(this));
     });
     // ==================================== CONTROL TEMPLATE LOAD ======================================
-    $("#template").on('click', function () {
+    $("#template").on('change', function () {
         htmng.templateLoad($(this));
     });
     // ==================================== CANCEL BUTTON ==============================================
     $("#cancelBtn").on('click', function () {
         htmng.btnCancel($(this));
+        return false;
     });
     // ==================================== DELETE BUTTON ==============================================
     $(".deleteBtn").on('click', function () {

@@ -16,6 +16,7 @@ class Notice extends Migration
             $table->increments('id');
             $table->string('title')->nullable();
             $table->longText('template_html')->nullable();            
+            $table->tinyInteger('current_template')->default(1);
             $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

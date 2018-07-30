@@ -25,8 +25,7 @@ var htmng = {
         }
     },
     btnCancel: function (btnThis) {
-        var url = btnThis.attr('data-url');
-        //console.log(url);return false;
+        var url = btnThis.attr('data-url');        
         window.location.href = url;
     },
     paginationInit: function () {
@@ -86,8 +85,8 @@ var htmng = {
         });
     },
     templateLoad: function (selectId) {
-        if (selectId.val() === "") {
-            $("#title").closest().parent().show();
+        if (selectId.val() === "") {            
+            window.location.href = this.baseUrl + '/notice/template';
         } else {            
             $("#title_id").val(selectId.val());            
             document.forms[0].action = "";

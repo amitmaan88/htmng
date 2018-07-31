@@ -52,6 +52,10 @@ $(document).ready(function () {
     });
     // ==================================== INITIALIZE CHOSEN DROPDOWN ==================================
     $("#food_menu select.chosen-select").chosen();
+    $(".chosen-search-input").on('change', function () {
+        $("#food_menu select.chosen-select").val('').trigger("liszt:updated");
+    });
+
 })
 </script>
 

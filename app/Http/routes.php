@@ -22,12 +22,14 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::post('/changeStatus', 'UserController@changeStatus');
 Route::post('/changeStatus', 'RoomController@changeStatus');
+Route::post('/changeStatus', 'FoodController@changeStatus');
 Route::get('/users/upload', array('as' => 'user.upload', 'uses' => 'UserController@upload'));
 Route::get('/room/roomtype', array('as' => 'room.roomtype', 'uses' => 'RoomController@roomtype'));
 Route::post('/room/rtype', array('as' => 'room.rtype', 'uses' => 'RoomController@rtype'));
 Route::get('/notice/template', array('as' => 'notice.template', 'uses' => 'NoticeController@template'));
 Route::post('/notice/template', array('as' => 'notice.template', 'uses' => 'NoticeController@template'));
 Route::get('/food/item', array('as' => 'food.item', 'uses' => 'FoodController@item'));
+Route::post('/food/menu', array('as' => 'food.menu', 'uses' => 'FoodController@menu'));
 
 Route::resource('/users', 'UserController');
 Route::resource('/room', 'RoomController');

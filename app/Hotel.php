@@ -14,5 +14,13 @@ class Hotel extends Model
     protected $fillable = [
         'hotel_name', 'hotel_address', 'status', 'created_by', 'updated_by'
     ];
-
+    
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        
+    ];    
 }

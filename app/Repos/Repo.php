@@ -100,7 +100,8 @@ abstract class Repo
      */
     public function editAdd(array $params)
     {
-        extract($params);        
+        extract($params);
+print_r($params);        
         if (!empty($id)) {
             $params['updated_by'] = auth()->user()->id;
             $result = $this->model->findOrFail($id);

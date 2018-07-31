@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Food;
+use App\Menu;
+use App\Repos\FoodRepo;
+use App\Repos\MenuRepo;
 use Validator;
 
 class FoodController extends Controller {
 
-    public $food;
+    public $foodRepo;
+    public $menuRepo;
 
-    public function __construct(Food $food) {
-        $this->food = $food;
+    public function __construct(FoodRepo $food) {
+        $this->foodRepo = $food;
+        $this->menuRepo = new MenuRepo(new Menu());
     }
 
     /**
@@ -19,9 +23,9 @@ class FoodController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $records['data'] = Food::all();
-        $records['pageHeading'] = 'Food Management';
+    public function index(Request $request) {
+        $records['data'] = $this->foodRepo->activeItems();
+        $records['pageHeading'] = 'Food Management: Manage Menu';
         return view('food/index', $records);
     }
 
@@ -42,24 +46,32 @@ class FoodController extends Controller {
      */
     public function store(Request $request) {
         $params = $request->all();
-        if (isset($request->cancel) && $request->cancel == 1) {
-            return redirect('/food');
-        }
 
         $validator = Validator::make($params, [
-                    'room_name' => 'required',
-                    'room_no' => 'required|numeric',
-                    'floor_no' => 'required|numeric',
-                    'room_type' => 'required|string',
-                    'status' => 'required',
+            'food_name' => 'required|unique:foods|min:3|max:255',
         ]);
         if ($validator->fails()) {
             return redirect('/food/item')->withErrors($validator)->withInput();
         }
-        $profile_info = User::create($params);
-        $profile_id = $profile_info->id;
+        $info = $this->foodRepo->editAdd($params);
+        $fid = $info->id;
 
-        request()->session()->flash('message', 'Room Created Successfully');
+        request()->session()->flash('message', 'Food Item Created Successfully');
+        request()->session()->flash('type', 'success');
+        return redirect('/food/item');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function menu(Request $request) {
+        $params = $request->all();
+        //print_r($params);die;
+        $info = $this->menuRepo->manageMenu($params);        
+        request()->session()->flash('message', 'Food Item Created Successfully');
         request()->session()->flash('type', 'success');
         return redirect('/food');
     }
@@ -112,9 +124,24 @@ class FoodController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function item() {
-        $records['data'] = Food::get();
-        $records['pageHeading'] = 'Food Management: Food Menu';
+        $records['data'] = $this->foodRepo->search();
+        $records['pageHeading'] = 'Food Management';
         return view('food/item', $records);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changeStatus(Request $request) {
+        if ($request->ajax()) {
+            $params['id'] = $request->id;
+            $params['status'] = $request->status;
+            $food = $this->foodRepo->editAdd($params);
+            return response()->json(['response' => 'Field saved successfully!', 'status' => 'success', 'code' => '200', 'data' => $food->id]);
+        }
+        return response()->json(['status' => 'fail', 'code' => '104']);
     }
 
 }

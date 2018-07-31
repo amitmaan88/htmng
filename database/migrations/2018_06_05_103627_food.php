@@ -12,14 +12,11 @@ class Food extends Migration
      */
     public function up()
     {
-        //
         Schema::create('foods', function (Blueprint $table) {
             $table->increments('id');            
-            $table->string('food_name');
-            $table->string('food_type');
-            $table->string('food_day');
+            $table->string('food_name')->nullable();                        
             $table->integer('hotel_id');
-            $table->tinyInteger('status');            
+            $table->tinyInteger('status')->default(1);            
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();            

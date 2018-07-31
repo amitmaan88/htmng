@@ -13,11 +13,11 @@ class Menu extends Migration
     public function up()
     {
         //
-        Schema::create('site_menu', function (Blueprint $table) {
+        Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',15);
-            $table->string('url');            
-            $table->tinyInteger('status');
+            $table->integer('food_id')->default(0);
+            $table->string('food_type', 10)->nullable();            
+            $table->string('day',10)->nullable();                        
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();            
@@ -31,7 +31,6 @@ class Menu extends Migration
      */
     public function down()
     {
-        //
-        Schema::drop('site_menu');
+        Schema::drop('menus');
     }
 }

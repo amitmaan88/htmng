@@ -3,10 +3,11 @@
 namespace App\Repos;
 
 use Carbon\Carbon;
+
 //use Hfa\Jobs\DatabaseWriteJob;
 
-abstract class Repo
-{
+abstract class Repo {
+
     /**
      * The model that is being used
      *
@@ -28,8 +29,7 @@ abstract class Repo
      * @param array $data
      * @return Eloquent\Model
      */
-    public function get($ids)
-    {
+    public function get($ids) {
         return $this->model->find($ids);
     }
 
@@ -38,8 +38,7 @@ abstract class Repo
      *
      * @return Eloquent\Collection
      */
-    public function all()
-    {
+    public function all() {
         return $this->model->all();
     }
 
@@ -49,8 +48,7 @@ abstract class Repo
      * @param mixed $ids
      * @return integer
      */
-    public function delete($ids)
-    {
+    public function delete($ids) {
         return $this->model->destroy($ids);
     }
 
@@ -60,8 +58,7 @@ abstract class Repo
      * @param array $params
      * @return Eloquent\Model
      */
-    public function edit($params)
-    {
+    public function edit($params) {
         extract($params);
 
         if (!$id) {
@@ -83,8 +80,7 @@ abstract class Repo
      * @param array $params
      * @return Eloquent\Model
      */
-    public function add(array $params)
-    {
+    public function add(array $params) {
         $params['created_by'] = auth()->user()->id;
         $params['updated_by'] = auth()->user()->id;
         $result = $this->model->create($params);
@@ -98,18 +94,16 @@ abstract class Repo
      * @param array $params
      * @return Eloquent\Model
      */
-    public function editAdd(array $params)
-    {
+    public function editAdd(array $params) {
         extract($params);
-print_r($params);        
         if (!empty($id)) {
             $params['updated_by'] = auth()->user()->id;
             $result = $this->model->findOrFail($id);
             //print_r($params);
             $result->update($params);
-        }
-        else {
-            if(isset($params['_token'])) unset($params['_token']);
+        } else {
+            if (isset($params['_token']))
+                unset($params['_token']);
             //$params['status'] = 1;
             $params['created_by'] = auth()->user()->id;
             $result = $this->model->create($params);
@@ -123,8 +117,7 @@ print_r($params);
      * @param array $params
      * @return Eloquent\Model
      */
-    public function batchAdd(array $params)
-    {
+    public function batchAdd(array $params) {
         $this->batch[] = $params;
     }
 
@@ -135,8 +128,7 @@ print_r($params);
      *
      * @return void
      */
-    public function __destruct()
-    {
+    public function __destruct() {
         //$this->batchFlush();
     }
 
@@ -145,11 +137,9 @@ print_r($params);
      *
      * @return void
      */
-    public function batchFlush()
-    {
+    public function batchFlush() {
         //
     }
-
 
     /**
      * Get model records that have been created from a given date
@@ -157,11 +147,10 @@ print_r($params);
      * @param  Carbon $date [description]
      * @return Eloquent\Collection
      */
-    public function since(Carbon $date)
-    {
+    public function since(Carbon $date) {
         return $this->model
-            ->where($this->model->getCreatedAtColumn(), '>=', $date)
-            ->get();
+                        ->where($this->model->getCreatedAtColumn(), '>=', $date)
+                        ->get();
     }
 
     /**
@@ -170,8 +159,7 @@ print_r($params);
      * @param  array $data
      * @return Eloquent\Model
      */
-    public function firstOrCreate($data)
-    {
+    public function firstOrCreate($data) {
         $result = $this->model->firstOrCreate($data);
 
         return $this->get($result->id);
@@ -183,8 +171,7 @@ print_r($params);
      * @param array $data
      * @return Mixed
      */
-    public function insert(array $data)
-    {
+    public function insert(array $data) {
         return $this->model->insert($data);
     }
 
@@ -194,33 +181,41 @@ print_r($params);
      * @param  array $id
      * @return Eloquent\Model
      */
-    public function find($id)
-    {
+    public function find($id) {
         return $this->model->findOrFail($id);
     }
 
     /**
-    * Create new DB table after dropping it if exist.
-    *
-    * @param $tblName Table to be dropped/created
-    * @param $createTblAsStmt Create table AS Statement
-    *
-    * @return void
-    */
-    public function dropAndCreateSchema($tblName, $createTblAsStmt)
-    {
+     * Create new DB table after dropping it if exist.
+     *
+     * @param $tblName Table to be dropped/created
+     * @param $createTblAsStmt Create table AS Statement
+     *
+     * @return void
+     */
+    public function dropAndCreateSchema($tblName, $createTblAsStmt) {
         app('db')->statement('DROP TABLE IF EXISTS ' . $tblName);
-        app('db')->statement('CREATE TABLE ' . $tblName . ' AS '. $createTblAsStmt);
+        app('db')->statement('CREATE TABLE ' . $tblName . ' AS ' . $createTblAsStmt);
     }
 
-	/**
+    /**
+     * Truncate DB table.
+     *
+     * @param $tblName Table to be truncated
+     *
+     * @return void
+     */
+    public function truncateSchema($tblName) {
+        app('db')->statement('TRUNCATE TABLE ' . $tblName);        
+    }
+
+    /**
      * Retrieve all models with pagination
      *
      * @return Eloquent\Collection
      */
-    public function paginateX($rows = 3, $cond=array())
-    {
-		$records = $this->model;
+    public function paginateX($rows = 3, $cond = array()) {
+        $records = $this->model;
         if (!empty($cond)) {
             foreach ($cond as $key => $value) {
                 $records = $records->where($key, '=', $value);
@@ -228,25 +223,46 @@ print_r($params);
         }
         $records = $records->paginate($rows);
 
-		//pr(get_class_methods($records));
+        //pr(get_class_methods($records));
         $rd['data'] = $records->all();
         $rd['paginator'] = array(
-			'sr'      => $records->perPage() * ($records->currentPage()-1),
+            'sr' => $records->perPage() * ($records->currentPage() - 1),
             'records' => $records
-		);
-		return $rd;
+        );
+        return $rd;
     }
 
-    public function changeField($data)
-    {
+    public function changeField($data) {
         try {
             $this->update($data);
         }
         //catch exception
-        catch(Exception $e) {
+        catch (Exception $e) {
             //echo 'Message: ' .$e->getMessage();
             return False;
         }
         return true;
     }
+
+    public function updateConditional($data, $cond) {
+        try {
+            $records = $this->model;
+            foreach ($cond as $key => $value) {
+                $records = $records->where($key, '=', $value);
+            }
+            $rec = $records->get();
+            if (count($rec) > 0) {
+                $records->update($data);
+            } else {
+                $this->insert($data);
+            }
+        }
+        //catch exception
+        catch (Exception $e) {
+            //echo 'Message: ' .$e->getMessage();
+            return False;
+        }
+        return true;
+    }
+
 }

@@ -10,40 +10,46 @@ class MenuRepo extends Repo {
         $this->model = $model;
     }
 
+    public function activeMenu() {        
+        $qryModel = $this->model->selectRaw('GROUP_CONCAT(food_id) as foodIds,food_type,day');
+        $qry = $qryModel->groupBy(['day','food_type'])->get()->toArray();
+        $rec = $querySql = array();
+        foreach($qry as $k=>$v) {
+            $querySql[$v['day']][$v['food_type']] = $v['foodIds'];
+        }
+        $rec = array_replace(staticDropdown("foodDay"), $querySql);        
+        return $rec;
+    }
+
     public function manageMenu($params) {
         $foodMenu = array();
-        $foodDay = staticDropdown("foodDay");
         unset($params['_token']);
-        //echo "<pre>";print_r($params);
         foreach ($params as $key => $value) {
             if (!empty($value)) {
                 if ($key === "food_name_breakfast") {
-                    //print_r($value);
                     foreach ($value as $kd => $vd) {
-                        //print_r($vd);
                         foreach ($vd as $k => $v) {
-                            //print_r($v);
-                            $foodMenu[] = array('food_id' => $v, 'day' => $foodDay[$kd], 'food_type' => 'break_fast');
+                            $foodMenu = array('food_id' => $v, 'day' => $kd, 'food_type' => 'break_fast');
+                            $this->updateConditional($foodMenu, $foodMenu);
                         }
                     }
-                } else if ($key === "food_name_lunch") {                    
+                } else if ($key === "food_name_lunch") {
                     foreach ($value as $kd => $vd) {
                         foreach ($vd as $k => $v) {
-                            $foodMenu[] = array('food_id' => $v, 'day' => $foodDay[$kd], 'food_type' => 'lunch');
+                            $foodMenu = array('food_id' => $v, 'day' => $kd, 'food_type' => 'lunch');
+                            $this->updateConditional($foodMenu, $foodMenu);
                         }
                     }
                 } else {
                     foreach ($value as $kd => $vd) {
                         foreach ($vd as $k => $v) {
-                            $foodMenu[] = array('food_id' => $v, 'day' => $foodDay[$kd], 'food_type' => 'dinner');
+                            $foodMenu = array('food_id' => $v, 'day' => $kd, 'food_type' => 'dinner');
+                            $this->updateConditional($foodMenu, $foodMenu);
                         }
                     }
                 }
             }
         }
-        //echo "<pre>";
-        //print_r($foodMenu);die;
-        $this->editAdd($foodMenu);
     }
 
 }

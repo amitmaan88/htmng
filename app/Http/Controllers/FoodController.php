@@ -25,6 +25,8 @@ class FoodController extends Controller {
      */
     public function index(Request $request) {
         $records['data'] = $this->foodRepo->activeItems();
+        $menuData = $this->menuRepo->activeMenu();
+        $records['menu_data'] = $menuData;
         $records['pageHeading'] = 'Food Management: Manage Menu';
         return view('food/index', $records);
     }
@@ -48,11 +50,12 @@ class FoodController extends Controller {
         $params = $request->all();
 
         $validator = Validator::make($params, [
-            'food_name' => 'required|unique:foods|min:3|max:255',
+                    'food_name' => 'required|unique:foods|min:3|max:255',
         ]);
         if ($validator->fails()) {
             return redirect('/food/item')->withErrors($validator)->withInput();
         }
+        $this->foodRepo->truncateSchema("menus");
         $info = $this->foodRepo->editAdd($params);
         $fid = $info->id;
 
@@ -70,7 +73,7 @@ class FoodController extends Controller {
     public function menu(Request $request) {
         $params = $request->all();
         //print_r($params);die;
-        $info = $this->menuRepo->manageMenu($params);        
+        $info = $this->menuRepo->manageMenu($params);
         request()->session()->flash('message', 'Food Item Created Successfully');
         request()->session()->flash('type', 'success');
         return redirect('/food');

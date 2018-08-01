@@ -34,14 +34,14 @@
                                         <textarea class="form-control" name="complaint_desc" id="complaint_desc"></textarea>
                                     </div>                                    
                                     <div class="form-group form_field">
-                                        <label>Upload Picture <span class="red">*</span></label>
+                                        <label>Upload Picture </label>
                                         <input type="file" name="complaint_pic" id="complaint_pic" />
                                     </div>                                    
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-primary" name="addroom" id="addroom" value="Create" />
-                                        <button id="cancelBtn" data-url="{{url('/room')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
+                                         <input type="submit" class="btn btn-primary" value="Create" />
+                                        <button id="cancelBtn" data-url="{{url('/complaint')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
                                     </div>
                                 </div>
                             </form>

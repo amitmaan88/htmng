@@ -31,42 +31,46 @@
                                                 <th class="col-xs-3">Dinner</th>                                        
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @for($i=0;$i<7;$i++)
-                                            <tr class="gradeA {{($i%2==0?'even':'odd')}}">
-                                                <td class="col-xs-3">{{$days[$i]}}</td>                                        
-                                                <td class="col-xs-3">
-                                                    <select data-placeholder="Food Choices" multiple class="form-control chosen-select" name="food_name_breakfast[{{$i}}][]" id="food_name_breakfast">
-                                                        @foreach($data as $key=>$value)
-                                                        <option {{($value->day === 'break_fast')?"selected='selected'":""}} value="{{$value->id}}">{{$value->food_name}}</option>
+                                        <tbody>                                            
+                                            @foreach($menu_data as $k=>$v)
+                                            <tr class="gradeA {{($k%2==0?'even':'odd')}}">
+                                                <td class="col-xs-3">{{$days[$k]}}</td>                                        
+                                                <td class="col-xs-3">                                                    
+                                                    <select data-placeholder="Food Choices" multiple class="form-control chosen-select" name="food_name_breakfast[{{$k}}][]" id="food_name_breakfast">
+                                                        @foreach($data as $key=>$value)                                                        
+                                                        <option value="{{$value->id}}" {{isset($v['break_fast']) && in_array($value->id,explode(',',$v['break_fast']))?' Selected ':''}}>{{$value->food_name}}</option>
                                                         @endforeach
-                                                    </select>                                            
+                                                    </select>  
+                                                    
                                                 </td>
                                                 <td class="col-xs-3">
-                                                    <select data-placeholder="Food Choices" multiple class="form-control chosen-select" name="food_name_lunch[{{$i}}][]" id="food_name_lunch">
-                                                        @foreach($data as $key=>$value)
-                                                        <option {{($value->day === 'lunch')?"selected='selected'":""}} value="{{$value->id}}">{{$value->food_name}}</option>
+                                                    
+                                                    <select data-placeholder="Food Choices" multiple class="form-control chosen-select" name="food_name_lunch[{{$k}}][]" id="food_name_lunch">
+                                                        @foreach($data as $key=>$value)                                                        
+                                                        <option value="{{$value->id}}" {{isset($v['lunch']) && in_array($value->id,explode(',',$v['lunch']))?' Selected ':''}}>{{$value->food_name}}</option>    
                                                         @endforeach                                            
-                                                    </select>                                            
+                                                    </select> 
+                                                    
                                                 </td>
                                                 <td class="col-xs-3">
-                                                    <select data-placeholder="Food Choices" multiple class="form-control chosen-select" name="food_name_dinner[{{$i}}][]" id="food_name_dinner">
-                                                        @foreach($data as $key=>$value)
-                                                        <option {{($value->day === 'dinner')?"selected='selected'":""}} value="{{$value->id}}">{{$value->food_name}}</option>
+                                                    <select data-placeholder="Food Choices" multiple class="form-control chosen-select" name="food_name_dinner[{{$k}}][]" id="food_name_dinner">
+
+                                                        @foreach($data as $key=>$value)                                                        
+                                                        <option value="{{$value->id}}" {{isset($v['dinner']) && in_array($value->id,explode(',',$v['dinner']))?' Selected ':''}}>{{$value->food_name}}</option>
                                                         @endforeach
-                                                    </select>                                            
-                                                </td>                                        
+                                                    </select>                                                    
+                                                </td>
                                             </tr>
-                                            @endfor
+                                            @endforeach
                                         </tbody>
                                     </table>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">                                        
-                                        <input type="submit" class="btn btn-primary" value="Create" />
-                                        <input type="button" id="cancelBtn" data-url="{{url('/food')}}" class="btn btn-default" name="cancel" value="Cancel" />
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">                                        
+                                            <input type="submit" class="btn btn-primary" value="Create" />
+                                            <input type="button" id="cancelBtn" data-url="{{url('/food')}}" class="btn btn-default" name="cancel" value="Cancel" />
+                                        </div>
                                     </div>
-                                </div>
                             </form>
                         </div>
                     </div>

@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Complaint;
+use App\Repos\ComplaintRepo;
 use Validator;
 
 class ComplaintController extends Controller {
 
-    public $complaint;
+    public $complaintRepo;
 
-    public function __construct(Complaint $complaint) {
-        $this->complaint = $complaint;
+    public function __construct(ComplaintRepo $complaint) {
+        $this->complaintRepo = $complaint;
     }
 
     /**
@@ -21,7 +21,7 @@ class ComplaintController extends Controller {
      */
     public function index() {
 
-        $records['data'] = Complaint::all();
+        $records['data'] = $this->complaintRepo->all();
         $records['pageHeading'] = 'Complaint Management';
         return view('complaint/index', $records);
     }
@@ -42,7 +42,21 @@ class ComplaintController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $params = $request->all();
+
+        $validator = Validator::make($params, [
+            'complaint_title' => 'required|min:3|max:255',
+            'complaint_type' => 'required',
+            'complaint_desc' => 'required|min:3|max:255',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/complaint')->withErrors($validator)->withInput();
+        }
+        $info = $this->complaintRepo->editAdd($params);
+        
+        request()->session()->flash('message', 'Complaint Registered');
+        request()->session()->flash('type', 'success');
+        return redirect('/complaint');
     }
 
     /**

@@ -19,6 +19,8 @@ class Complaint extends Migration
             $table->longText('complaint_desc');
             $table->integer('user_id');
             $table->tinyInteger('status');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }

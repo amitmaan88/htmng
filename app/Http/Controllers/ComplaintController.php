@@ -45,15 +45,29 @@ class ComplaintController extends Controller {
         $params = $request->all();
 
         $validator = Validator::make($params, [
-            'complaint_title' => 'required|min:3|max:255',
-            'complaint_type' => 'required',
-            'complaint_desc' => 'required|min:3|max:255',
+                    'complaint_title' => 'required|min:3|max:255',
+                    'complaint_type' => 'required',
+                    'complaint_desc' => 'required|min:3|max:255',
         ]);
         if ($validator->fails()) {
             return redirect('/complaint')->withErrors($validator)->withInput();
         }
         $info = $this->complaintRepo->editAdd($params);
-        
+        $file = $request->file('complaint_pic');
+        if ($file !== "" && $file !== NULL) {
+            $path = public_path() . DESTINATION_IMAGE . "\\complaint\\";
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            $path .= base64_encode($info->id);
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            if ($file->isValid()) {
+                $file->move($path . "\\", $file->getClientOriginalName());
+            }
+        }
+
         request()->session()->flash('message', 'Complaint Registered');
         request()->session()->flash('type', 'success');
         return redirect('/complaint');

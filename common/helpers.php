@@ -18,7 +18,7 @@ function staticDropdown($type, $empty = '') {
             $dropdown = $dropdown + ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
             break;
         case 'complaints':
-            $dropdown = $dropdown + ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            $dropdown = $dropdown + ["Access Control", "Air Condition", "Lighting", "Plumbing", "Carpentry", "Housekeeping"];
             break;
     }
     return $dropdown;

@@ -21,7 +21,12 @@
                                 <div class="col-md-9">
                                     <div class="form-group form_field">
                                         <label>Room Type <span class="red">*</span></label>
-                                        <input class="form-control" name="room_type" type="text" value="{{old('room_type')}}"  />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa"></i> 
+                                            </div>
+                                            <input class="form-control" name="room_type" type="text" value="{{old('room_type')}}"  />
+                                        </div>
                                     </div>                                                                                                            
                                 </div>
                                 <div class="col-md-3">

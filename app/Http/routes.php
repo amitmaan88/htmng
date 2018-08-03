@@ -20,9 +20,9 @@ Route::auth();
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
-Route::post('/changeStatus', 'UserController@changeStatus');
-Route::post('/changeStatus', 'RoomController@changeStatus');
-Route::post('/changeStatus', 'FoodController@changeStatus');
+Route::post('/users/cstatus', array('as' => 'users.changeStatus', 'uses' => 'UserController@cstatus'));
+Route::post('/room/cstatus', array('as' => 'room.changeStatus', 'uses' => 'RoomController@cstatus'));
+Route::post('/food/cstatus', array('as' => 'food.changeStatus', 'uses' => 'FoodController@cstatus'));
 Route::get('/users/upload', array('as' => 'user.upload', 'uses' => 'UserController@upload'));
 Route::get('/room/roomtype', array('as' => 'room.roomtype', 'uses' => 'RoomController@roomtype'));
 Route::post('/room/rtype', array('as' => 'room.rtype', 'uses' => 'RoomController@rtype'));

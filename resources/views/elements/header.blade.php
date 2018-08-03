@@ -6,10 +6,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">Binary admin</a>
+        <a class="navbar-brand" href="index.html">Administrator</a>
     </div>
     <div style="color: white;
          padding: 15px 50px 5px 50px;
          float: right;
-         font-size: 16px;"> Logged in as : Test User &nbsp; <a href="{{url('/logout')}}" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+         font-size: 16px;"> 
+
+        @if(auth()->check())
+        Logged in as : {{ auth()->user()->name  }} &nbsp;<a href="{{url('/logout')}}" class="btn btn-danger square-btn-adjust"><i class="fa fa-btn fa-sign-out"></i>Logout</a> 
+        @else
+        &nbsp;
+        @endif
+
+
+    </div>
 </nav>

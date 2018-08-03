@@ -21,7 +21,12 @@
                                 <div class="col-md-12">
                                     <div class="form-group form_field">
                                         <label>Full Name <span class="red">*</span></label>
-                                        <input class="form-control" name="name" type="text" value="{{old('name')}}"  />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-user"></i> 
+                                            </div>
+                                            <input class="form-control" name="name" type="text" value="{{old('name')}}"  />
+                                        </div>
                                     </div>                                    
                                     <div class="form-group form_field">
                                         <label>User Type <span class="red">*</span></label>
@@ -34,31 +39,66 @@
                                     </div>
                                     <div class="form-group form_field">
                                         <label>Email<span class="red">*</span></label>
-                                        <input class="form-control" name="email" id="email" type="email" value="{{old('email')}}" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa">@</i> 
+                                            </div>
+                                            <input class="form-control" name="email" id="email" type="email" value="{{old('email')}}" />
+                                        </div>
                                     </div>
                                     <div class="form-group form_field">
                                         <label>Password <span class="red">*</span></label>
-                                        <input class="form-control" name="password" type="password" value="" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa"></i> 
+                                            </div>
+                                            <input class="form-control" name="password" type="password" value="" />
+                                        </div>
                                     </div>
                                     <div class="form-group form_field">
                                         <label>Confirm Password<span class="red">*</span></label>
-                                        <input class="form-control" name="password_confirmation" id="cnf_pass" type="password" value="" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa"></i> 
+                                            </div>
+                                            <input class="form-control" name="password_confirmation" id="cnf_pass" type="password" value="" />
+                                        </div>
                                     </div>
                                     <div class="form-group form_field">
                                         <label>Mobile No <span class="red">*</span> </label>
-                                        <input class="form-control" name="mobile" id="mobile" type="tel" maxlength="15" value="{{old('mobile')}}" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-mobile"></i> 
+                                            </div>
+                                            <input class="form-control" name="mobile" id="mobile" type="tel" maxlength="15" value="{{old('mobile')}}" />
+                                        </div>
                                     </div>
                                     <div class="form-group form_field">
                                         <label>Landline</label>
-                                        <input class="form-control" name="landline" id="landline" type="tel" maxlength="15" value="{{old('landline')}}" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-phone-square"></i> 
+                                            </div>
+                                            <input class="form-control" name="landline" id="landline" type="tel" maxlength="15" value="{{old('landline')}}" />
+                                        </div>
                                     </div>
                                     <div class="form-group form_field">
                                         <label>Upload Photo</label>
-                                        <input type="file" class="form-control" name="up_photo" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-upload"></i> 
+                                            </div>
+                                            <input type="file" class="form-control" name="up_photo" />
+                                        </div>
                                     </div>
                                     <div class="form-group form_field">
                                         <label>Upload Photo Id</label>
-                                        <input type="file" class="form-control" name="up_photo_id" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-upload"></i> 
+                                            </div>
+                                            <input type="file" class="form-control" name="up_photo_id" />
+                                        </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="form-group">

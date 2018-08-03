@@ -33,7 +33,7 @@ $(document).ready(function () {
     });
     // ==================================== CONTROL ACTIVE BUTTON ======================================
     $(".actinc").on('click', function () {
-        htmng.btnActiveInactive($(this));
+        htmng.btnActiveInactive($(this), $(this).attr('data-url'));
     });
     // ==================================== CONTROL TEMPLATE LOAD ======================================
     $("#template").on('change', function () {

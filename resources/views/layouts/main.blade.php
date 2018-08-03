@@ -4,8 +4,11 @@
     <body>
         <div id="wrapper">
             @include('elements.header')
+
+            @if(auth()->check())
             <!-- /. NAV TOP  -->
             @include('elements.sidebar')
+            @endif
             <!-- /. NAV SIDE  -->
             @yield('content')
 

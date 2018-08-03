@@ -25,7 +25,7 @@ var htmng = {
         }
     },
     btnCancel: function (btnThis) {
-        var url = btnThis.attr('data-url');        
+        var url = btnThis.attr('data-url');
         window.location.href = url;
     },
     paginationInit: function () {
@@ -56,7 +56,7 @@ var htmng = {
             }
         });
     },
-    btnActiveInactive: function (btnId) {
+    btnActiveInactive: function (btnId, url) {
 
         var args = {
             '_token': $('meta[name="token"]').attr('content'),
@@ -64,31 +64,38 @@ var htmng = {
             'id': btnId.attr('data-id')
         };
         $.ajax({
-            url: this.baseUrl + '/changeStatus',
+            url: this.baseUrl + url + '/cstatus',
             type: "POST",
             data: args,
             async: false,
-            success: function (rsp) {
-                if (rsp.code == 200) {
-                    if (btnId.text() === "Active") {
-                        btnId.text("Inactive");
-                        btnId.attr('data-var', 1)
-                    } else {
-                        btnId.text("Active");
-                        btnId.attr('data-var', 0)
-                    }
+            success: function (data) {
+                if (btnId.attr('data-var') == 0) {
+                    btnId.text("Inactive");
+                    btnId.attr('data-var', 1);
+                    btnId.addClass("btn-default");                    
+                    btnId.removeClass("btn-success");                    
+                } else {
+                    btnId.text("Active");
+                    btnId.attr('data-var', 0);
+                    btnId.addClass("btn-success");                    
+                    btnId.removeClass("btn-default");                    
                 }
-                if (rsp.code == 100) {
-                    alert(rsp.data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 500) {
+                    alert('Internal error: ' + jqXHR.responseText);
+                } else {
+                    alert('Unexpected error.');
                 }
             }
+
         });
     },
     templateLoad: function (selectId) {
-        if (selectId.val() === "") {            
+        if (selectId.val() === "") {
             window.location.href = this.baseUrl + '/notice/template';
-        } else {            
-            $("#title_id").val(selectId.val());            
+        } else {
+            $("#title_id").val(selectId.val());
             document.forms[0].action = "";
             document.forms[0].submit();
         }

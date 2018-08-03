@@ -7,13 +7,13 @@
             <div class="col-md-12">
                 <h2>{{$pageHeading}}</h2>
                 <div class="btn-toolbarX"> 
-                    <a href="{{url('room/create')}}" class="btn btn-primary pull-right">Create Room</a> 
+                    <a href="{{url('room/create')}}" class="btn btn-primary pull-right"><i class="fa fa-btn fa-user"></i> Create Room</a> 
                     <form class="form-inline" role="form" method="get" action="{{route('room.index')}}">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="search" name="s" placeholder="Search..." value="{{$s}}">
+                            <input type="text" class="form-control form-rounded" id="search" name="s" placeholder="Search..." value="{{$s}}">
                         </div>
-                        <button type="submit" class="btn btn-default">Search</button>
-                        <input type="button" id="cancelBtn" data-url="{{url('/room')}}" class="btn btn-default" name="cancel" value="Reset" />
+                        <button type="submit" class="btn btn-default"><i class="fa fa-btn fa-search"></i> Search</button>
+                        <a href="{{url('/room')}}"><button type="button" class="btn btn-default"><i class="fa fa-btn fa-refresh"></i> Refresh </button></a>                                               
                     </form>
                 </div>
             </div>
@@ -28,21 +28,22 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                                <table id="room_list" class="table table-striped table-bordered table-hover dataTable no-footer" aria-describedby="dataTables-example_info">
                                 <thead>
-                                    <tr class="d-flex">                                        
-                                        <th class="col-xs-1">Sr</th>
-                                        <th class="col-xs-2">Room Name</th>                                                                                
-                                        <th class="col-xs-6">Room Description</th>                                        
-                                        <th class="col-xs-6">Action</th>
+                                    <tr>                                        
+                                        <th class="col-xs-3">Sr</th>
+                                        <th class="col-xs-3">Room Name</th>                                                                                
+                                        <th class="col-xs-3">Room Description</th>                                        
+                                        <th class="col-xs-3">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $Status = staticDropdown("status"); ?>
                                     @foreach($data as $k=>$val)
-                                    <tr class="d-flex">                                       
-                                        <td class="col-xs-1">{{++$k}}.</td>
-                                        <td class="col-xs-2">{{$val->room_name}}</td>                                                                                                             <td class="col-xs-6">
+                                    <tr class="gradeA {{($k%2==0?'even':'odd')}}">                                      
+                                        <td class="col-xs-3">{{++$k}}.</td>
+                                        <td class="col-xs-3">{{$val->room_name}}</td>                                                                                                             <td class="col-xs-3">
                                             <div class="col-sm-4"><label>Type:</label> {{$val->room_type}}</div><div class="col-sm-4"><label>Chairs:</label> {{$val->chair_no}}</div>                                            
                                             <div class="col-sm-4"><label>Tables:</label>{{$val->table_no}}</div><div class="col-sm-4"><label>Beds:</label>{{$val->bed_no}}</div>                      <div class="col-sm-4"><label>Floor:</label>{{$val->floor_no}}</div>
                                             <div class="col-sm-4"><label>Area:</label>{{$val->room_size}}</div><div class="col-sm-4"><label>Daily Cost:</label>{{$val->daily_cost}}</div>             

@@ -192,12 +192,20 @@ class RoomController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function changeStatus(Request $request) {
+    public function cstatus(Request $request) {
         if ($request->ajax()) {
             $params['id'] = $request->id;
             $params['status'] = $request->status;
-            $user = $this->roomTypeRepo->editAdd($params);
-            return response()->json(['response' => 'Field saved successfully!', 'status' => 'success', 'code' => '200', 'data' => $user->id]);
+            $stat = $request->tab_stat;
+            switch ($stat) {
+                case 1: $room = $this->roomRepo->editAdd($params);
+                    break;
+                case 2: $room = $this->roomTypeRepo->editAdd($params);
+                    break;
+                default:break;
+            }
+
+            return response()->json(['response' => 'Field saved successfully!', 'status' => 'success', 'code' => '200', 'data' => $room->id]);
         }
         return response()->json(['status' => 'fail', 'code' => '104']);
     }

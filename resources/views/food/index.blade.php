@@ -38,7 +38,7 @@
                                                 <td class="col-xs-3">                                                    
                                                     <select data-placeholder="Food Choices" multiple class="form-control chosen-select" name="food_name_breakfast[{{$k}}][]" id="food_name_breakfast">
                                                         @foreach($data as $key=>$value)                                                        
-                                                        <option value="{{$value->id}}" {{isset($v['break_fast']) && in_array($value->id,explode(',',$v['break_fast']))?' Selected ':''}}>{{$value->food_name}}</option>
+                                                        <option value="{{$value->id}}" {{isset($v['break_fast']) && in_array($value->id,explode(',',$v['break_fast']))?' Selected ':''}}>{{ucfirst($value->food_name)}}</option>
                                                         @endforeach
                                                     </select>  
                                                     
@@ -47,7 +47,7 @@
                                                     
                                                     <select data-placeholder="Food Choices" multiple class="form-control chosen-select" name="food_name_lunch[{{$k}}][]" id="food_name_lunch">
                                                         @foreach($data as $key=>$value)                                                        
-                                                        <option value="{{$value->id}}" {{isset($v['lunch']) && in_array($value->id,explode(',',$v['lunch']))?' Selected ':''}}>{{$value->food_name}}</option>    
+                                                        <option value="{{$value->id}}" {{isset($v['lunch']) && in_array($value->id,explode(',',$v['lunch']))?' Selected ':''}}>{{ucfirst($value->food_name)}}</option>    
                                                         @endforeach                                            
                                                     </select> 
                                                     
@@ -56,7 +56,7 @@
                                                     <select data-placeholder="Food Choices" multiple class="form-control chosen-select" name="food_name_dinner[{{$k}}][]" id="food_name_dinner">
 
                                                         @foreach($data as $key=>$value)                                                        
-                                                        <option value="{{$value->id}}" {{isset($v['dinner']) && in_array($value->id,explode(',',$v['dinner']))?' Selected ':''}}>{{$value->food_name}}</option>
+                                                        <option value="{{$value->id}}" {{isset($v['dinner']) && in_array($value->id,explode(',',$v['dinner']))?' Selected ':''}}>{{ucfirst($value->food_name)}}</option>
                                                         @endforeach
                                                     </select>                                                    
                                                 </td>

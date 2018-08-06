@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <h2>{{$pageHeading}}</h2>
                 <div class="btn-toolbarX"> 
-                    <a href="{{url('room/create')}}" class="btn btn-primary pull-right"><i class="fa fa-btn fa-user"></i> Create Room</a> 
+                    <a href="{{url('room/create')}}" class="btn btn-primary pull-right"> Create Room</a> 
                     <form class="form-inline" role="form" method="get" action="{{route('room.index')}}">
                         <div class="form-group">
                             <input type="text" class="form-control form-rounded" id="search" name="s" placeholder="Search..." value="{{$s}}">
@@ -53,9 +53,10 @@
                                             <div class="col-sm-8"><label>Other Details:</label> {{$val->description}}</div>
                                         </td>                                        
                                         <td class="col-xs-6">
-                                            <a href="{{url('/room/'.$val->id.'/edit')}}"><button type="button" class="btn btn-primary">Edit</button></a>
-                                            <button type="button" class="btn btn-primary actinc" data-var="{{($val->status == 1)?0:1}}" data-id="{{$val->id}}">{{$Status[$val->status]}}</button>
-                                            <button type="button" class="btn btn-danger deleteBtn" data-id="{{$val->id}}">Delete</button>
+                                            <a href="{{url('/room/'.$val->id.'/edit')}}"><button type="button" class="btn btn-primary"><i class="fa fa-btn fa-edit"></i> Edit</button></a>
+                                            <button type="button" class="btn btn-danger deleteBtn" data-id="{{$val->id}}"><i class="fa fa-btn fa-trash-o"></i> Delete</button>
+                                            <button  tab_stat="1" data-url="{{'/room'}}" type="button" class="btn {{($val->status == 1)?'btn-success':'btn-default'}} actinc" data-var="{{($val->status == 1)?0:1}}" data-id="{{$val->id}}">{{$Status[$val->status]}}</button>
+                                            
                                         </td>
                                     </tr>
                                     @endforeach

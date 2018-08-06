@@ -21,7 +21,12 @@
                                 <div class="col-md-12">
                                     <div class="form-group form_field">
                                         <label>Title <span class="red">*</span></label>
-                                        <input class="form-control" name="complaint_title" id="complaint_title" type="text" value="{{old('complaint_title')}}"  />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa"></i> 
+                                            </div>
+                                            <input class="form-control" name="complaint_title" id="complaint_title" type="text" value="{{old('complaint_title')}}"  />
+                                        </div>
                                     </div>
                                     <?php $complaintType = staticDropdown("complaints", "Select"); ?>
                                     <div class="form-group form_field">
@@ -38,7 +43,12 @@
                                     </div>                                    
                                     <div class="form-group form_field">
                                         <label>Upload Picture </label>
-                                        <input type="file" class="form-control" name="complaint_pic" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-upload"></i> 
+                                            </div>
+                                            <input type="file" class="form-control" name="complaint_pic" />
+                                        </div>
                                     </div>                                    
                                 </div>
                                 <div class="col-md-12">

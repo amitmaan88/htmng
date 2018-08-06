@@ -42,24 +42,25 @@
                     <div class="panel-body">
                         <div class="table-responsive">
                             <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                                <table id="dataTables-example" class="table table-striped table-bordered table-hover dataTable no-footer" aria-describedby="dataTables-example_info">
+                                <table id="room_type_list" class="table table-striped table-bordered table-hover dataTable no-footer" aria-describedby="dataTables-example_info">
                                     <thead>
                                         <tr>                                        
-                                            <th class="col-md-1">S No.</th>
-                                            <th class="col-md-8">Room Type</th>                                        
-                                            <th class="col-md-3">Action</th>
+                                            <th class="col-xs-2">S No.</th>
+                                            <th class="col-xs-5">Room Type</th>                                        
+                                            <th class="col-xs-5">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $Status = staticDropdown("status"); ?>
                                         @foreach($data as $k=>$val)
                                         <tr class="gradeA {{($k%2==0?'even':'odd')}}">                                        
-                                            <td class="col-md-1">{{++$k + (($data->currentPage()-1) * $data->perPage())}}.</td>
-                                            <td class="col-md-8">{{$val->room_type}}</td>                                                                                
-                                            <td class="col-md-3">
-                                                <a href="{{url('/room/'.$val->id.'/rtedit')}}"><button type="button" class="btn btn-primary">Edit</button></a>
-                                                <button type="button" class="btn btn-primary actinc" data-var="{{($val->status == 1)?0:1}}" data-id="{{$val->id}}">{{$Status[$val->status]}}</button>
-                                                <button type="button" class="btn btn-danger deleteBtn" data-id="{{$val->id}}">Delete</button>
+                                            <td class="col-xs-2">{{++$k + (($data->currentPage()-1) * $data->perPage())}}.</td>
+                                            <td class="col-xs-5">{{$val->room_type}}</td>                                                                                
+                                            <td class="col-xs-5">
+                                                <a href="{{url('/room/'.$val->id.'/rtedit')}}"><button type="button" class="btn btn-primary"><i class="fa fa-btn fa-edit"></i>  Edit</button></a>
+                                                <button type="button" class="btn btn-danger deleteBtn" data-id="{{$val->id}}"><i class="fa fa-btn fa-trash-o"></i> Delete</button>
+                                                <button tab_stat="2" data-url="{{'/room'}}" type="button" class="btn {{($val->status == 1)?'btn-success':'btn-default'}} actinc" data-var="{{($val->status == 1)?0:1}}" data-id="{{$val->id}}">{{$Status[$val->status]}}</button>
+                                                
                                             </td>
                                         </tr>
                                         @endforeach

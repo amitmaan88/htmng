@@ -31,12 +31,15 @@ Route::post('/notice/template', array('as' => 'notice.template', 'uses' => 'Noti
 Route::get('/food/item', array('as' => 'food.item', 'uses' => 'FoodController@item'));
 Route::post('/food/menu', array('as' => 'food.menu', 'uses' => 'FoodController@menu'));
 
-Route::resource('/users', 'UserController');
-Route::resource('/room', 'RoomController');
-Route::resource('/notice', 'NoticeController');
-Route::resource('/complaint', 'ComplaintController');
-Route::resource('/hotel', 'HotelController');
-Route::resource('/food', 'FoodController');
-Route::resource('/report', 'ReportController');
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('/users', 'UserController');
+    Route::resource('/room', 'RoomController');
+    Route::resource('/notice', 'NoticeController');
+    Route::resource('/complaint', 'ComplaintController');
+    Route::resource('/hotel', 'HotelController');
+    Route::resource('/food', 'FoodController');
+    Route::resource('/report', 'ReportController');
+});
+
 
 Route::get('/logout', 'Auth\AuthController@logout');

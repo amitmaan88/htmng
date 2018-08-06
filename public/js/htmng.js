@@ -35,14 +35,15 @@ var htmng = {
         $('.pagination li:last-child').addClass('next');
         $('.pagination li:last-child span, .pagination li:last-child a').text('Next');
     },
-    btnDelete: function (btnId) {
+    btnDelete: function (btnId, url) {
         var args = {
             '_token': $('meta[name="token"]').attr('content'),
             'status': 2,
-            'id': btnId.attr('data-id')
+            'id': btnId.attr('data-id'),
+            'tab_stat': 0
         };
         $.ajax({
-            url: this.baseUrl + '/changeStatus',
+            url: this.baseUrl + url + '/cstatus',
             type: "POST",
             data: args,
             async: false,
@@ -53,6 +54,13 @@ var htmng = {
                 if (rsp.code == 100) {
                     alert(rsp.data);
                 }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 500) {
+                    alert('Internal error: ' + jqXHR.responseText);
+                } else {
+                    alert('Unexpected error.');
+                }
             }
         });
     },
@@ -61,7 +69,8 @@ var htmng = {
         var args = {
             '_token': $('meta[name="token"]').attr('content'),
             'status': btnId.attr('data-var'),
-            'id': btnId.attr('data-id')
+            'id': btnId.attr('data-id'),
+            'tab_stat': (typeof btnId.attr('tab_stat') == "undefined") ? 0 : btnId.attr('tab_stat'),
         };
         $.ajax({
             url: this.baseUrl + url + '/cstatus',
@@ -72,13 +81,13 @@ var htmng = {
                 if (btnId.attr('data-var') == 0) {
                     btnId.text("Inactive");
                     btnId.attr('data-var', 1);
-                    btnId.addClass("btn-default");                    
-                    btnId.removeClass("btn-success");                    
+                    btnId.addClass("btn-default");
+                    btnId.removeClass("btn-success");
                 } else {
                     btnId.text("Active");
                     btnId.attr('data-var', 0);
-                    btnId.addClass("btn-success");                    
-                    btnId.removeClass("btn-default");                    
+                    btnId.addClass("btn-success");
+                    btnId.removeClass("btn-default");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

@@ -34,11 +34,21 @@
                                         <label>Template Title<span class="red">*</span></label>
                                         @if(!empty($id)) 
                                         @foreach($data as $kv=>$vk)
-                                        <input value="{{old('title',$vk->title)}}" type="text" class="form-control" name="title" id="title" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa"></i> 
+                                            </div>
+                                            <input value="{{old('title',$vk->title)}}" type="text" class="form-control" name="title" id="title" />
+                                        </div>
                                         @endforeach
                                         @else
-                                        <input value="{{old('title')}}" type="text" class="form-control" name="title" id="title" />
-                                        @endif
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa"></i> 
+                                            </div>
+                                            <input value="{{old('title')}}" type="text" class="form-control" name="title" id="title" />
+                                        </div>
+                                        @endif                                        
                                         <input value="{{old('title_id', $id)}}" type="hidden" name="title_id" id="title_id" />
                                     </div>
                                 </div>

@@ -46,7 +46,7 @@ $(document).ready(function () {
     });
     // ==================================== DELETE BUTTON ==============================================
     $(".deleteBtn").on('click', function () {
-        htmng.btnDelete($(this));
+        htmng.btnDelete($(this), $(".actinc").attr('data-url'));
         var href = window.location.href;
         window.location.href = href;
     });

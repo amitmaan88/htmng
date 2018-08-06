@@ -3,14 +3,12 @@
 @section('content')
 <div id="page-wrapper" >
     <div id="page-inner">
-        <div class="row">
-            <div class="col-md-6">
-                <h2>{{$pageHeading}}</h2>
-            </div>
-            <div class="col-md-6">
-                <div class="btn-toolbar">
-                    <a href="{{url('notice')}}" type="reset" class="btn btn-default pull-right">Refresh</a>
-                    <a href="{{url('notice/template')}}" class="btn btn-primary pull-right">Create Template</a>                    
+        <div class="row m-t10">
+            <div class="col-md-12">
+                <h2>{{$pageHeading}}</h2>            
+                <div class="btn-toolbar pull-right">
+                    <a href="{{url('notice/template')}}" class="btn btn-primary"> Create Notice</a>
+                    <a href="{{url('/notice')}}"><button type="button" class="btn btn-default"><i class="fa fa-btn fa-refresh"></i> Refresh </button></a>
                 </div>
             </div>
         </div>

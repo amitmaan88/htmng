@@ -137,7 +137,7 @@ class FoodController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function changeStatus(Request $request) {
+    public function cstatus(Request $request) {
         if ($request->ajax()) {
             $params['id'] = $request->id;
             $params['status'] = $request->status;

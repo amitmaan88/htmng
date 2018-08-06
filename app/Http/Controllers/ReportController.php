@@ -7,8 +7,10 @@ use Validator;
 
 class ReportController extends Controller {    
 
+    public $siteTitle;
+    
     public function __construct() {
-        
+        $this->siteTitle = SITE_TITLE;
     }
 
     /**
@@ -18,6 +20,7 @@ class ReportController extends Controller {
      */
     public function index() {        
         $records['pageHeading'] = 'Reports';
+        $records['PageTitle'] = $this->siteTitle . REPORT_SUB_TITLE;
         return view('report/index', $records);
     }
 

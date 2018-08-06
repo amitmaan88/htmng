@@ -9,9 +9,11 @@ use Validator;
 class NoticeController extends Controller {
 
     public $noticeRepo;
-
+    public $siteTitle;
+    
     public function __construct(NoticeRepo $notice) {
         $this->noticeRepo = $notice;
+        $this->siteTitle = SITE_TITLE;
     }
 
     /**
@@ -28,6 +30,7 @@ class NoticeController extends Controller {
         }
         $records['data'] = $this->noticeRepo->activeNotices($params);
         $records['pageHeading'] = 'Notice Management';
+        $records['PageTitle'] = $this->siteTitle .  NOTICE_SUB_TITLE;
         return view('notice/index', $records);
     }
 
@@ -116,6 +119,7 @@ class NoticeController extends Controller {
             $records['btnText'] = 'Create';
         }
         $records['pageHeading'] = 'Notice Management';
+        $records['PageTitle'] = $this->siteTitle . NOTICET_SUB_TITLE;
 
         //print_r($records['data']);
         return view('notice/template', $records);

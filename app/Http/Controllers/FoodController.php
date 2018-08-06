@@ -12,10 +12,12 @@ class FoodController extends Controller {
 
     public $foodRepo;
     public $menuRepo;
+    public $siteTitle;
 
     public function __construct(FoodRepo $food) {
         $this->foodRepo = $food;
         $this->menuRepo = new MenuRepo(new Menu());
+        $this->siteTitle = SITE_TITLE;
     }
 
     /**
@@ -28,6 +30,7 @@ class FoodController extends Controller {
         $menuData = $this->menuRepo->activeMenu();
         $records['menu_data'] = $menuData;
         $records['pageHeading'] = 'Food Management: Manage Menu';
+        $records['PageTitle'] = $this->siteTitle . FOOD_SUB_TITLE;
         return view('food/index', $records);
     }
 
@@ -129,6 +132,7 @@ class FoodController extends Controller {
     public function item() {
         $records['data'] = $this->foodRepo->search();
         $records['pageHeading'] = 'Food Management';
+        $records['PageTitle'] = $this->siteTitle . FOODM_SUB_TITLE;
         return view('food/item', $records);
     }
 

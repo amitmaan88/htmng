@@ -2,7 +2,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="token" content="{{csrf_token()}}"  />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <title> {{(isset($PageTitle) && $PageTitle !== "")?$PageTitle:""}} </title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
     <!-- BOOTSTRAP STYLES-->
     <link href="{{ url('css/binary_admin/bootstrap.css') }}" rel="stylesheet" />
     <!-- BOOTSTRAP DATATABLES STYLES-->

@@ -9,9 +9,11 @@ use Validator;
 class ComplaintController extends Controller {
 
     public $complaintRepo;
+    public $siteTitle;
 
     public function __construct(ComplaintRepo $complaint) {
         $this->complaintRepo = $complaint;
+        $this->siteTitle = SITE_TITLE;
     }
 
     /**
@@ -23,6 +25,7 @@ class ComplaintController extends Controller {
 
         $records['data'] = $this->complaintRepo->all();
         $records['pageHeading'] = 'Complaint Management';
+        $records['PageTitle'] = $this->siteTitle . COMPLAINT_SUB_TITLE;
         return view('complaint/index', $records);
     }
 

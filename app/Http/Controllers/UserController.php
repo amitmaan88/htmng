@@ -9,6 +9,7 @@ use Validator;
 class UserController extends Controller {
 
     public $userRepo;
+    public $siteTitle;
 
     /**
      * Create a new controller instance.
@@ -17,6 +18,7 @@ class UserController extends Controller {
      */
     public function __construct(UserRepo $user) {
         $this->userRepo = $user;
+        $this->siteTitle = SITE_TITLE;
     }
 
     /**
@@ -31,6 +33,7 @@ class UserController extends Controller {
         $records['data'] = $this->userRepo->search($params);
         $records['s'] = $params['s'] ?? '';
         $records['pageHeading'] = 'User Management';
+        $records['PageTitle'] = $this->siteTitle .  USER_SUB_TITLE;
         return view('user/index', $records);
     }
 
@@ -42,6 +45,7 @@ class UserController extends Controller {
     public function create() {
         //$records['data'] = $this->user->get();
         $records['pageHeading'] = 'User Management: Create';
+        $records['PageTitle'] = $this->siteTitle .  USERC_SUB_TITLE;
         return view('user/create', $records);
     }
 
@@ -124,6 +128,7 @@ class UserController extends Controller {
     public function edit($id) {
         $records['data'] = $this->userRepo->get($id);
         $records['pageHeading'] = 'User Management: Edit';
+        $records['PageTitle'] = $this->siteTitle .  USERE_SUB_TITLE;
         return view('user/edit', $records);
     }
 
@@ -189,6 +194,7 @@ class UserController extends Controller {
      */
     public function upload() {
         $records['pageHeading'] = 'User Management: Upload';
+        $records['PageTitle'] = $this->siteTitle . USERU_SUB_TITLE;
         return view('user/upload', $records);
     }
 

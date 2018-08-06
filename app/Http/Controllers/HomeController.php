@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public $siteTitle;
     /**
      * Create a new controller instance.
      *
@@ -15,6 +16,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->siteTitle = SITE_TITLE;
     }
 
     /**
@@ -24,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $records['PageTitle'] = $this->siteTitle . HOME_SUB_TITLE;
+        return view('home', $records);
     }
 }

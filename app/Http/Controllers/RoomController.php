@@ -12,6 +12,7 @@ class RoomController extends Controller {
 
     public $roomRepo;
     public $roomTypeRepo;
+    public $siteTitle;
 
     /**
      * Create a new controller instance.
@@ -21,6 +22,7 @@ class RoomController extends Controller {
     public function __construct(RoomRepo $room) {
         $this->roomRepo = $room;
         $this->roomTypeRepo = new RoomTypeRepo(new RoomType());
+        $this->siteTitle = SITE_TITLE;
     }
 
     /**
@@ -32,6 +34,7 @@ class RoomController extends Controller {
         $params = $request->all();
         $records['data'] = $this->roomRepo->search($params);
         $records['pageHeading'] = 'Room Management';
+        $records['PageTitle'] = $this->siteTitle . ROOM_SUB_TITLE;
         $records['s'] = $params['s'] ?? '';
         return view('room/index', $records);
     }
@@ -43,6 +46,7 @@ class RoomController extends Controller {
      */
     public function create() {
         $records['pageHeading'] = 'Room Management: Create';
+        $records['PageTitle'] = $this->siteTitle . ROOMC_SUB_TITLE;
         $records['type'] = $this->roomTypeRepo->activeTypes();
         return view('room/create', $records);
     }
@@ -112,6 +116,7 @@ class RoomController extends Controller {
     public function edit($id) {
         $records['data'] = $this->roomRepo->get($id);
         $records['pageHeading'] = 'Room Management: Edit';
+        $records['PageTitle'] = $this->siteTitle . ROOME_SUB_TITLE;
         $records['type'] = $this->roomTypeRepo->activeTypes();
         return view('room/edit', $records);
     }
@@ -184,6 +189,7 @@ class RoomController extends Controller {
     public function roomtype() {
         $records['data'] = $this->roomTypeRepo->search();
         $records['pageHeading'] = 'Room Management: Room Type';
+        $records['PageTitle'] = $this->siteTitle . ROOMR_SUB_TITLE;
         return view('room/roomtype', $records);
     }
 

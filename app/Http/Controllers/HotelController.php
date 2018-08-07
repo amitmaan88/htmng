@@ -3,18 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repos\HotelRepo;
+use Validator;
 
-use App\Http\Requests;
+class HotelController extends Controller {
 
-class HotelController extends Controller
-{
+    public $hotelRepo;
+    public $siteTitle;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(HotelRepo $hotel) {
+        $this->hotelRepo = $hotel;
+        $this->siteTitle = SITE_TITLE;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
@@ -23,8 +35,7 @@ class HotelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -34,9 +45,35 @@ class HotelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $params = $request->all();
+        $validator = Validator::make($params, [
+                    'hotel_name' => 'required|max:255',
+                    'mobile' => 'required|numeric',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/')->withErrors($validator)->withInput();
+        }
+        
+        $info = $this->hotelRepo->editAdd($params);
+        $file = $request->file('up_photo');
+        if ($file !== "" && $file !== NULL) {
+            $path = public_path() . DESTINATION_IMAGE . "\\hotel";
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            $path .= "\\" . base64_encode($info->id);
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            if ($file->isValid()) {
+                $file->move($path . "\\", $file->getClientOriginalName());
+            }
+        }
+
+        request()->session()->flash('message', 'Hotel Created Successfully');
+        request()->session()->flash('type', 'success');
+        return redirect('/');
     }
 
     /**
@@ -45,8 +82,7 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -56,8 +92,7 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -68,8 +103,7 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -79,8 +113,8 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

@@ -32,6 +32,7 @@ Route::get('/food/item', array('as' => 'food.item', 'uses' => 'FoodController@it
 Route::post('/food/menu', array('as' => 'food.menu', 'uses' => 'FoodController@menu'));
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::resource('/', 'HomeController');
     Route::resource('/users', 'UserController');
     Route::resource('/room', 'RoomController');
     Route::resource('/notice', 'NoticeController');

@@ -100,9 +100,10 @@
                                             <input type="file" class="form-control" name="up_photo_id" />
                                         </div>
                                     </div>
-                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-primary" name="addusr" id="addusr" value="Create" />
+                                        <input type="submit" class="btn btn-primary" value="Create" />
                                         <input type="button" id="cancelBtn" data-url="{{url('/users')}}" class="btn btn-white" name="cancel" value="Cancel" />
                                     </div>
                                 </div>

@@ -5,418 +5,120 @@
     <div id="page-inner">
         <div class="row">
             <div class="col-md-12">
-                <h2>Admin Dashboard</h2>
-                <h5>Welcome Jhon Deo , Love to see you back. </h5>
+                <h2>Dashboard</h2>                
             </div>
-        </div>
+        </div>        
         <!-- /. ROW  -->
         <hr />
         <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="panel panel-back noti-box">
-                    <span class="icon-box bg-color-red set-icon">
-                        <i class="fa fa-envelope-o"></i>
-                    </span>
-                    <div class="text-box" >
-                        <p class="main-text">120 New</p>
-                        <p class="text-muted">Messages</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="panel panel-back noti-box">
-                    <span class="icon-box bg-color-green set-icon">
-                        <i class="fa fa-bars"></i>
-                    </span>
-                    <div class="text-box" >
-                        <p class="main-text">30 Tasks</p>
-                        <p class="text-muted">Remaining</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="panel panel-back noti-box">
-                    <span class="icon-box bg-color-blue set-icon">
-                        <i class="fa fa-bell-o"></i>
-                    </span>
-                    <div class="text-box" >
-                        <p class="main-text">240 New</p>
-                        <p class="text-muted">Notifications</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="panel panel-back noti-box">
-                    <span class="icon-box bg-color-brown set-icon">
-                        <i class="fa fa-rocket"></i>
-                    </span>
-                    <div class="text-box" >
-                        <p class="main-text">3 Orders</p>
-                        <p class="text-muted">Pending</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /. ROW  -->
-        <hr />
-        <div class="row">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="panel panel-back noti-box">
-                    <span class="icon-box bg-color-blue">
-                        <i class="fa fa-warning"></i>
-                    </span>
-                    <div class="text-box" >
-                        <p class="main-text">52 Important Issues to Fix </p>
-                        <p class="text-muted">Please fix these issues to work smooth</p>
-                        <p class="text-muted">Time Left: 30 mins</p>
-                        <hr />
-                        <p class="text-muted">
-                            <span class="text-muted color-bottom-txt"><i class="fa fa-edit"></i>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-3 col-sm-12 col-xs-12">
-                <div class="panel back-dash">
-                    <i class="fa fa-dashboard fa-3x"></i><strong> &nbsp; SPEED</strong>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing sit ametsit amet elit ftr. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                </div>
-
-            </div>
-            <div class="col-md-3 col-sm-12 col-xs-12 ">
-                <div class="panel ">
-                    <div class="main-temp-back">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-xs-6"> <i class="fa fa-cloud fa-3x"></i> Newyork City </div>
-                                <div class="col-xs-6">
-                                    <div class="text-temp"> 10° </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="panel panel-back noti-box">
-                    <span class="icon-box bg-color-green set-icon">
-                        <i class="fa fa-desktop"></i>
-                    </span>
-                    <div class="text-box" >
-                        <p class="main-text">Display</p>
-                        <p class="text-muted">Looking Good</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-        <!-- /. ROW  -->
-        <div class="row">
-
-
-            <div class="col-md-9 col-sm-12 col-xs-12">
+            <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Bar Chart Example
+                        Hotel
                     </div>
                     <div class="panel-body">
-                        <div id="morris-bar-chart"></div>
+                        <div class="row">
+                            <form role="form" method="get" enctype="multipart/form-data" action="{{route('index')}}">                                
+                                <div class="col-md-12">                                                                        
+                                    <div class="form-group">
+                                        <label>Hotels <span class="red">*</span></label>
+                                        <select class="form-control" name="hotel_name" id="hotel_name">                                            
+                                            <option value="">Select</option>
+                                            @foreach($hotelList as $uk=>$uv)
+                                            <option value="{{$uv->id}}" {{ (old('hotel_name', $hotel_name)==$uv->id)?'selected="selected"':'' }} >{{$uv->hotel_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>                                    
+                                </div>
+                            </form>
+                        </div>                  
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-12 col-xs-12">
-                <div class="panel panel-primary text-center no-boder bg-color-green">
-                    <div class="panel-body">
-                        <i class="fa fa-bar-chart-o fa-5x"></i>
-                        <h3>120 GB </h3>
-                    </div>
-                    <div class="panel-footer back-footer-green">
-                        Disk Space Available
-
-                    </div>
-                </div>
-                <div class="panel panel-primary text-center no-boder bg-color-red">
-                    <div class="panel-body">
-                        <i class="fa fa-edit fa-5x"></i>
-                        <h3>20,000 </h3>
-                    </div>
-                    <div class="panel-footer back-footer-red">
-                        Articles Pending
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- /. ROW  -->
-        <div class="row" >
-            <div class="col-md-3 col-sm-12 col-xs-12">
-                <div class="panel panel-primary text-center no-boder bg-color-green">
-                    <div class="panel-body">
-                        <i class="fa fa-comments-o fa-5x"></i>
-                        <h4>200 New Comments </h4>
-                        <h4>See All Comments  </h4>
-                    </div>
-                    <div class="panel-footer back-footer-green">
-                        <i class="fa fa-rocket fa-5x"></i>
-                        Lorem ipsum dolor sit amet sit sit, consectetur adipiscing elitsit sit gthn ipsum dolor sit amet ipsum dolor sit amet
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-9 col-sm-12 col-xs-12">
-
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
-                        Responsive Table Example
+                        Create Hotel
                     </div>
                     <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
-                                        <th>User No.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>100090</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>100090</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>100090</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>100090</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>100090</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>100090</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <form role="form" method="post" enctype="multipart/form-data" action="{{route('hotel.store')}}">
+                                {{ csrf_field() }}
+                                <div class="col-md-12">
+                                    <div class="form-group form_field">
+                                        <label>Name <span class="red">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-home"></i> 
+                                            </div>
+                                            @if(!empty($hotel_name))
+                                                <input class="form-control" name="hotel_name" type="text" value="{{$data[0]['hotel_name']}}"  />
+                                                <input name="id" type="hidden" value="{{$data[0]['id']}}"  />
+                                            @else
+                                                <input class="form-control" name="hotel_name" type="text" value="{{old('hotel_name')}}"  />
+                                            @endif                                            
+                                        </div>
+                                    </div>                                   
+                                    <div class="form-group form_field">
+                                        <label>Contact No <span class="red">*</span> </label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-mobile"></i> 
+                                            </div>
+                                            @if(!empty($hotel_name))
+                                                <input class="form-control" name="mobile" id="mobile" type="tel" maxlength="15" value="{{$data[0]['mobile']}}" />                                                
+                                            @else
+                                                <input class="form-control" name="mobile" id="mobile" type="tel" maxlength="15" value="{{old('mobile')}}" />
+                                            @endif
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group form_field">
+                                        <label>Status</label>                                        
+                                        <select name="status" id="status" class="form-control">
+                                            <?php $stat = staticDropdown("status"); ?>
+                                            @foreach($stat as $uk=>$uv)
+                                                @if(!empty($hotel_name))
+                                                <option value="{{$uk}}" {{ ($data[0]['status'] == $uk)?'selected="selected"':'' }} >{{$uv}}</option>
+                                                @else
+                                                <option value="{{$uk}}" {{ (old('status') == $uk)?'selected="selected"':'' }} >{{$uv}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>                         
+                                    <div class="form-group form_field">
+                                        <label>Upload Photo</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-upload"></i> 
+                                            </div>
+                                            <input type="file" class="form-control" name="up_photo" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group form_field">
+                                        <label>Address </label>                                        
+                                        @if(!empty($hotel_name))
+                                            <textarea class="form-control" name="hotel_address" id="hotel_address">{{$data[0]['hotel_address']}}</textarea>
+                                        @else
+                                            <textarea class="form-control" name="hotel_address" id="hotel_address">{{old('hotel_address')}}</textarea>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @if(!empty($hotel_name))
+                                            <input type="submit" class="btn btn-primary" value="Update" />
+                                        @else
+                                            <input type="submit" class="btn btn-primary" value="Create" />
+                                        @endif
+                                        <input type="button" id="cancelBtn" data-url="{{url('/')}}" class="btn btn-white" name="cancel" value="Cancel" />
+                                    </div>
+                                </div>
+                            </form>
                         </div>
+                        @include('elements.error')
                     </div>
                 </div>
-
             </div>
         </div>
-        <!-- /. ROW  -->
-        <div class="row">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-
-                <div class="chat-panel panel panel-default chat-boder chat-panel-head" >
-                    <div class="panel-heading">
-                        <i class="fa fa-comments fa-fw"></i>
-                        Chat Box
-                        <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-chevron-down"></i>
-                            </button>
-                            <ul class="dropdown-menu slidedown">
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-refresh fa-fw"></i>Refresh
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-check-circle fa-fw"></i>Available
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-times fa-fw"></i>Busy
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-clock-o fa-fw"></i>Away
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-sign-out fa-fw"></i>Sign Out
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="panel-body">
-                        <ul class="chat-box">
-                            <li class="left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="img/1.png" alt="User" class="img-circle" />
-                                </span>
-                                <div class="chat-body">
-                                    <strong >Jack Sparrow</strong>
-                                    <small class="pull-right text-muted">
-                                        <i class="fa fa-clock-o fa-fw"></i>12 mins ago
-                                    </small>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="right clearfix">
-                                <span class="chat-img pull-right">
-
-                                    <img src="img/2.png" alt="User" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-
-                                    <small class=" text-muted">
-                                        <i class="fa fa-clock-o fa-fw"></i>13 mins ago</small>
-                                    <strong class="pull-right">Jhonson Deed</strong>
-
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="img/3.png" alt="User" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-
-                                    <strong >Jack Sparrow</strong>
-                                    <small class="pull-right text-muted">
-                                        <i class="fa fa-clock-o fa-fw"></i>14 mins ago</small>
-
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="img/4.png" alt="User" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-
-                                    <small class=" text-muted">
-                                        <i class="fa fa-clock-o fa-fw"></i>15 mins ago</small>
-                                    <strong class="pull-right">Jhonson Deed</strong>
-
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="img/1.png" alt="User" class="img-circle" />
-                                </span>
-                                <div class="chat-body">
-                                    <strong >Jack Sparrow</strong>
-                                    <small class="pull-right text-muted">
-                                        <i class="fa fa-clock-o fa-fw"></i>12 mins ago
-                                    </small>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="img/2.png" alt="User" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-
-                                    <small class=" text-muted">
-                                        <i class="fa fa-clock-o fa-fw"></i>13 mins ago</small>
-                                    <strong class="pull-right">Jhonson Deed</strong>
-
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="panel-footer">
-                        <div class="input-group">
-                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message to send..." />
-                            <span class="input-group-btn">
-                                <button class="btn btn-warning btn-sm" id="btn-chat">
-                                    Send
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Label Examples
-                    </div>
-                    <div class="panel-body">
-                        <span class="label label-default">Default</span>
-                        <span class="label label-primary">Primary</span>
-                        <span class="label label-success">Success</span>
-                        <span class="label label-info">Info</span>
-                        <span class="label label-warning">Warning</span>
-                        <span class="label label-danger">Danger</span>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Donut Chart Example
-                    </div>
-                    <div class="panel-body">
-                        <div id="morris-donut-chart"></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!-- /. ROW  -->
     </div>
     <!-- /. PAGE INNER  -->
 </div>

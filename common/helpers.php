@@ -1,5 +1,13 @@
 <?php
-function staticDropdown($type, $empty = '') {
+
+/**
+ * Helper to create the drop down
+ *
+ * @param string $type choices as ['userType', 'status', 'foodDay', 'complaints']
+ * @param string $empty Additional value added the drop down optional
+ * @return array $dropdown
+ */
+function staticDropdown($type, $empty = ''): array {
     $dropdown = array();
     if ($empty != '')
         $dropdown[] = $empty;

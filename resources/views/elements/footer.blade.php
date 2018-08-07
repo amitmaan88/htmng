@@ -50,6 +50,11 @@ $(document).ready(function () {
         var href = window.location.href;
         window.location.href = href;
     });
+    // ==================================== LOAD HOTELS ==============================================
+    $("#hotel_name").on('change', function () {
+        var forms = document.forms[0];
+        forms.submit();
+    });
     // ==================================== INITIALIZE CHOSEN DROPDOWN ==================================
     $("#food_menu select.chosen-select").chosen();
     $(".chosen-search-input").on('change', function () {

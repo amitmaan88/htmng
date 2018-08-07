@@ -3,20 +3,19 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Hotel extends Migration
-{
+class Hotel extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
-        //
+    public function up() {        
         Schema::create('hotels', function (Blueprint $table) {
             $table->increments('id');
             $table->string('hotel_name');
-            $table->mediumText('hotel_address');
+            $table->mediumText('hotel_address')->nullable();
+            $table->string('mobile', 15)->nullable();
             $table->tinyInteger('status');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
@@ -29,9 +28,9 @@ class Hotel extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        //
+    public function down() {
+        
         Schema::drop('hotels');
     }
+
 }

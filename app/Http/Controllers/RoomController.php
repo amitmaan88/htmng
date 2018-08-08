@@ -77,6 +77,7 @@ class RoomController extends Controller {
             return redirect('/room/create')->withErrors($validator)->withInput();
         }
 
+        $params['hotel_id'] = request()->session()->get("hotel", 0);
         $profile_info = $this->roomRepo->editAdd($params);
         $file = $request->file('room_photo');
         if ($file !== "" && $file !== NULL) {
@@ -150,6 +151,7 @@ class RoomController extends Controller {
 
         unset($params['_method']);
         $params['id'] = $id;
+        $params['hotel_id'] = request()->session()->get("hotel", 0);
         $profile_info = $this->roomRepo->editAdd($params);
         $file = $request->file('room_photo');
         //var_dump($file);die;

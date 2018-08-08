@@ -14,11 +14,12 @@ class Complaint extends Migration
     {
         Schema::create('complaints', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('complaint_title');
-            $table->string('complaint_type');
-            $table->longText('complaint_desc');
+            $table->string('complaint_title')->nullable();
+            $table->string('complaint_type')->nullable();
+            $table->longText('complaint_desc')->nullable();
             $table->integer('user_id');
-            $table->tinyInteger('status');
+            $table->integer('hotel_id');
+            $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

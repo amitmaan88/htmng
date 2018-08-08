@@ -29,10 +29,15 @@ class HomeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $params = $request->all();        
+        $params = $request->all();
         $records['hotelList'] = $this->hotelRepo->activeHotels();
-        $records['hotel_name'] = ($params['hotel_name']) ?? "";
+        $params['hotel_name'] = $records['hotel_name'] = request()->session()->get("hotel", 0);        
+        if (isset($params['hotel_name'])) {
+            $records['hotel_name'] = $params['hotel_name'];
+            request()->session()->set("hotel", $params['hotel_name']);
+        }
         $records['data'] = $this->hotelRepo->search($params)->toArray();
+
         //pr($records['data']);
         $records['PageTitle'] = $this->siteTitle . HOME_SUB_TITLE;
         return view('home', $records);

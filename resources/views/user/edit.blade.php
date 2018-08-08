@@ -47,6 +47,7 @@
                                                 <i class="fa">@</i> 
                                             </div>
                                             <input class="form-control" name="email" id="email" type="email" value="{{old('email',$data->email)}}" />
+                                            <input name="old_email" id="old_email" type="hidden" value="{{old('email',$data->email)}}" />
                                         </div>
                                         <input name="email_confirmation" type="hidden" value="{{$data->email}}" />
                                     </div>

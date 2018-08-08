@@ -33,7 +33,7 @@ class UserController extends Controller {
         $records['data'] = $this->userRepo->search($params);
         $records['s'] = $params['s'] ?? '';
         $records['pageHeading'] = 'User Management';
-        $records['PageTitle'] = $this->siteTitle .  USER_SUB_TITLE;
+        $records['PageTitle'] = $this->siteTitle . USER_SUB_TITLE;
         return view('user/index', $records);
     }
 
@@ -45,7 +45,7 @@ class UserController extends Controller {
     public function create() {
         //$records['data'] = $this->user->get();
         $records['pageHeading'] = 'User Management: Create';
-        $records['PageTitle'] = $this->siteTitle .  USERC_SUB_TITLE;
+        $records['PageTitle'] = $this->siteTitle . USERC_SUB_TITLE;
         return view('user/create', $records);
     }
 
@@ -70,6 +70,7 @@ class UserController extends Controller {
             return redirect('/users/create')->withErrors($validator)->withInput();
         }
 
+        $params['hotel_id'] = request()->session()->get("hotel", 0);
         $params['password'] = bcrypt($params['password']);
         unset($params['password_confirmation']);
         $profile_info = $this->userRepo->editAdd($params);
@@ -128,7 +129,7 @@ class UserController extends Controller {
     public function edit($id) {
         $records['data'] = $this->userRepo->get($id);
         $records['pageHeading'] = 'User Management: Edit';
-        $records['PageTitle'] = $this->siteTitle .  USERE_SUB_TITLE;
+        $records['PageTitle'] = $this->siteTitle . USERE_SUB_TITLE;
         return view('user/edit', $records);
     }
 
@@ -142,17 +143,28 @@ class UserController extends Controller {
     public function update(Request $request, $id) {
         $params = $request->all();
 
-        $validator = Validator::make($params, [
-                    'name' => 'required',
-                    'email' => 'required|unique:users|email',
-                    'user_type_id' => 'required',
-                    'mobile' => 'required|numeric',
-                    'landline' => 'numeric',
-        ]);
+        if ($params['old_email'] === $params['email']) {
+            $validator = Validator::make($params, [
+                        'name' => 'required',
+                        'email' => 'required|email',
+                        'user_type_id' => 'required',
+                        'mobile' => 'required|numeric',
+                        'landline' => 'numeric',
+            ]);
+        } else {
+            $validator = Validator::make($params, [
+                        'name' => 'required',
+                        'email' => 'required|unique:users|email',
+                        'user_type_id' => 'required',
+                        'mobile' => 'required|numeric',
+                        'landline' => 'numeric',
+            ]);
+        }
         if ($validator->fails()) {
             return redirect('/users/' . $id . '/edit')->withErrors($validator)->withInput();
         }
         unset($params['_method']);
+        $params['hotel_id'] = request()->session()->get("hotel", 0);
         $params['id'] = $id;
         $profile_info = $this->userRepo->editAdd($params);
         $file = $request->file('up_photo');

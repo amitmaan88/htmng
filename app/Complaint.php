@@ -12,7 +12,7 @@ class Complaint extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'complaint_title', 'complaint_type', 'complaint_desc', 'user_id', 'status', 'created_at', 'updated_at'
+        'id', 'complaint_title', 'complaint_type', 'complaint_desc', 'user_id', 'hotel_id', 'status', 'created_at', 'updated_at'
     ];
 
     /**

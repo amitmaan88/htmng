@@ -59,6 +59,7 @@ class FoodController extends Controller {
             return redirect('/food/item')->withErrors($validator)->withInput();
         }
         $this->foodRepo->truncateSchema("menus");
+        $params['hotel_id'] = request()->session()->get("hotel", 0);
         $info = $this->foodRepo->editAdd($params);
         $fid = $info->id;
 

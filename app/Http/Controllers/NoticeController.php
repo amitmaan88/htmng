@@ -54,6 +54,7 @@ class NoticeController extends Controller {
         if (isset($params['title_id']) === true && $params['title_id'] !== "") {
             $params['id'] = $params['title_id'];
         }
+        $params['hotel_id'] = request()->session()->get("hotel", 0);
         $notice = $this->noticeRepo->editAdd($params);
         $this->noticeRepo->updateTemplate($notice->id);
         request()->session()->flash('message', 'Notice Created Successfully');

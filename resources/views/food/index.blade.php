@@ -7,6 +7,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h2>{{$pageHeading}}</h2>
+                @include('elements.message')                
             </div>           
         </div>
         <?php $days = staticDropdown('foodDay'); ?>

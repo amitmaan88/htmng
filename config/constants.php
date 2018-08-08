@@ -17,4 +17,3 @@ define('USERE_SUB_TITLE', "- User Management");
 define('USERC_SUB_TITLE', "- User Management");
 define('USERU_SUB_TITLE', "- User Management");
 define('HOME_SUB_TITLE', "");
-

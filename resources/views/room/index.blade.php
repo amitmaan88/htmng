@@ -6,6 +6,7 @@
         <div class="row m-t10">
             <div class="col-md-12">
                 <h2>{{$pageHeading}}</h2>
+                @include('elements.message')                
                 <div class="btn-toolbarX"> 
                     <a href="{{url('room/create')}}" class="btn btn-primary pull-right"> Create Room</a> 
                     <form class="form-inline" role="form" method="get" action="{{route('room.index')}}">

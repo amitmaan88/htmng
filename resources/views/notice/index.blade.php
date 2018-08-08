@@ -5,7 +5,8 @@
     <div id="page-inner">
         <div class="row m-t10">
             <div class="col-md-12">
-                <h2>{{$pageHeading}}</h2>            
+                <h2>{{$pageHeading}}</h2>
+                @include('elements.message')                
                 <div class="btn-toolbar pull-right">
                     <a href="{{url('notice/template')}}" class="btn btn-primary"> Create Notice</a>
                     <a href="{{url('/notice')}}"><button type="button" class="btn btn-default"><i class="fa fa-btn fa-refresh"></i> Refresh </button></a>

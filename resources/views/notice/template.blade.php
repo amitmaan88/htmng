@@ -6,6 +6,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>{{$pageHeading}}</h2>
+                @include('elements.message')                
             </div>
         </div>
         <div class="row">

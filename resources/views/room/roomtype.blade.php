@@ -25,14 +25,19 @@
                                         <div class="input-group">
                                             <div class="input-group-addon">
                                                 <i class="fa"></i> 
-                                            </div>
+                                            </div>                                            
+                                            @if(!empty($data_txt))
+                                            <input class="form-control" name="room_type" type="text" value="{{old('room_type', $data_txt[0]['room_type'])}}"  />
+                                            <input name="id" type="hidden" value="{{$data_txt[0]['id']}}"  />
+                                            @else
                                             <input class="form-control" name="room_type" type="text" value="{{old('room_type')}}"  />
+                                            @endif                                            
                                         </div>
                                     </div>                                                                                                            
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">                                        
-                                        <input type="submit" class="btn btn-primary" value="Create" />
+                                        <input type="submit" class="btn btn-primary" value="{{$button_txt}}" />
                                         <input type="button" id="cancelBtn" data-url="{{url('/room/roomtype')}}" class="btn btn-default" name="cancel" value="Cancel" />
                                     </div>
                                 </div>
@@ -58,10 +63,10 @@
                                             <td class="col-xs-2">{{++$k + (($data->currentPage()-1) * $data->perPage())}}.</td>
                                             <td class="col-xs-5">{{$val->room_type}}</td>                                                                                
                                             <td class="col-xs-5">
-                                                <a href="{{url('/room/'.$val->id.'/rtedit')}}"><button type="button" class="btn btn-primary"><i class="fa fa-btn fa-edit"></i>  Edit</button></a>
+                                                <a href="{{url('/room/roomtype/'.$val->id)}}"><button type="button" class="btn btn-primary"><i class="fa fa-btn fa-edit"></i>  Edit</button></a>
                                                 <button type="button" class="btn btn-danger deleteBtn" data-id="{{$val->id}}"><i class="fa fa-btn fa-trash-o"></i> Delete</button>
                                                 <button tab_stat="2" data-url="{{'/room'}}" type="button" class="btn {{($val->status == 1)?'btn-success':'btn-default'}} actinc" data-var="{{($val->status == 1)?0:1}}" data-id="{{$val->id}}">{{$Status[$val->status]}}</button>
-                                                
+
                                             </td>
                                         </tr>
                                         @endforeach

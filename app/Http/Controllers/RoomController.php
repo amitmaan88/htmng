@@ -7,6 +7,7 @@ use App\Repos\RoomRepo;
 use App\RoomType;
 use App\Repos\RoomTypeRepo;
 use Validator;
+use Illuminate\Support\Facades\Input;
 
 class RoomController extends Controller {
 
@@ -188,8 +189,18 @@ class RoomController extends Controller {
      *     
      * @return \Illuminate\Http\Response
      */
-    public function roomtype() {
+    public function roomtype(Request $request) {
+
+        $roomTypeId = $request->route('room', 0);
         $records['data'] = $this->roomTypeRepo->search();
+        $records['data_txt'] = NULL;
+        $records['button_txt'] = "Create";        
+        if ($roomTypeId !== 0 && $roomTypeId !== "" && $roomTypeId !== NULL) {
+            $records['data_txt'] = $this->roomTypeRepo->search($roomTypeId, 1)->toArray();
+            $records['button_txt'] = "Update";
+            //pr($records['data_txt']);
+        }
+
         $records['pageHeading'] = 'Room Management: Room Type';
         $records['PageTitle'] = $this->siteTitle . ROOMR_SUB_TITLE;
         return view('room/roomtype', $records);

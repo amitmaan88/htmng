@@ -1,14 +1,20 @@
 <nav class="navbar-default navbar-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav" id="main-menu">
-            <li class="text-center">
+            <li class="text-center">                
+                @php echo $file = url('/image/user/'.auth()->user()->id.'/profile_'.auth()->user()->id.'jpg');@endphp             
+                @if(auth()->user()->user_type_id !== 0 && file_exists($file) === true)
+                <img src="{{$file}}" class="user-image img-responsive"/>
+                @else
                 <img src="img/find_user.png" class="user-image img-responsive"/>
+                @endif
             </li>
             <li>
-                <a href="{{url('/home')}}"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                <a href="{{url('/home')}}"><i class="fa fa-dashboard fa-2x"></i> Dashboard</a>
             </li>
+            @if(auth()->user()->user_type_id === 0 || auth()->user()->user_type_id === 1)
             <li class="parent">
-                <a href="#"><i class="fa fa-desktop fa-3x"></i> User Management<span class="fa arrow"></span></a>                
+                <a href="#"><i class="fa fa-users fa-2x"></i> User Management<span class="fa arrow"></span></a>                
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{url('/users')}}">User List</a>
@@ -19,7 +25,7 @@
                 </ul>
             </li>
             <li class="parent">
-                <a href="#"><i class="fa fa-qrcode fa-3x"></i>Room Management<span class="fa arrow"></span></a>                
+                <a href="#"><i class="fa fa-home fa-2x"></i>Room Management<span class="fa arrow"></span></a>                
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{url('/room')}}">Room List</a>
@@ -29,17 +35,18 @@
                     </li>                                        
                 </ul>
             </li>
+            @endif            
             <li>
-                <a href="{{url('/notice')}}"><i class="fa fa-bar-chart-o fa-3x"></i> Notice</a>
+                <a href="{{url('/notice')}}"><i class="fa fa-briefcase fa-2x"></i> Notice</a>
             </li>
             <li>
-                <a  href="{{url('/complaint')}}"><i class="fa fa-table fa-3x"></i> Complaints</a>
+                <a  href="{{url('/complaint')}}"><i class="fa fa-signal fa-2x"></i> Complaints</a>
             </li>
-            <li>
-                <a  href="{{url('/report')}}"><i class="fa fa-table fa-3x"></i> Report</a>
-            </li>
+            <!--<li>
+                <a  href="{{url('/report')}}"><i class="fa fa-table fa-2x"></i> Report</a>
+            </li>-->
             <li class="parent">
-                <a  href="#"><i class="fa fa-edit fa-3x"></i> Food Management<span class="fa arrow"></span> </a>
+                <a  href="#"><i class="fa fa-cutlery fa-2x"></i> Food Management<span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
                     <li>
                         <a href="{{url('/food/item')}}">Add Food</a>

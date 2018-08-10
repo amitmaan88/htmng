@@ -77,16 +77,20 @@ class UserController extends Controller {
         $file = $request->file('up_photo');
         $file_id = $request->file('up_photo_id');
         if ($file !== "" && $file !== NULL && $file_id !== "" && $file_id !== NULL) {
-            $path = public_path() . DESTINATION_IMAGE . "\\" . base64_encode($profile_info->id);
+            $path = public_path() . DESTINATION_IMAGE . "\\user";
+            if (!\Illuminate\Support\Facades\File::exists($path)) {
+                \Illuminate\Support\Facades\File::makeDirectory($path);
+            }
+            $path .= "\\" . $profile_info->id;
             if (!\Illuminate\Support\Facades\File::exists($path)) {
                 \Illuminate\Support\Facades\File::makeDirectory($path);
             }
             if ($file->isValid()) {
-                $file->move($path . "\\", $file->getClientOriginalName());
+                $file->move($path . "\\", "profile_" . $profile_info->id);
             }
 
             if ($file_id->isValid()) {
-                $file_id->move($path . "\\", $file_id->getClientOriginalName());
+                $file_id->move($path . "\\", "id_" . $profile_info->id);
             }
         }
 
@@ -170,7 +174,7 @@ class UserController extends Controller {
         $file = $request->file('up_photo');
         $file_id = $request->file('up_photo_id');
         if ($file !== "" && $file !== NULL && $file_id !== "" && $file_id !== NULL) {
-            $path = public_path() . DESTINATION_IMAGE . "\\" . base64_encode($profile_info->id);
+            $path = public_path() . DESTINATION_IMAGE . "\\" . $profile_info->id;
             if (!\Illuminate\Support\Facades\File::exists($path)) {
                 \Illuminate\Support\Facades\File::makeDirectory($path);
             }

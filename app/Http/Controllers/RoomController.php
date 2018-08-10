@@ -86,7 +86,7 @@ class RoomController extends Controller {
             if (!\Illuminate\Support\Facades\File::exists($path)) {
                 \Illuminate\Support\Facades\File::makeDirectory($path);
             }
-            $path .= "\\" . base64_encode($profile_info->id);
+            $path .= "\\" . $profile_info->id;
             if (!\Illuminate\Support\Facades\File::exists($path)) {
                 \Illuminate\Support\Facades\File::makeDirectory($path);
             }

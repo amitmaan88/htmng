@@ -16,6 +16,7 @@ class Hotel extends Migration {
             $table->string('hotel_name');
             $table->mediumText('hotel_address')->nullable();
             $table->string('mobile', 15)->nullable();
+            $table->string('hotel_photo', 150)->nullable();
             $table->tinyInteger('status');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

@@ -13,7 +13,7 @@ function staticDropdown($type, $empty = ''): array {
         $dropdown[] = $empty;
     switch ($type) {
         case 'userType':
-            $dropdown = $dropdown + [1 => 'Owner', 2 => 'Tenant'];
+            $dropdown = [0 => 'Super Admin', 1 => 'Owner', 2 => 'Tenant'];
             break;
         case 'status':
             $dropdown = $dropdown + [0 => 'Inactive', 1 => 'Active'];

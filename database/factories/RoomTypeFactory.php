@@ -1,6 +1,6 @@
 <?php
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\RoomType::class, function (Faker\Generator $faker) {
     return [
         'email' => $faker->unique()->safeEmail,
         'name' => $faker->name,

@@ -4,20 +4,31 @@ var htmng = {
     baseUrl: '',
     activeInactive: function () {
         if (this.currClass !== '') {
-            var href = window.location.href;
-            href = href.substring(0, href.indexOf('?'));
+            var hreff = window.location.href;
             //console.log(href);
+            var href = hreff.substring(0, hreff.indexOf('?'));
+            if (href === "") {
+                href = hreff;
+            }
+            //console.log(href);
+            var searchUrl = "";
             var hrefSplit = href.replace("http://", "");
             hrefSplit = hrefSplit.replace("https://", "");
             hrefSplit = hrefSplit.split("/");
-            //console.log(hrefSplit);
+            //console.log(hrefSplit);                        
             if (hrefSplit.length >= 4 && hrefSplit[hrefSplit.length - 1] !== "") {
-                var searchUrl = hrefSplit[hrefSplit.length - 1];
+                searchUrl = hrefSplit[hrefSplit.length - 1];
                 if ($('a[href*=' + searchUrl + ']').length > 0) {
                     $('a[href$=' + searchUrl + ']').addClass(this.currClass);
                     $('a[href*=' + searchUrl + ']').closest('li.parent').addClass(this.activeClass);
                 } else {
                     searchUrl = hrefSplit[hrefSplit.length - 2];
+                    $('a[href$=' + searchUrl + ']').addClass(this.currClass);
+                    $('a[href*=' + searchUrl + ']').closest('li.parent').addClass(this.activeClass);
+                }
+            } else {
+                if (hrefSplit[hrefSplit.length - 1] === "") {
+                    searchUrl = "home";
                     $('a[href$=' + searchUrl + ']').addClass(this.currClass);
                     $('a[href*=' + searchUrl + ']').closest('li.parent').addClass(this.activeClass);
                 }

@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration {
             $table->integer('hotel_id')->unsigned()->default(0);
             $table->string('mobile',15)->nullable();
             $table->string('landline',15)->nullable();
+            $table->string('user_photo',150)->nullable();
+            $table->string('user_id_photo',150)->nullable();
             $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

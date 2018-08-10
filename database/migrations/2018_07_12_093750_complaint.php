@@ -19,6 +19,7 @@ class Complaint extends Migration
             $table->longText('complaint_desc')->nullable();
             $table->integer('user_id');
             $table->integer('hotel_id');
+            $table->string('complaint_photo', 150)->nullable();
             $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

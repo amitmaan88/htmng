@@ -40,17 +40,16 @@
                 <a href="{{url('/notice')}}"><i class="fa fa-briefcase fa-2x"></i> Notice</a>
             </li>
             <li>
-                <a  href="{{url('/complaint')}}"><i class="fa fa-signal fa-2x"></i> Complaints</a>
-            </li>
-            <!--<li>
-                <a  href="{{url('/report')}}"><i class="fa fa-table fa-2x"></i> Report</a>
-            </li>-->
+                <a href="{{url('/complaint')}}"><i class="fa fa-signal fa-2x"></i> Complaints</a>
+            </li>            
             <li class="parent">
                 <a  href="#"><i class="fa fa-cutlery fa-2x"></i> Food Management<span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
+                    @if(auth()->user()->user_type_id === 0 || auth()->user()->user_type_id === 1)
                     <li>
-                        <a href="{{url('/food/item')}}">Add Food</a>
+                        <a href="{{url('/food/item')}}">Food Items</a>
                     </li>
+                    @endif
                     <li>
                         <a href="{{url('/food')}}">Food Menu</a>
                     </li>                    

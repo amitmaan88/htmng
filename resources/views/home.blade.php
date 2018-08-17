@@ -11,13 +11,15 @@
         </div>        
         <!-- /. ROW  -->
         <hr />
+
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Hotel
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body">                        
+                        @if(auth()->user()->user_type_id !== 2)        
                         <div class="row">
                             <form role="form" method="get" enctype="multipart/form-data" action="{{route('index')}}">                                
                                 <div class="col-md-12">                                                                        
@@ -26,15 +28,39 @@
                                         <select class="form-control" name="hotel_name" id="hotel_name">                                            
                                             <option value="">Select</option>
                                             @foreach($hotelList as $uk=>$uv)
-                                            <option value="{{$uv->id}}" {{ (old('hotel_name', $hotel_name)==$uv->id)?'selected="selected"':'' }} >{{$uv->hotel_name}}</option>
+                                            <option value="{{$uv->id}}" {{ (old('hotel_name', $hotel_name)==$uv->id)?Selected:'' }} >{{$uv->hotel_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>                                    
                                 </div>
                             </form>
-                        </div>                  
+                        </div>
+                        @else
+                        <div class="row">                            
+                            @foreach($roomData as $rdk=>$rdv)
+                            @php echo $file = url('/image/room/'.$rdv->id.'/$rdv->room_photo);die;@endphp
+                            <div class="col-md-4 col-sm-4">
+                                <div class="well">                                    
+                                    <p>
+                                        @if(file_exists($file) === true)
+                                        <img src="{{$file}}" class="user-image img-responsive"/>
+                                        @else
+                                        <img src="img/no_image.jpg" class="user-image img-responsive"/>
+                                        @endif
+                                    </p>
+                                    <p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                </div>
+                            </div>
+                            @endforeach                            
+                        </div>
+                        @endif
                     </div>
                 </div>
+            </div>
+        </div>
+        @if(auth()->user()->user_type_id === 0)        
+        <div class="row">
+            <div class="col-md-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         Create Hotel
@@ -120,6 +146,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
     <!-- /. PAGE INNER  -->
 </div>

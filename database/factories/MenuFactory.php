@@ -1,9 +1,9 @@
 <?php
 
-$factory->define(App\Hotel::class, function (Faker\Generator $faker) {
+$factory->define(App\Menu::class, function (Faker\Generator $faker) {
     return [
-        'hotel_name' => $faker->name,
-        'hotel_address'=>$faker->address,
-        'status'=>'1',
+        'food_id' => App\Food::all()->random()->id,
+        'food_type' => $faker->randomElement(['break_fast', 'lunch', 'dinner']), 
+        'day' => $faker->randomElement(staticDropdown('foodDay')),        
     ];
 });

@@ -10,7 +10,7 @@ class RoomRepo extends Repo {
         $this->model = $model;
     }
 
-    public function search($params) {
+    public function search($params = "") {
         $qryModel = $this->model;
         $qry = $qryModel->where('status', '!=', 2);
         if (!empty($params['s'])) {
@@ -23,6 +23,22 @@ class RoomRepo extends Repo {
         }
 
         $querySql = $qry->paginate(LIMIT);
+        return $querySql;
+    }
+
+    public function activeRooms($params = "") {
+        $qryModel = $this->model;
+        $qry = $qryModel->where('status', '=', 1);
+        if (!empty($params['s'])) {
+            $s = strtolower($params['s']);
+            $qry = $qry->where(
+                    function ($qry) use ($s) {
+                $qry->where('room_type', '=', $s);
+            }
+            );
+        }
+
+        $querySql = $qry->get();
         return $querySql;
     }
 

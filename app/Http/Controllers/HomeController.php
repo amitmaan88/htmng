@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Repos\HotelRepo;
 use App\Hotel;
+use App\Repos\RoomRepo;
+use App\Room;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller {
@@ -21,6 +23,7 @@ class HomeController extends Controller {
         $this->middleware('auth');
         $this->siteTitle = SITE_TITLE;
         $this->hotelRepo = new HotelRepo(new Hotel());
+        $this->roomRepo = new RoomRepo(new Room());
     }
 
     /**
@@ -40,6 +43,7 @@ class HomeController extends Controller {
 
         //pr($records['data']);
         $records['PageTitle'] = $this->siteTitle . HOME_SUB_TITLE;
+        $records['roomData'] = $this->roomRepo->activeRooms();
         return view('home', $records);
     }
 

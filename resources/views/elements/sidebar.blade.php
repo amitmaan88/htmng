@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
         <ul class="nav" id="main-menu">
             <li class="text-center">                
-                @php echo $file = url('/image/user/'.auth()->user()->id.'/profile_'.auth()->user()->id.'jpg');@endphp             
+                @php $file = url('/image/user/'.auth()->user()->id.'/profile_'.auth()->user()->id.'jpg');@endphp             
                 @if(auth()->user()->user_type_id !== 0 && file_exists($file) === true)
                 <img src="{{$file}}" class="user-image img-responsive"/>
                 @else

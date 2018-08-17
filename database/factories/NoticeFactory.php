@@ -1,12 +1,11 @@
 <?php
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Notice::class, function (Faker\Generator $faker) {
     return [
-        'email' => $faker->unique()->safeEmail,
-        'name' => $faker->name,
-        'user_type_id'=>rand(0,2),
-        'status'=>'1',
-        'password' => bcrypt('123456'),
-        'remember_token' => str_random(10),
+        'title' => $faker->title,
+        'template_html' => $faker->paragraph,
+        'current_template' => rand(0, 1),
+        'hotel_id' => App\Hotel::all()->random()->id,
+        'status' => rand(0, 2),
     ];
 });

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckUserType
+class CheckOwner
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class CheckUserType
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->user_type_id == 0){
+        if(auth()->user()->user_type_id == 1){
             return $next($request);
         }
         return redirect('home')->with('error','You have not admin access');

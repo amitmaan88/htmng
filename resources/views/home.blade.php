@@ -6,9 +6,9 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>Dashboard</h2>
-                @include('elements.message')                
+                @include('elements.message')
             </div>
-        </div>        
+        </div>
         <!-- /. ROW  -->
         <hr />
 
@@ -18,11 +18,11 @@
                     <div class="panel-heading">
                         {{HOTEL_PG}}
                     </div>
-                    <div class="panel-body">                        
-                        @if(auth()->user()->user_type_id !== 2)        
+                    <div class="panel-body">
+                        @if(auth()->user()->user_type_id !== 2)
                         <div class="row">
-                            <form role="form" method="get" enctype="multipart/form-data" action="{{route('index')}}">                                
-                                <div class="col-md-12">                                                                        
+                            <form role="form" method="get" enctype="multipart/form-data" action="{{route('index')}}">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label>{{HOTEL_PG}} <span class="red">*</span></label>
                                         <select class="form-control" name="hotel_name" id="hotel_name">                                            
@@ -37,7 +37,7 @@
                                             @endforeach
                                             @endif
                                         </select>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -60,14 +60,14 @@
                                     @endif
                                 </div>
                             </div>
-                            @endforeach                            
+                            @endforeach
                         </div>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
-        @if(auth()->user()->user_type_id === 0)        
+        @if(auth()->user()->user_type_id === 0)
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-primary">
@@ -83,24 +83,24 @@
                                         <label>Name <span class="red">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
-                                                <i class="fa fa-home"></i> 
+                                                <i class="fa fa-home"></i>
                                             </div>
                                             @if(!empty($hotel_name))
                                             <input class="form-control" name="hotel_name" type="text" value="{{$data[0]['hotel_name']}}"  />
                                             <input name="id" type="hidden" value="{{$data[0]['id']}}"  />
                                             @else
                                             <input class="form-control" name="hotel_name" type="text" value="{{old('hotel_name')}}"  />
-                                            @endif                                            
+                                            @endif
                                         </div>
-                                    </div>                                   
+                                    </div>
                                     <div class="form-group form_field">
                                         <label>Contact No <span class="red">*</span> </label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
-                                                <i class="fa fa-mobile"></i> 
+                                                <i class="fa fa-mobile"></i>
                                             </div>
                                             @if(!empty($hotel_name))
-                                            <input class="form-control" name="mobile" id="mobile" type="tel" maxlength="15" value="{{$data[0]['mobile']}}" />                                                
+                                            <input class="form-control" name="mobile" id="mobile" type="tel" maxlength="15" value="{{$data[0]['mobile']}}" />
                                             @else
                                             <input class="form-control" name="mobile" id="mobile" type="tel" maxlength="15" value="{{old('mobile')}}" />
                                             @endif
@@ -108,7 +108,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group form_field">
-                                        <label>Status</label>                                        
+                                        <label>Status</label>
                                         <select name="status" id="status" class="form-control">
                                             <?php $stat = staticDropdown("status"); ?>
                                             @foreach($stat as $uk=>$uv)
@@ -119,18 +119,18 @@
                                             @endif
                                             @endforeach
                                         </select>
-                                    </div>                         
+                                    </div>
                                     <div class="form-group form_field">
                                         <label>Upload Photo</label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
-                                                <i class="fa fa-upload"></i> 
+                                                <i class="fa fa-upload"></i>
                                             </div>
                                             <input type="file" class="form-control" name="up_photo" />
                                         </div>
                                     </div>
                                     <div class="form-group form_field">
-                                        <label>Address </label>                                        
+                                        <label>Address </label>
                                         @if(!empty($hotel_name))
                                         <textarea class="form-control" name="hotel_address" id="hotel_address">{{$data[0]['hotel_address']}}</textarea>
                                         @else

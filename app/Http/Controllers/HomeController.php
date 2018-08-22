@@ -17,7 +17,7 @@ class HomeController extends Controller {
      *
      * @return void
      */
-    public function __construct(HotelRepo $hotelRepo, RoomRepo $roomRepo) {
+    public function __construct(RoomRepo $roomRepo, HotelRepo $hotelRepo) {
         $this->middleware('auth');
         $this->siteTitle = SITE_TITLE;
         $this->hotelRepo = $hotelRepo;
@@ -37,8 +37,8 @@ class HomeController extends Controller {
         if (!empty($params)) {
             $records['hotel_name'] = $params['hotel_name'];
             request()->session()->set("hotel", $params['hotel_name']);
-        }
-        //pr($params);
+        }        
+        $records['data'] = $this->hotelRepo->search($params)->toArray();
         $records['PageTitle'] = $this->siteTitle . HOME_SUB_TITLE;
         $records['roomData'] = $this->roomRepo->activeRooms()->toArray();
 

@@ -38,6 +38,17 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    @if(auth()->user()->user_type_id === 0)
+                                    <div class="form-group form_field">
+                                        <label>{{HOTEL_PG}} <span class="red">*</span></label>
+                                        <select class="form-control" name="hotel_id" id="hotel_id">                                            
+                                            <option value="">Select</option>
+                                            @foreach($hotelData as $uk=>$uv)
+                                            <option value="{{$uv->id}}" {{ (old('hotel_id')==$uv->id)?'selected="selected"':'' }} >{{$uv->hotel_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @endif
                                     <div class="form-group form_field">
                                         <label>Email<span class="red">*</span></label>
                                         <div class="input-group">

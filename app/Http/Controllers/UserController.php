@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repos\UserRepo;
+use App\Repos\HotelRepo;
 use Validator;
 
 class UserController extends Controller {
 
     public $userRepo;
+    public $hotelRepo;
     public $siteTitle;
 
     /**
@@ -16,8 +18,9 @@ class UserController extends Controller {
      *
      * @return void
      */
-    public function __construct(UserRepo $user) {
+    public function __construct(UserRepo $user, HotelRepo $hotel) {
         $this->userRepo = $user;
+        $this->hotelRepo = $hotel;
         $this->siteTitle = SITE_TITLE;
     }
 
@@ -45,6 +48,8 @@ class UserController extends Controller {
     public function create() {
         //$records['data'] = $this->user->get();
         $records['pageHeading'] = 'User Management: Create';
+        $hotelId = request()->session()->get("hotel", 0);
+        $records['hotelData'] = $this->hotelRepo->activeUserHotels(array('hotel_id' => $hotelId));
         $records['PageTitle'] = $this->siteTitle . USERC_SUB_TITLE;
         return view('user/create', $records);
     }
@@ -57,10 +62,10 @@ class UserController extends Controller {
      */
     public function store(Request $request) {
         $params = $request->all();
-
         $validator = Validator::make($params, [
                     'name' => 'required|max:255',
                     'user_type_id' => 'required',
+                    'hotel_id' => 'required',
                     'email' => 'required|unique:users|email',
                     'password' => 'required|confirmed|min:6|max:10',
                     'mobile' => 'required|numeric',
@@ -70,7 +75,9 @@ class UserController extends Controller {
             return redirect('/users/create')->withErrors($validator)->withInput();
         }
 
-        $params['hotel_id'] = request()->session()->get("hotel", 0);
+        if (!isset($params['hotel_id']) || $params['hotel_id'] === "" || $params['hotel_id'] === 0) {
+            $params['hotel_id'] = request()->session()->get("hotel", 0);
+        }
         $params['password'] = bcrypt($params['password']);
         unset($params['password_confirmation']);
         $profile_info = $this->userRepo->editAdd($params);
@@ -134,6 +141,8 @@ class UserController extends Controller {
         $records['data'] = $this->userRepo->get($id);
         $records['pageHeading'] = 'User Management: Edit';
         $records['PageTitle'] = $this->siteTitle . USERE_SUB_TITLE;
+        $hotelId = request()->session()->get("hotel", 0);
+        $records['hotelData'] = $this->hotelRepo->activeUserHotels(array('hotel_id' => $hotelId));
         return view('user/edit', $records);
     }
 
@@ -152,6 +161,7 @@ class UserController extends Controller {
                         'name' => 'required',
                         'email' => 'required|email',
                         'user_type_id' => 'required',
+                        'hotel_id' => 'required',
                         'mobile' => 'required|numeric',
                         'landline' => 'numeric',
             ]);
@@ -160,6 +170,7 @@ class UserController extends Controller {
                         'name' => 'required',
                         'email' => 'required|unique:users|email',
                         'user_type_id' => 'required',
+                        'hotel_id' => 'required',
                         'mobile' => 'required|numeric',
                         'landline' => 'numeric',
             ]);
@@ -168,7 +179,9 @@ class UserController extends Controller {
             return redirect('/users/' . $id . '/edit')->withErrors($validator)->withInput();
         }
         unset($params['_method']);
-        $params['hotel_id'] = request()->session()->get("hotel", 0);
+        if (!isset($params['hotel_id']) || $params['hotel_id'] === "" || $params['hotel_id'] === 0) {
+            $params['hotel_id'] = request()->session()->get("hotel", 0);
+        }
         $params['id'] = $id;
         $profile_info = $this->userRepo->editAdd($params);
         $file = $request->file('up_photo');

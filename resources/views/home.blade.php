@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Hotel
+                        {{HOTEL_PG}}
                     </div>
                     <div class="panel-body">                        
                         @if(auth()->user()->user_type_id !== 2)        
@@ -24,12 +24,18 @@
                             <form role="form" method="get" enctype="multipart/form-data" action="{{route('index')}}">                                
                                 <div class="col-md-12">                                                                        
                                     <div class="form-group">
-                                        <label>Hotels <span class="red">*</span></label>
+                                        <label>{{HOTEL_PG}} <span class="red">*</span></label>
                                         <select class="form-control" name="hotel_name" id="hotel_name">                                            
                                             <option value="">Select</option>
+                                            @if(!empty($hotelList))
                                             @foreach($hotelList as $uk=>$uv)
-                                            <option value="{{$uv->id}}" {{ (old('hotel_name', $hotel_name)==$uv->id)?Selected:'' }} >{{$uv->hotel_name}}</option>
+                                            @if(old('hotel_name', $hotel_name)==$uv->id)
+                                            <option value="{{$uv->id}}" selected="selected">{{$uv->hotel_name}}</option>
+                                            @else
+                                            <option value="{{$uv->id}}">{{$uv->hotel_name}}</option>
+                                            @endif
                                             @endforeach
+                                            @endif
                                         </select>
                                     </div>                                    
                                 </div>
@@ -37,18 +43,21 @@
                         </div>
                         @else
                         <div class="row">                            
-                            @foreach($roomData as $rdk=>$rdv)
-                            @php echo $file = url('/image/room/'.$rdv->id.'/$rdv->room_photo);die;@endphp
+                            @foreach($roomData as $kr=>$vr)
+                            @php $file = ""; @endphp
+                            @if($vr['room_photo'] !== "" && !empty($vr['room_photo']))
+                            @php $file = "image/room/".$vr['id']."/".$vr['room_photo']; @endphp
+                            @endif
                             <div class="col-md-4 col-sm-4">
                                 <div class="well">                                    
-                                    <p>
-                                        @if(file_exists($file) === true)
-                                        <img src="{{$file}}" class="user-image img-responsive"/>
-                                        @else
-                                        <img src="img/no_image.jpg" class="user-image img-responsive"/>
-                                        @endif
-                                    </p>
-                                    <p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                    @if(file_exists($file) === true)
+                                    <p><img src="{{$file}}" class="user-image img-responsive"/></p>
+                                    @else
+                                    <p><img src="img/no_image.jpg" class="user-image img-responsive"/></p>
+                                    @endif
+                                    @if($vr['description'] !== "" && !empty($vr['description']))
+                                    <p class="small">{{$vr['description']}}</p>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach                            
@@ -63,7 +72,7 @@
             <div class="col-md-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        Create Hotel
+                        Create {{HOTEL_PG}}
                     </div>
                     <div class="panel-body">
                         <div class="row">

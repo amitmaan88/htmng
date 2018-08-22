@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repos\NoticeRepo;
+use App\Repos\NoticeServeRepo;
 use Validator;
 
 class NoticeController extends Controller {
 
     public $noticeRepo;
+    public $noticeServeRepo;
     public $siteTitle;
-    
-    public function __construct(NoticeRepo $notice) {
+
+    public function __construct(NoticeRepo $notice, NoticeServeRepo $noticeServe) {
         $this->noticeRepo = $notice;
+        $this->noticeServeRepo = $noticeServe;
         $this->siteTitle = SITE_TITLE;
     }
 
@@ -30,7 +33,8 @@ class NoticeController extends Controller {
         }
         $records['data'] = $this->noticeRepo->activeNotices($params);
         $records['pageHeading'] = 'Notice Management';
-        $records['PageTitle'] = $this->siteTitle .  NOTICE_SUB_TITLE;
+        $records['PageTitle'] = $this->siteTitle . NOTICE_SUB_TITLE;        
+        $records['noticeServeData'] = $this->noticeServeRepo->userNoticeServed();
         return view('notice/index', $records);
     }
 
@@ -124,6 +128,19 @@ class NoticeController extends Controller {
 
         //print_r($records['data']);
         return view('notice/template', $records);
+    }
+
+    public function serve(Request $request) {
+        
+        $params = $request->all();
+        $params['user_id'] = auth()->user()->id;
+        $params['notice_date'] = date('Y-m-d H:i:s', strtotime('NOW'));
+        $this->noticeServeRepo->editAdd($params);
+
+        request()->session()->flash('message', 'You will serve a notice period of ' . NOTICE_DAYS . ' days.');
+        request()->session()->flash('type', 'success');
+
+        return redirect('/notice');
     }
 
 }

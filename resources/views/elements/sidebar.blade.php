@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
         <ul class="nav" id="main-menu">
             <li class="text-center">                
-                @php $file = url('/image/user/'.auth()->user()->id.'/profile_'.auth()->user()->id.'jpg');@endphp             
+                @php $file = "image/user/".auth()->user()->id."/profile_".auth()->user()->id."jpg";@endphp             
                 @if(auth()->user()->user_type_id !== 0 && file_exists($file) === true)
                 <img src="{{$file}}" class="user-image img-responsive"/>
                 @else
@@ -18,10 +18,7 @@
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{url('/users')}}">User List</a>
-                    </li>                                        
-                    <li>
-                        <a href="{{url('/users/upload')}}">Bulk Upload</a>
-                    </li>                                        
+                    </li>                                                                                                    
                 </ul>
             </li>
             <li class="parent">

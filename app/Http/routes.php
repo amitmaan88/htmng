@@ -27,6 +27,7 @@ Route::get('/users/upload', array('as' => 'user.upload', 'uses' => 'UserControll
 Route::post('/room/rtype', array('as' => 'room.rtype', 'uses' => 'RoomController@rtype'));
 Route::get('/notice/template', array('as' => 'notice.template', 'uses' => 'NoticeController@template'));
 Route::post('/notice/template', array('as' => 'notice.template', 'uses' => 'NoticeController@template'));
+Route::post('/notice/serve', array('as' => 'notice.serve', 'uses' => 'NoticeController@serve'));
 Route::get('/food/item', array('as' => 'food.item', 'uses' => 'FoodController@item'));
 Route::post('/food/menu', array('as' => 'food.menu', 'uses' => 'FoodController@menu'));
 

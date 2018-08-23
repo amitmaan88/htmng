@@ -36,8 +36,9 @@ class HomeController extends Controller {
         $records['hotel_name'] = 0;
         if (!empty($params)) {
             $records['hotel_name'] = $params['hotel_name'];
-            request()->session()->set("hotel", $params['hotel_name']);
-        }        
+            request()->session()->put("hotel", $params['hotel_name']);
+        }
+        $params['hotel_name'] = $records['hotel_name'] = request()->session()->get("hotel", "");
         $records['data'] = $this->hotelRepo->search($params)->toArray();
         $records['PageTitle'] = $this->siteTitle . HOME_SUB_TITLE;
         $records['roomData'] = $this->roomRepo->activeRooms()->toArray();

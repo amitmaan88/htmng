@@ -21,9 +21,13 @@ class ComplaintController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-
-        $records['data'] = $this->complaintRepo->all();
+    public function index(Request $request) {
+       
+        $complaintId = $request->route('c', 0);
+        $hotelId = request()->session()->get("hotel");
+        $records['data'] = $this->complaintRepo->complaintList();
+        $records['compSingledata'] = $this->complaintRepo->get($complaintId);
+        //pr($records['data']);
         $records['pageHeading'] = 'Complaint Management';
         $records['PageTitle'] = $this->siteTitle . COMPLAINT_SUB_TITLE;
         return view('complaint/index', $records);
@@ -116,6 +120,21 @@ class ComplaintController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cstatus(Request $request) {
+        if ($request->ajax()) {
+            $params['id'] = $request->id;
+            $params['status'] = $request->status;
+            $comp = $this->complaintRepo->editAdd($params);
+            return response()->json(['response' => 'Field saved successfully!', 'status' => 'success', 'code' => '200', 'data' => $comp->id]);
+        }
+        return response()->json(['status' => 'fail', 'code' => '104']);
     }
 
 }

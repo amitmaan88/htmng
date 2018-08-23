@@ -55,6 +55,10 @@ $(document).ready(function () {
         var forms = document.forms[0];
         forms.submit();
     });
+    // ==================================== CHANGE COMPLAINT STATUS ==============================================
+    $(".comp_status").on('change', function () {
+        htmng.complaintStatus($(this));
+    });
     // ==================================== INITIALIZE CHOSEN DROPDOWN ==================================
     $("#food_menu select.chosen-select").chosen();
     $(".chosen-search-input").on('change', function () {

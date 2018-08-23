@@ -119,5 +119,31 @@ var htmng = {
             document.forms[0].action = "";
             document.forms[0].submit();
         }
-    }
+    },
+    complaintStatus: function (selId) {
+
+        var args = {            
+            '_token': $('meta[name="token"]').attr('content'),
+            'status': selId.val(),
+            'id': selId.attr('data-id'),            
+        };
+        var url = "/complaint";
+        $.ajax({
+            url: this.baseUrl + url + '/cstatus',
+            type: "POST",
+            data: args,
+            async: false,
+            success: function (data) {
+                
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 500) {
+                    alert('Internal error: ' + jqXHR.responseText);
+                } else {
+                    alert('Unexpected error.');
+                }
+            }
+
+        });
+    },
 };

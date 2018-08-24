@@ -22,11 +22,17 @@ class ComplaintController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-       
+
         $complaintId = $request->route('c', 0);
-        $hotelId = request()->session()->get("hotel");
-        $records['data'] = $this->complaintRepo->complaintList();
+        $hotelId = 0;
+        if (auth()->user()->user_type_id === 0) {
+            $hotelId = request()->session()->get("hotel", 0);
+        } else {
+            $hotelId = auth()->user()->hotel_id;
+        }        
+        $records['data'] = $this->complaintRepo->complaintList($hotelId);
         $records['compSingledata'] = $this->complaintRepo->get($complaintId);
+        $records['complaintType'] = staticDropdown("complaints", "Select");                                    
         //pr($records['data']);
         $records['pageHeading'] = 'Complaint Management';
         $records['PageTitle'] = $this->siteTitle . COMPLAINT_SUB_TITLE;

@@ -3,6 +3,7 @@
 namespace App\Repos;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 //use Hfa\Jobs\DatabaseWriteJob;
 
@@ -206,7 +207,7 @@ abstract class Repo {
      * @return void
      */
     public function truncateSchema($tblName) {
-        app('db')->statement('TRUNCATE TABLE ' . $tblName);        
+        app('db')->statement('TRUNCATE TABLE ' . $tblName);
     }
 
     /**
@@ -263,6 +264,10 @@ abstract class Repo {
             return False;
         }
         return true;
+    }
+
+    public function printDBQuery($result) {        
+        return dd($result->toSql());
     }
 
 }

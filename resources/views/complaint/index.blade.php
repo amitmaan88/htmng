@@ -3,12 +3,18 @@
 @section('content')
 <div id="page-wrapper" >
     <div id="page-inner">
-        <div class="row">
+        <div class="row m-t10">
             <div class="col-md-12">
                 <h2>{{$pageHeading}}</h2>
-                @include('elements.message')                
+                @include('elements.message')
+                <div class="btn-toolbarX">                    
+                    <div class="form-group">
+                        <a href="{{url('/complaint')}}"><button type="button" class="btn btn-default pull-right"><i class="fa fa-btn fa-refresh"></i> Refresh </button></a>
+                    </div>
+                </div>                
             </div>
         </div>
+        <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-primary">
@@ -33,17 +39,13 @@
                                             <input class="form-control" name="complaint_title" id="complaint_title" type="text" value="{{old('complaint_title')}}"  />
                                             @endif
                                         </div>
-                                    </div>
-                                    <?php 
-                                    $complaintType = staticDropdown("complaints", "Select"); 
-                                    $complaintTypeFlip = array_flip($complaintType);
-                                    ?>
+                                    </div>                                    
                                     <div class="form-group form_field">
                                         <label>Type <span class="red">*</span></label>
                                         <select class="form-control" name="complaint_type" id="complaint_type">                                            
                                             @foreach($complaintType as $key=>$value)
-                                            @if(!empty($compSingledata))
-                                            <option {{($key === old('complaint_type', $complaintTypeFlip[$compSingledata->complaint_type]))?"selected=selected":""}} value="{{$key}}">{{$value}}</option>
+                                            @if(!empty($compSingledata))                                            
+                                            <option {{($key === old('complaint_type', $compSingledata->complaint_type))?"selected=selected":""}} value="{{$key}}">{{$value}}</option>
                                             @else
                                             <option {{($key === old('complaint_type'))?"selected=selected":""}} value="{{$key}}">{{$value}}</option>
                                             @endif
@@ -70,7 +72,12 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        @if(!empty($compSingledata))
+                                        <input type="submit" class="btn btn-primary" value="Update" />
+                                        @else
                                         <input type="submit" class="btn btn-primary" value="Create" />
+                                        @endif
+
                                         <button id="cancelBtn" data-url="{{url('/complaint')}}" class="btn btn-white" name="cancel" value="1">Cancel</button>
                                     </div>
                                 </div>
@@ -82,10 +89,12 @@
                                 <table id="user_list" class="table table-striped table-bordered table-hover dataTable no-footer" aria-describedby="dataTables-example_info">
                                     <thead>
                                         <tr>                                            
-                                            <th class="col-xs-2">S No.</th>
-                                            <th class="col-xs-2">Complaint</th>
-                                            <th class="col-xs-2">Complaint Type</th>
-                                            <th class="col-xs-3">Description</th>                                            
+                                            <th class="col-xs-1">S No.</th>
+                                            @if(auth()->user()->user_type_id !== 2)
+                                            <th class="col-xs-2">Complainant</th>
+                                            @endif
+                                            <th class="col-xs-6">Complaint</th>
+                                            <th class="col-xs-1">Complaint Type</th>                                            
                                             <th class="col-xs-3">Action</th>
                                         </tr>
                                     </thead>
@@ -95,15 +104,23 @@
                                         ?>
                                         @foreach($data as $k=>$val)                                        
                                         <tr class="gradeA {{($k%2==0?'even':'odd')}}">
-                                            <td class="col-xs-2">{{++$k}}.</td>
-                                            <td class="col-xs-2">{{$val->complaint_title}}</td>
-                                            <td class="col-xs-1">{{$val->complaint_type}}</td>
-                                            <td class="col-xs-3">{{$val->complaint_desc}}</td>
+                                            <td class="col-xs-1">{{++$k}}.</td>
+                                            @if(auth()->user()->user_type_id !== 2)
+                                            <td class="col-xs-2">{{$val->name}}</td>
+                                            @endif
+                                            <td class="col-xs-6">
+                                                <div class="col-xs-12"><h5><b>{{$val->complaint_title}}</b></h5></div>
+                                                <div class="col-xs-12">{{$val->complaint_desc}}</div>
+                                            </td>
+                                            <td class="col-xs-1">{{$complaintType[$val->complaint_type]}}</td>                                            
                                             <td class="col-xs-3">
-                                                <a href="{{url('/complaint/index/'.$val->id)}}"><button type="button" class="btn btn-primary"><i class="fa fa-btn fa-edit"></i> Edit</button></a>                           
+                                                @if(auth()->user()->user_type_id === 2)
+                                                <a href="{{url('/complaint/index/'.$val->id)}}"><button type="button" class="btn btn-primary"><i class="fa fa-btn fa-edit"></i> Edit</button></a>
+                                                @endif
                                                 <select data-id='{{$val->id}}' class="form-control comp_status">                                 
                                                     @foreach($Status as $key=>$value)                                                    
                                                     @if((auth()->user()->user_type_id === 1 && ($key === 2  || $key === 5)) || (auth()->user()->user_type_id === 2 && ($key === 3  || $key === 4)))
+                                                    <?php echo $val->status; ?>
                                                     <option {{($key === $val->status)?"selected=selected":""}} value="{{$key}}">{{$value}}</option>
                                                     @else
                                                     <option disabled="disabled" {{($key === $val->status)?"selected=selected":""}} value="{{$key}}">{{$value}}</option>
@@ -118,7 +135,7 @@
 
                             </div>                        
                         </div>
-                                               
+
                         @include('elements.error')
                     </div>
                 </div>

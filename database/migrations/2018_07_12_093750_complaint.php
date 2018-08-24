@@ -15,7 +15,7 @@ class Complaint extends Migration
         Schema::create('complaints', function (Blueprint $table) {
             $table->increments('id');
             $table->string('complaint_title')->nullable();
-            $table->string('complaint_type')->nullable();
+            $table->tinyInteger('complaint_type')->default(0);
             $table->longText('complaint_desc')->nullable();
             $table->integer('user_id');
             $table->integer('hotel_id');

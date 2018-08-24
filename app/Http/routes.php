@@ -40,7 +40,4 @@ Route::group(['middleware' => ['auth', 'checkOwner']], function() {
 });
 
 
-Route::get('/logout', 'Auth\AuthController@logout', function(Request $request) {
-    $request->session()->flush();
-    return redirect('/');
-});
+Route::get('/logout', 'Auth\AuthController@logout');

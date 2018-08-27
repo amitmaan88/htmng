@@ -17,7 +17,8 @@ class Menu extends Migration
             $table->increments('id');
             $table->integer('food_id')->default(0);
             $table->string('food_type', 10)->nullable();            
-            $table->string('day',10)->nullable();                        
+            $table->tinyInteger('day');
+            $table->integer('hotel_id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();            

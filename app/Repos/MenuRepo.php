@@ -10,14 +10,19 @@ class MenuRepo extends Repo {
         $this->model = $model;
     }
 
-    public function activeMenu() {        
-        $qryModel = $this->model->selectRaw('GROUP_CONCAT(food_id) as foodIds,food_type,day');
-        $qry = $qryModel->groupBy(['day','food_type'])->get()->toArray();
-        $rec = $querySql = array();
-        foreach($qry as $k=>$v) {
+    public function activeMenu($hotel_id = 0) {
+        $qryModel = $this->model;
+        $qry = $qryModel->selectRaw('GROUP_CONCAT(food_id) as foodIds,food_type,day');
+        if ($hotel_id !== 0) {
+            $qry = $qry->where('hotel_id', '=', $hotel_id);
+        }
+        $qry = $qry->groupBy(['day', 'food_type'])->get()->toArray();        
+        $rec = $querySql = array();        
+        foreach ($qry as $k => $v) {
             $querySql[$v['day']][$v['food_type']] = $v['foodIds'];
         }
-        $rec = array_replace(staticDropdown("foodDay"), $querySql);        
+
+        $rec = $querySql;
         return $rec;
     }
 

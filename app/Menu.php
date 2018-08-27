@@ -12,7 +12,7 @@ class Menu extends Model {
      * @var array
      */
     protected $fillable = [
-        'id', 'food_id', 'food_type', 'day', 'created_by', 'updated_by', 'created_at', 'updated_at'
+        'id', 'food_id', 'food_type', 'day', 'hotel_id', 'created_by', 'updated_by', 'created_at', 'updated_at'
     ];
 
     /**
@@ -22,9 +22,4 @@ class Menu extends Model {
      */
     protected $hidden = [
     ];
-
-    public function food() {
-        return $this->belongsTo('App\Food')->first();
-    }
-
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Menu;
 use App\Repos\FoodRepo;
 use App\Repos\MenuRepo;
 use Validator;
@@ -14,9 +13,9 @@ class FoodController extends Controller {
     public $menuRepo;
     public $siteTitle;
 
-    public function __construct(FoodRepo $food) {
+    public function __construct(FoodRepo $food, MenuRepo $menu) {
         $this->foodRepo = $food;
-        $this->menuRepo = new MenuRepo(new Menu());
+        $this->menuRepo = $menu;
         $this->siteTitle = SITE_TITLE;
     }
 
@@ -26,8 +25,17 @@ class FoodController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $records['data'] = $this->foodRepo->activeItems();
-        $menuData = $this->menuRepo->activeMenu();
+        
+        $hotelId = request()->session()->get('hotel', 0);
+        $records['data'] = $this->foodRepo->activeItems($hotelId);
+        $menuData = $this->menuRepo->activeMenu($hotelId);
+        for($i=0;$i<7;$i++){
+            if(!array_key_exists($i, $menuData)) {
+                $menuData[$i] = NULL;
+            }
+        }
+        ksort($menuData);
+        //pr($menuData);
         $records['menu_data'] = $menuData;
         $records['pageHeading'] = 'Food Management: Manage Menu';
         $records['PageTitle'] = $this->siteTitle . FOOD_SUB_TITLE;
@@ -53,12 +61,11 @@ class FoodController extends Controller {
         $params = $request->all();
 
         $validator = Validator::make($params, [
-                    'food_name' => 'required|unique:foods|min:3|max:255',
+                 'food_name' => 'required|unique:foods|min:3|max:255',
         ]);
         if ($validator->fails()) {
             return redirect('/food/item')->withErrors($validator)->withInput();
-        }
-        $this->foodRepo->truncateSchema("menus");
+        }        
         $params['hotel_id'] = request()->session()->get("hotel", 0);
         $info = $this->foodRepo->editAdd($params);
         $fid = $info->id;
@@ -77,8 +84,9 @@ class FoodController extends Controller {
     public function menu(Request $request) {
         $params = $request->all();
         //print_r($params);die;
+        $params['hotel_id'] = request()->session()->get("hotel", 0);
         $info = $this->menuRepo->manageMenu($params);
-        request()->session()->flash('message', 'Food Item Created Successfully');
+        request()->session()->flash('message', 'Menu Created Successfully');
         request()->session()->flash('type', 'success');
         return redirect('/food');
     }
@@ -131,7 +139,8 @@ class FoodController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function item() {
-        $records['data'] = $this->foodRepo->search();
+        $hotelId = request()->session()->get('hotel', 0);
+        $records['data'] = $this->foodRepo->search($hotelId);
         $records['pageHeading'] = 'Food Management';
         $records['PageTitle'] = $this->siteTitle . FOODM_SUB_TITLE;
         return view('food/item', $records);

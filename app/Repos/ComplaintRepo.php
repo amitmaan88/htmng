@@ -19,9 +19,9 @@ class ComplaintRepo extends Repo {
         $qry = $qry->leftJoin('users', 'complaints.user_id', '=', 'users.id')
                 ->select('complaints.*', 'users.name')
                 ->where(function ($qry) use ($hotelId, $userTypeId, $userId) {
-            if ($userTypeId !== 2) {
+            if ($userTypeId === 1 || $userTypeId === 0) {
                 $qry->where('complaints.hotel_id', '=', $hotelId);
-            } else {
+            } else if ($userTypeId === 2) {
                 $qry->where('complaints.user_id', '=', $userId);
             }
         }

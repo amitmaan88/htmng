@@ -66,6 +66,7 @@ class ComplaintController extends Controller {
             return redirect('/complaint')->withErrors($validator)->withInput();
         }
         $params['hotel_id'] = request()->session()->get("hotel", 0);
+        $params['user_id'] = auth()->user()->id;
         $info = $this->complaintRepo->editAdd($params);
         $file = $request->file('complaint_pic');
         if ($file !== "" && $file !== NULL) {

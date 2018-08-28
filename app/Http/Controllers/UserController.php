@@ -62,15 +62,26 @@ class UserController extends Controller {
      */
     public function store(Request $request) {
         $params = $request->all();
-        $validator = Validator::make($params, [
-                    'name' => 'required|max:255',
-                    'user_type_id' => 'required',
-                    'hotel_id' => 'required',
-                    'email' => 'required|unique:users|email',
-                    'password' => 'required|confirmed|min:6|max:10',
-                    'mobile' => 'required|numeric',
-                    'landline' => 'required|numeric',
-        ]);
+        if (auth()->user()->user_type_id === 0) {
+            $validator = Validator::make($params, [
+                        'name' => 'required|max:255',
+                        'user_type_id' => 'required',
+                        'hotel_id' => 'required',
+                        'email' => 'required|unique:users|email',
+                        'password' => 'required|confirmed|min:6|max:10',
+                        'mobile' => 'required|numeric',
+                        'landline' => 'required|numeric',
+            ]);
+        } else {
+            $validator = Validator::make($params, [
+                        'name' => 'required|max:255',
+                        'user_type_id' => 'required',
+                        'email' => 'required|unique:users|email',
+                        'password' => 'required|confirmed|min:6|max:10',
+                        'mobile' => 'required|numeric',
+                        'landline' => 'required|numeric',
+            ]);
+        }
         if ($validator->fails()) {
             return redirect('/users/create')->withErrors($validator)->withInput();
         }
@@ -155,26 +166,29 @@ class UserController extends Controller {
      */
     public function update(Request $request, $id) {
         $params = $request->all();
-
+        $varray = array();
         if ($params['old_email'] === $params['email']) {
-            $validator = Validator::make($params, [
-                        'name' => 'required',
-                        'email' => 'required|email',
-                        'user_type_id' => 'required',
-                        'hotel_id' => 'required',
-                        'mobile' => 'required|numeric',
-                        'landline' => 'numeric',
-            ]);
+            $varray = [
+                'name' => 'required',
+                'email' => 'required|email',
+                'user_type_id' => 'required',
+                'hotel_id' => 'required',
+                'mobile' => 'required|numeric',
+                'landline' => 'numeric',
+            ];
         } else {
-            $validator = Validator::make($params, [
-                        'name' => 'required',
-                        'email' => 'required|unique:users|email',
-                        'user_type_id' => 'required',
-                        'hotel_id' => 'required',
-                        'mobile' => 'required|numeric',
-                        'landline' => 'numeric',
-            ]);
+            $varray = [
+                'name' => 'required',                
+                'user_type_id' => 'required',
+                'hotel_id' => 'required',
+                'mobile' => 'required|numeric',
+                'landline' => 'numeric',
+            ];
         }
+        if (auth()->user()->user_type_id !== 0) {
+            unset($varray['hotel_id']);
+        }
+        $validator = Validator::make($params, $varray);
         if ($validator->fails()) {
             return redirect('/users/' . $id . '/edit')->withErrors($validator)->withInput();
         }

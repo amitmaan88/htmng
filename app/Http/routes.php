@@ -32,12 +32,17 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['middleware' => ['auth', 'checkAdmin']], function() {
     Route::post('/users/cstatus', array('as' => 'users.changeStatus', 'uses' => 'UserController@cstatus'));
     Route::get('/users/upload', array('as' => 'user.upload', 'uses' => 'UserController@upload'));
-    Route::resource('/users', 'UserController');
 });
+
 Route::group(['middleware' => ['auth', 'checkOwner']], function() {
     Route::get('/room/roomtype/{room?}', array('as' => 'room.roomtype', 'uses' => 'RoomController@roomtype'));
     Route::resource('/room', 'RoomController');
 });
+
+Route::group(['middleware' => ['auth', 'checkAdminOwner']], function() {
+    Route::resource('/users', 'UserController');
+});
+
 
 
 Route::get('/logout', 'Auth\AuthController@logout');

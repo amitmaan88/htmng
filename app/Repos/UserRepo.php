@@ -15,18 +15,19 @@ class UserRepo extends Repo {
 
         $qryModel = $this->model;
         $qry = $qryModel->where('status', '!=', 2);
+        if (auth()->user()->user_type_id !== 0) {
+            $qry->where('hotel_id', 'like', auth()->user()->hotel_id);
+        }
         if (!empty($params['s'])) {
             $s = strtolower($params['s']);
             $qry = $qry->where(
                     function ($qry) use ($s, $userType) {
-                $qry->where( 'name', 'like', '%' . $s . '%')
+                $qry->where('name', 'like', '%' . $s . '%')
                         ->orWhere('mobile', 'like', '%' . $s . '%');
                 if (!empty($userType[$s])) {
                     $qry->orWhere('user_type_id', 'like', '%' . $userType[$s] . '%');
                 }
-
-                $qry->orWhere('hotel_id', 'like', '%' . $s . '%')
-                        ->orWhere('email', 'like', '%' . $s . '%');
+                $qry->orWhere('email', 'like', '%' . $s . '%');
             }
             );
         }

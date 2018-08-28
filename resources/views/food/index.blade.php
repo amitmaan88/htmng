@@ -108,17 +108,19 @@
                                         </tbody>
                                     </table>
 
+                                    @if(auth()->user()->user_type_id !== 2)
                                     <div class="col-md-12">
                                         <div class="form-group">                                        
                                             <input type="submit" class="btn btn-primary" value="Create" />
                                             <input type="button" id="cancelBtn" data-url="{{url('/food')}}" class="btn btn-default" name="cancel" value="Cancel" />
                                         </div>
                                     </div>
+                                    @endif
                             </form>
                         </div>
                     </div>
                 </div>
-
+                <div class="panel-footer"></div>
             </div>
         </div>
         <!-- /. ROW  -->

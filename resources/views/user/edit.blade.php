@@ -34,7 +34,17 @@
                                     <div class="form-group form_field">
                                         <label>User Type <span class="red">*</span></label>
                                         <select class="form-control" name="user_type_id" id="user_type">
-                                            <?php $userType = staticDropdown("userType"); ?>
+                                            <?php 
+                                            $userType = staticDropdown("userType"); 
+                                            if(auth()->user()->user_type_id === 2) {
+                                                unset($userType[0]);
+                                            } else if(auth()->user()->user_type_id === 1) {
+                                                unset($userType[0]);
+                                                unset($userType[1]);
+                                            } else {
+                                                
+                                            }                                            
+                                            ?>
                                             @foreach($userType as $uk=>$uv)
                                             <option value="{{$uk}}" {{ (old('user_type_id',$data->user_type_id)==$uk)?'selected="selected"':'' }} >{{$uv}}</option>
                                             @endforeach

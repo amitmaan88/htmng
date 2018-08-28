@@ -34,9 +34,13 @@ class HomeController extends Controller {
         $records['hotelList'] = $this->hotelRepo->activeHotels();
         $records['data'] = $this->hotelRepo->search($params)->toArray();
         $records['hotel_name'] = 0;
-        if (!empty($params)) {
-            $records['hotel_name'] = $params['hotel_name'];
-            request()->session()->put("hotel", $params['hotel_name']);
+        if (auth()->user()->user_type_id === 1 || auth()->user()->user_type_id === 2) {
+            request()->session()->put("hotel", auth()->user()->hotel_id);
+        } else {
+            if (!empty($params)) {
+                $records['hotel_name'] = $params['hotel_name'];
+                request()->session()->put("hotel", $params['hotel_name']);
+            }
         }
         $params['hotel_name'] = $records['hotel_name'] = request()->session()->get("hotel", "");
         $records['data'] = $this->hotelRepo->search($params)->toArray();

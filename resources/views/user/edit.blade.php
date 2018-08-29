@@ -14,7 +14,14 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h5>User Details</h5>
+                        Update 
+                        @if (auth()->user()->user_type_id === 0)
+                        User
+                        @elseif (auth()->user()->user_type_id === 1)
+                        Tenant
+                        @else
+                        Owner
+                        @endif
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -30,26 +37,25 @@
                                             </div>
                                             <input class="form-control" name="name" type="text" value="{{old('name',$data->name)}}"  />
                                         </div>                                        
-                                    </div>                            
-                                    <div class="form-group form_field">
-                                        <label>User Type <span class="red">*</span></label>
-                                        <select class="form-control" name="user_type_id" id="user_type">
-                                            <?php 
-                                            $userType = staticDropdown("userType"); 
-                                            if(auth()->user()->user_type_id === 2) {
-                                                unset($userType[0]);
-                                            } else if(auth()->user()->user_type_id === 1) {
-                                                unset($userType[0]);
-                                                unset($userType[1]);
-                                            } else {
-                                                
-                                            }                                            
-                                            ?>
-                                            @foreach($userType as $uk=>$uv)
-                                            <option value="{{$uk}}" {{ (old('user_type_id',$data->user_type_id)==$uk)?'selected="selected"':'' }} >{{$uv}}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
+                                    <?php
+                                    $userType = staticDropdown("userType");
+                                    if (auth()->user()->user_type_id === 0) {
+                                        ?>
+                                        <div class="form-group form_field">
+                                            <label>User Type <span class="red">*</span></label>
+                                            <select class="form-control" name="user_type_id" id="user_type">
+                                                @foreach($userType as $uk=>$uv)
+                                                <option value="{{$uk}}" {{ (old('user_type_id',$data->user_type_id)==$uk)?'selected="selected"':'' }} >{{$uv}}</option>
+                                                @endforeach  
+                                            </select>
+                                        </div>
+                                    <?php } else if (auth()->user()->user_type_id === 1) {
+                                        ?>
+                                        <input type="hidden" name="user_type_id" value="{{$data->user_type_id}}" />
+                                    <?php } else { ?>
+
+                                    <?php } ?>
                                     @if(auth()->user()->user_type_id === 0)
                                     <div class="form-group form_field">
                                         <label>{{HOTEL_PG}} <span class="red">*</span></label>
@@ -60,6 +66,8 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    @else
+                                    <input type="hidden" name="hotel_id" value="{{$hotel_id}}" />
                                     @endif
                                     <div class="form-group form_field">
                                         <label>Email<span class="red">*</span></label>

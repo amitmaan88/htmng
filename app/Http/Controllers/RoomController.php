@@ -33,7 +33,8 @@ class RoomController extends Controller {
      */
     public function index(Request $request) {
         $params = $request->all();
-        $records['data'] = $this->roomRepo->search($params);
+        $hotelId = request()->session()->get("hotel", 0);
+        $records['data'] = $this->roomRepo->search($params, $hotelId);
         $records['pageHeading'] = 'Room Management';
         $records['PageTitle'] = $this->siteTitle . ROOM_SUB_TITLE;
         $records['s'] = $params['s'] ?? '';

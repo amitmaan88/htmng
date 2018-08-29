@@ -2,7 +2,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="token" content="{{csrf_token()}}"  />
-    <title> {{(isset($PageTitle) && $PageTitle !== "")?$PageTitle:""}} </title>
+    <title> {{(isset($PageTitle) && $PageTitle !== "")?$PageTitle:"Test"}} </title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <!-- BOOTSTRAP STYLES-->

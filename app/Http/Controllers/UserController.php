@@ -37,6 +37,7 @@ class UserController extends Controller {
         $records['s'] = $params['s'] ?? '';
         $records['pageHeading'] = 'User Management';
         $records['PageTitle'] = $this->siteTitle . USER_SUB_TITLE;
+
         return view('user/index', $records);
     }
 
@@ -51,6 +52,7 @@ class UserController extends Controller {
         $hotelId = request()->session()->get("hotel", 0);
         $records['hotelData'] = $this->hotelRepo->activeUserHotels(array('hotel_id' => $hotelId));
         $records['PageTitle'] = $this->siteTitle . USERC_SUB_TITLE;
+        $records['hotel_id'] = $hotelId;
         return view('user/create', $records);
     }
 
@@ -62,32 +64,17 @@ class UserController extends Controller {
      */
     public function store(Request $request) {
         $params = $request->all();
-        if (auth()->user()->user_type_id === 0) {
-            $validator = Validator::make($params, [
-                        'name' => 'required|max:255',
-                        'user_type_id' => 'required',
-                        'hotel_id' => 'required',
-                        'email' => 'required|unique:users|email',
-                        'password' => 'required|confirmed|min:6|max:10',
-                        'mobile' => 'required|numeric',
-                        'landline' => 'required|numeric',
-            ]);
-        } else {
-            $validator = Validator::make($params, [
-                        'name' => 'required|max:255',
-                        'user_type_id' => 'required',
-                        'email' => 'required|unique:users|email',
-                        'password' => 'required|confirmed|min:6|max:10',
-                        'mobile' => 'required|numeric',
-                        'landline' => 'required|numeric',
-            ]);
-        }
+        $validator = Validator::make($params, [
+                    'name' => 'required|max:255',
+                    'user_type_id' => 'required',
+                    'hotel_id' => 'required',
+                    'email' => 'required|unique:users|email',
+                    'password' => 'required|confirmed|min:6|max:10',
+                    'mobile' => 'required|numeric',
+                    'landline' => 'required|numeric',
+        ]);
         if ($validator->fails()) {
             return redirect('/users/create')->withErrors($validator)->withInput();
-        }
-
-        if (!isset($params['hotel_id']) || $params['hotel_id'] === "" || $params['hotel_id'] === 0) {
-            $params['hotel_id'] = request()->session()->get("hotel", 0);
         }
         $params['password'] = bcrypt($params['password']);
         unset($params['password_confirmation']);
@@ -154,6 +141,7 @@ class UserController extends Controller {
         $records['PageTitle'] = $this->siteTitle . USERE_SUB_TITLE;
         $hotelId = request()->session()->get("hotel", 0);
         $records['hotelData'] = $this->hotelRepo->activeUserHotels(array('hotel_id' => $hotelId));
+        $records['hotel_id'] = $hotelId;
         return view('user/edit', $records);
     }
 
@@ -178,7 +166,7 @@ class UserController extends Controller {
             ];
         } else {
             $varray = [
-                'name' => 'required',                
+                'name' => 'required',
                 'user_type_id' => 'required',
                 'hotel_id' => 'required',
                 'mobile' => 'required|numeric',

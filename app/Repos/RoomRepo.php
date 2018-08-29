@@ -10,9 +10,12 @@ class RoomRepo extends Repo {
         $this->model = $model;
     }
 
-    public function search($params = "") {
+    public function search($params = "", $hotelId = 0) {
         $qryModel = $this->model;
         $qry = $qryModel->where('status', '!=', 2);
+        if($hotelId !== 0) {
+            $qry->where('hotel_id', '=', $hotelId);
+        }
         if (!empty($params['s'])) {
             $s = strtolower($params['s']);
             $qry = $qry->where(

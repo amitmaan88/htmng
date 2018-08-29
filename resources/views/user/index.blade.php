@@ -25,7 +25,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Responsive Table Example
+                        User List
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
@@ -49,7 +49,7 @@
                                         @foreach($data as $k=>$val)
                                         <tr class="gradeA {{($k%2==0?'even':'odd')}}">
                                             <td class="col-xs-1">{{++$k + (($data->currentPage()-1) * $data->perPage())}}.</td>
-                                            <td class="col-xs-2">{{$val->name}}</td>
+                                            <td class="col-xs-2">{{ucfirst($val->name)}}</td>
                                             <td class="col-xs-1">{{$val->mobile}}</td>
                                             <td class="col-xs-2">{{$val->email}}</td>
                                             <td class="col-xs-1">{{$userType[$val->user_type_id]}}</td>                                            

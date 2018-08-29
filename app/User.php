@@ -12,7 +12,7 @@ class User extends Authenticatable {
      * @var array
      */
     protected $fillable = [
-        'name', 'mobile', 'email', 'password', 'user_type_id', 'hotel_id', 'status', 'created_by', 'updated_by', 'remember_token', 'created_at', 'updated_at'
+        'name', 'mobile', 'landline', 'email', 'password', 'user_type_id', 'hotel_id', 'status', 'created_by', 'updated_by', 'remember_token', 'created_at', 'updated_at'
     ];
 
     /**
@@ -27,4 +27,5 @@ class User extends Authenticatable {
     public function hotel() {
         return $this->belongsTo('App\Hotel')->first();
     }
+
 }

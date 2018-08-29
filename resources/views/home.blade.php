@@ -19,7 +19,7 @@
                         {{HOTEL_PG}}
                     </div>
                     <div class="panel-body">
-                        @if(auth()->user()->user_type_id !== 2)
+                        @if(auth()->user()->user_type_id === 0)
                         <div class="row">
                             <form role="form" method="get" enctype="multipart/form-data" action="{{route('index')}}">
                                 <div class="col-md-12">
@@ -40,6 +40,17 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        @elseif(auth()->user()->user_type_id === 1)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-sm-3"><label>{{HOTEL_PG}} :</label></div><div class="col-sm-3">{{$data[0]['hotel_name']}}</div>
+                                <div class="col-sm-3"><label>Mobile :</label></div><div class="col-sm-3">{{$data[0]['mobile']}}</div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-sm-3"><label>Address :</label></div><div class="col-sm-3">{{$data[0]['hotel_address']}}</div>
+                                <div class="col-sm-3"><label>Rooms :</label></div><div class="col-sm-3">{{count($roomData)}}</div>
+                            </div>
                         </div>
                         @else
                         <div class="row">                            

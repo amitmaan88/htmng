@@ -26,15 +26,17 @@ class NoticeController extends Controller {
      */
     public function index(Request $request) {
         $params = $request->all();
-        $records['alldata'] = $this->noticeRepo->all();
+        $hotelId = request()->session()->get("hotel", 0);
+        $records['alldata'] = $this->noticeRepo->search(NULL, $hotelId);
         $records['id'] = isset($params['title_id']) ? $params['title_id'] : "";
         if (!empty($records['id'])) {
             $this->noticeRepo->updateTemplate($records['id']);
         }
-        $records['data'] = $this->noticeRepo->activeNotices($params);
+        $records['data'] = $this->noticeRepo->activeNotices($params, $hotelId);        
         $records['pageHeading'] = 'Notice Management';
         $records['PageTitle'] = $this->siteTitle . NOTICE_SUB_TITLE;        
         $records['noticeServeData'] = $this->noticeServeRepo->userNoticeServed();
+        //pr($records['noticeServeData']);
         return view('notice/index', $records);
     }
 

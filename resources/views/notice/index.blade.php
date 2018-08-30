@@ -40,12 +40,17 @@
                             @endif
                             <div class="col-md-6"></div>                                
                             <div class="col-md-12">                                    
-                                <div class="form-group" id="notice_view">
-                                    @if(!empty($data)) 
-                                    @foreach($data as $kv=>$vk) 
-                                    {!! $vk->template_html !!}
-                                    @php $notice_id = $vk->id;@endphp                                    
-                                    @endforeach
+                                <div class="form-group" id="notice_view">                                    
+                                    @if(count($noticeServeData) > 0)
+                                    {!! $noticeServeData[0]['template_html'] !!}
+                                    @php $notice_id = $noticeServeData[0]['id'];@endphp                                    
+                                    @else                                    
+                                        @if(!empty($data)) 
+                                            @foreach($data as $kv=>$vk) 
+                                                {!! $vk->template_html !!}
+                                                @php $notice_id = $vk->id;@endphp                                    
+                                            @endforeach
+                                        @endif
                                     @endif
                                 </div>
                             </div>

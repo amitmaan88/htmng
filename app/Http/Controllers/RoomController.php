@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repos\RoomRepo;
-use App\RoomType;
 use App\Repos\RoomTypeRepo;
 use Validator;
-use Illuminate\Support\Facades\Input;
 
 class RoomController extends Controller {
 
@@ -20,9 +18,9 @@ class RoomController extends Controller {
      *
      * @return void
      */
-    public function __construct(RoomRepo $room) {
+    public function __construct(RoomRepo $room, RoomTypeRepo $roomType) {
         $this->roomRepo = $room;
-        $this->roomTypeRepo = new RoomTypeRepo(new RoomType());
+        $this->roomTypeRepo = $roomType;
         $this->siteTitle = SITE_TITLE;
     }
 
@@ -195,7 +193,7 @@ class RoomController extends Controller {
         $roomTypeId = $request->route('room', 0);
         $records['data'] = $this->roomTypeRepo->search();
         $records['data_txt'] = NULL;
-        $records['button_txt'] = "Create";        
+        $records['button_txt'] = "Create";
         if ($roomTypeId !== 0 && $roomTypeId !== "" && $roomTypeId !== NULL) {
             $records['data_txt'] = $this->roomTypeRepo->search($roomTypeId, 1)->toArray();
             $records['button_txt'] = "Update";
@@ -240,9 +238,15 @@ class RoomController extends Controller {
     public function rtype(Request $request) {
         $params = $request->all();
 
-        $validator = Validator::make($params, [
-                    'room_type' => 'required|unique:room_types|max:255',
-        ]);
+        if (isset($params['id']) && $params['room_type'] === $params['old_room_type']) {
+            $validator = Validator::make($params, [
+                        'room_type' => 'required|max:255',
+            ]);
+        } else {
+            $validator = Validator::make($params, [
+                        'room_type' => 'required|unique:room_types|max:255',
+            ]);
+        }
         if ($validator->fails()) {
             return redirect('/room/roomtype')->withErrors($validator)->withInput();
         }

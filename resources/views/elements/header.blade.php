@@ -12,7 +12,8 @@
          float: right;
          font-size: 16px;">
         @if(auth()->check())
-        <span style="color: white;">Logged in as :</span> <a href="javascript:void(0);" title="View Profile" data-toggle="modal" data-target="#myModal">{{ auth()->user()->name  }}</a> &nbsp;<a href="{{url('/logout')}}" class="btn btn-danger square-btn-adjust"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+        <span style="color: white;">Logged in as :</span> <a href="javascript:void(0);" title="View Profile" class="alert-info" data-toggle="modal" data-target="#myModal">{{ auth()->user()->name  }}</a> &nbsp;<a href="{{url('/logout')}}" class="btn btn-danger square-btn-adjust"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+        <a href="{{ $link = url('password/reset', csrf_token()).'?email='.urlencode(auth()->user()->getEmailForPasswordReset()) }}" class="btn btn-danger square-btn-adjust"><i class="fa fa-btn fa-key"></i>Change Password</a>
         <div class="row">
             <div class="col-md-6">
                 <!--  Modals-->                        

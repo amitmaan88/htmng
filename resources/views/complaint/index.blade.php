@@ -17,7 +17,7 @@
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-primary">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         Complaints
                     </div>
@@ -138,6 +138,7 @@
 
                         @include('elements.error')
                     </div>
+                    <div class="panel-footer"></div>
                 </div>
             </div>
         </div>               

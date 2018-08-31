@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/complaint', 'ComplaintController');
     Route::resource('/hotel', 'HotelController');
     Route::resource('/food', 'FoodController');
-    Route::resource('/report', 'ReportController');
+    Route::resource('/report', 'ReportController');    
 });
 Route::group(['middleware' => ['auth', 'checkAdmin']], function() {
     Route::post('/users/cstatus', array('as' => 'users.changeStatus', 'uses' => 'UserController@cstatus'));
@@ -35,12 +35,14 @@ Route::group(['middleware' => ['auth', 'checkAdmin']], function() {
 });
 
 Route::group(['middleware' => ['auth', 'checkOwner']], function() {
-    Route::get('/room/roomtype/{room?}', array('as' => 'room.roomtype', 'uses' => 'RoomController@roomtype'));
-    Route::resource('/room', 'RoomController');
+    
 });
 
 Route::group(['middleware' => ['auth', 'checkAdminOwner']], function() {
     Route::resource('/users', 'UserController');
+    Route::resource('/password', 'PasswordController');
+    Route::get('/room/roomtype/{room?}', array('as' => 'room.roomtype', 'uses' => 'RoomController@roomtype'));    
+    Route::resource('/room', 'RoomController');
 });
 
 

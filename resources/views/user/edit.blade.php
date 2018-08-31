@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="panel panel-primary">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         Update 
                         @if (auth()->user()->user_type_id === 0)

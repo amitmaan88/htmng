@@ -11,7 +11,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-primary">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         Room Type
                     </div>
@@ -29,8 +29,9 @@
                                             @if(!empty($data_txt))
                                             <input class="form-control" name="room_type" type="text" value="{{old('room_type', $data_txt[0]['room_type'])}}"  />
                                             <input name="id" type="hidden" value="{{$data_txt[0]['id']}}"  />
+                                            <input name="old_room_type" type="hidden" value="{{$data_txt[0]['room_type']}}"  />
                                             @else
-                                            <input class="form-control" name="room_type" type="text" value="{{old('room_type')}}"  />
+                                            <input class="form-control" name="room_type" type="text" value=""  />
                                             @endif                                            
                                         </div>
                                     </div>                                                                                                            
@@ -82,6 +83,7 @@
                             </div>                        
                         </div>                        
                     </div>
+                    <div class="panel-footer"></div>
                 </div>
             </div>
         </div>

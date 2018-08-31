@@ -408,3 +408,6 @@ p {
 .form-rounded {
     border-radius: 10px 10px 10px 10px;    
 }
+#profile.borderless td, #profile.borderless th {
+    border: none;
+}

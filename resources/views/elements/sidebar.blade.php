@@ -2,13 +2,13 @@
     <div class="sidebar-collapse">
         <ul class="nav" id="main-menu">
             <li class="text-center">                
-                @php $file = "image/user/".auth()->user()->id."/profile_".auth()->user()->id."jpg";@endphp             
+                @php $file = $_SERVER['DOCUMENT_ROOT']."/htmng/public/image/user/".auth()->user()->id."/profile_image.jpg";@endphp             
                 @if(auth()->user()->user_type_id !== 0 && file_exists($file) === true)
-                <img src="{{$file}}" class="user-image img-responsive"/>
+                <img src="{{"image/user/".auth()->user()->id."/profile_image.jpg"}}" class="user-image img-responsive"/>
                 @else
                 <img src="img/find_user.png" class="user-image img-responsive"/>
                 @endif
-            </li>
+            </li>            
             <li>
                 <a href="{{url('/home')}}"><i class="fa fa-dashboard fa-2x"></i> Dashboard</a>
             </li>

@@ -126,6 +126,12 @@
                                             </div>
                                             <input type="file" class="form-control" name="up_photo_id" />
                                         </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group form_field">
+                                        <label>Current Address</label>                                        
+                                        <textarea class="form-control" name="address" id="address">{{old('address')}}</textarea>                                        
                                     </div>
                                 </div>
                                 <div class="col-md-12">

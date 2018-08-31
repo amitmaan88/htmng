@@ -91,11 +91,15 @@ class UserController extends Controller {
                 \Illuminate\Support\Facades\File::makeDirectory($path);
             }
             if ($file->isValid()) {
-                $file->move($path . "\\", "profile_" . $profile_info->id);
+                $extension = $file->getClientOriginalExtension();
+                $filename = "profile_image." . $extension;
+                $file->move($path . "\\", $filename);
             }
 
             if ($file_id->isValid()) {
-                $file_id->move($path . "\\", "id_" . $profile_info->id);
+                $extension = $file_id->getClientOriginalExtension();
+                $filename = "id_image." . $extension;
+                $file_id->move($path . "\\", $filename);
             }
         }
 

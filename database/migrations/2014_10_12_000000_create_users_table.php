@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration {
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->mediumText('address')->nullable();
             $table->tinyInteger('user_type_id')->unsigned()->default(0);
             $table->integer('hotel_id')->unsigned()->default(0);
             $table->string('mobile',15)->nullable();

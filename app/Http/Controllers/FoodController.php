@@ -37,7 +37,7 @@ class FoodController extends Controller {
         ksort($menuData);
         //pr($menuData);
         $records['menu_data'] = $menuData;
-        $records['pageHeading'] = 'Food Management: Manage Menu';
+        $records['pageHeading'] = 'Food Management: Menu';
         $records['PageTitle'] = $this->siteTitle . FOOD_SUB_TITLE;
         return view('food/index', $records);
     }

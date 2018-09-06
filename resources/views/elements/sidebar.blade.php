@@ -30,6 +30,9 @@
                     <li>
                         <a href="{{url('/room/roomtype')}}">Room Type</a>
                     </li>                                        
+                    <li>
+                        <a href="{{url('/room/roomrent')}}">Room Rent</a>
+                    </li>                                        
                 </ul>
             </li>
             @endif            
@@ -51,7 +54,17 @@
                         <a href="{{url('/food')}}">Food Menu</a>
                     </li>                    
                 </ul>
-            </li>            
+            </li>
+            @if(auth()->user()->user_type_id === 0 || auth()->user()->user_type_id === 1)            
+            <li>
+                <a href="{{url('/reports')}}"><i class="fa fa-book fa-2x"></i> Reports<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">                    
+                    <li>
+                        <a href="{{url('/reports/book')}}">Book Keeping</a>
+                    </li>                                                            
+                </ul>
+            </li>
+            @endif
         </ul>
     </div>
 </nav>

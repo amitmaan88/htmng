@@ -256,5 +256,16 @@ class RoomController extends Controller {
         request()->session()->flash('type', 'success');
         return redirect('/room/roomtype');
     }
+    
+    public function roomrent(Request $request) {
+        $records['pageHeading'] = 'Room Management: Rent';
+        $records['PageTitle'] = $this->siteTitle . ROOMRE_SUB_TITLE;
+        return view('room/roomrent', $records);
+    }
+    
+    public function rent(Request $request) {
+        $records['pageHeading'] = 'Room Management: Room Type';        
+        return view('room/roomrent', $records);
+    }
 
 }

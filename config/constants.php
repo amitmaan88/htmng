@@ -12,6 +12,7 @@ define('ROOM_SUB_TITLE', "- Room Management");
 define('ROOMR_SUB_TITLE', "- Room Management");
 define('ROOME_SUB_TITLE', "- Room Management");
 define('ROOMC_SUB_TITLE', "- Room Management");
+define('ROOMRE_SUB_TITLE', "- Room Management");
 define('USER_SUB_TITLE', "- User Management");
 define('USERE_SUB_TITLE', "- User Management");
 define('USERC_SUB_TITLE', "- User Management");

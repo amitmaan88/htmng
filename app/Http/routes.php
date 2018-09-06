@@ -14,6 +14,9 @@ Route::post('/food/cstatus', array('as' => 'food.changeStatus', 'uses' => 'FoodC
 Route::post('/complaint/cstatus', array('as' => 'complaint.changeStatus', 'uses' => 'ComplaintController@cstatus'));
 
 Route::post('/room/rtype', array('as' => 'room.rtype', 'uses' => 'RoomController@rtype'));
+Route::post('/room/rent', array('as' => 'room.rent', 'uses' => 'RoomController@rent'));
+
+
 Route::get('/notice/template', array('as' => 'notice.template', 'uses' => 'NoticeController@template'));
 Route::post('/notice/template', array('as' => 'notice.template', 'uses' => 'NoticeController@template'));
 Route::post('/notice/serve', array('as' => 'notice.serve', 'uses' => 'NoticeController@serve'));
@@ -38,11 +41,13 @@ Route::group(['middleware' => ['auth', 'checkOwner']], function() {
     
 });
 
-Route::group(['middleware' => ['auth', 'checkAdminOwner']], function() {
+Route::group(['middleware' => ['auth', 'checkAdminOwner']], function() {    
+    Route::get('/room/roomtype/{room?}', array('as' => 'room.roomtype', 'uses' => 'RoomController@roomtype'));  
+    Route::get('/room/roomrent', array('as' => 'room.roomrent', 'uses' => 'RoomController@roomrent'));
     Route::resource('/users', 'UserController');
     Route::resource('/password', 'PasswordController');
-    Route::get('/room/roomtype/{room?}', array('as' => 'room.roomtype', 'uses' => 'RoomController@roomtype'));    
     Route::resource('/room', 'RoomController');
+    
 });
 
 

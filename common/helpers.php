@@ -31,10 +31,10 @@ function staticDropdown($type, $empty = ''): array {
     return $dropdown;
 }
 
-function pr($array, $exist = 0) {
+function pr($array, $exit = 0) {
     echo "<pre>";
     print_r($array);
     echo "</pre>";
-    if ($exist == 1)
+    if ($exit == 1)
         exit;
 }

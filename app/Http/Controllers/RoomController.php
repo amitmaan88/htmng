@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repos\RoomRepo;
 use App\Repos\RoomTypeRepo;
+use App\Repos\UserRepo;
+use App\Repos\HotelRepo;
 use Validator;
 
 class RoomController extends Controller {
 
     public $roomRepo;
     public $roomTypeRepo;
+    public $userRepo;
+    public $hotelRepo;
     public $siteTitle;
 
     /**
@@ -18,9 +22,11 @@ class RoomController extends Controller {
      *
      * @return void
      */
-    public function __construct(RoomRepo $room, RoomTypeRepo $roomType) {
+    public function __construct(RoomRepo $room, RoomTypeRepo $roomType, UserRepo $user, HotelRepo $hotel) {
         $this->roomRepo = $room;
         $this->roomTypeRepo = $roomType;
+        $this->userRepo = $user;
+        $this->hotelRepo = $hotel;
         $this->siteTitle = SITE_TITLE;
     }
 
@@ -33,6 +39,11 @@ class RoomController extends Controller {
         $params = $request->all();
         $hotelId = request()->session()->get("hotel", 0);
         $records['data'] = $this->roomRepo->search($params, $hotelId);
+        $roomType = $this->roomTypeRepo->activeTypes();
+        foreach ($roomType as $rtype) {
+            $records['roomTypeList'][$rtype->id] = $rtype->room_type;
+        }
+        $records['userList'] = $this->userRepo->search(array('status' => 1));
         $records['pageHeading'] = 'Room Management';
         $records['PageTitle'] = $this->siteTitle . ROOM_SUB_TITLE;
         $records['s'] = $params['s'] ?? '';
@@ -197,7 +208,7 @@ class RoomController extends Controller {
         if ($roomTypeId !== 0 && $roomTypeId !== "" && $roomTypeId !== NULL) {
             $records['data_txt'] = $this->roomTypeRepo->search($roomTypeId, 1)->toArray();
             $records['button_txt'] = "Update";
-            //pr($records['data_txt']);
+            //pr($records['data_txt'],1);
         }
 
         $records['pageHeading'] = 'Room Management: Room Type';
@@ -237,35 +248,43 @@ class RoomController extends Controller {
      */
     public function rtype(Request $request) {
         $params = $request->all();
-
+        //pr($params,1);
+        $roomTypeMessage = "";
         if (isset($params['id']) && $params['room_type'] === $params['old_room_type']) {
             $validator = Validator::make($params, [
                         'room_type' => 'required|max:255',
+                        'daily_cost' => 'required|numeric',
+                        'bed_no' => 'required|numeric',
             ]);
+            $roomTypeMessage = 'Room Type Updated Successfully';
         } else {
             $validator = Validator::make($params, [
                         'room_type' => 'required|unique:room_types|max:255',
+                        'daily_cost' => 'required|numeric',
+                        'bed_no' => 'required|numeric',
             ]);
+            $roomTypeMessage = 'Room Type Created Successfully';
         }
         if ($validator->fails()) {
             return redirect('/room/roomtype')->withErrors($validator)->withInput();
         }
 
         $rtype_info = $this->roomTypeRepo->editAdd($params);
-        request()->session()->flash('message', 'Room Type Created Successfully');
+        request()->session()->flash('message', $roomTypeMessage);
         request()->session()->flash('type', 'success');
         return redirect('/room/roomtype');
     }
-    
+
     public function roomrent(Request $request) {
         $records['pageHeading'] = 'Room Management: Rent';
         $records['PageTitle'] = $this->siteTitle . ROOMRE_SUB_TITLE;
+        $records['userDetail'] = $this->userRepo->find(auth()->user()->id);
+        $records['hotelDetail'] = $this->hotelRepo->find(auth()->user()->id);
         return view('room/roomrent', $records);
     }
-    
+
     public function rent(Request $request) {
-        $records['pageHeading'] = 'Room Management: Room Type';        
-        return view('room/roomrent', $records);
+        return redirect('/room/roomrent');
     }
 
 }

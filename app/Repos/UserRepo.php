@@ -14,9 +14,13 @@ class UserRepo extends Repo {
         $userType = array_flip(staticDropdown("userType"));
 
         $qryModel = $this->model;
-        $qry = $qryModel->where('status', '!=', 2);
+        if (!empty($params['status'])) {
+            $qry = $qryModel->where('status', '=', $params['status']);
+        } else {
+            $qry = $qryModel->where('status', '!=', 2);
+        }
         if (auth()->user()->user_type_id !== 0) {
-            $qry->where('hotel_id', 'like', auth()->user()->hotel_id);
+            $qry->where('hotel_id', '=', auth()->user()->hotel_id);
         }
         if (!empty($params['s'])) {
             $s = strtolower($params['s']);

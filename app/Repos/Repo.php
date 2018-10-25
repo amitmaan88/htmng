@@ -100,7 +100,7 @@ abstract class Repo {
         if (!empty($id)) {
             $params['updated_by'] = auth()->user()->id;
             $result = $this->model->findOrFail($id);
-            //print_r($params);
+            //print_r($params);die;
             $result->update($params);
         } else {
             if (isset($params['_token']))

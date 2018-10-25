@@ -42,6 +42,36 @@
                                         <input type="button" id="cancelBtn" data-url="{{url('/room/roomtype')}}" class="btn btn-default" name="cancel" value="Cancel" />
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form_field">
+                                        <label>Beds <span class="red">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa"></i> 
+                                            </div>
+                                            @if(!empty($data_txt))
+                                            <input type="number" class="form-control" name="bed_no" id="bed_no" value="{{old('bed_no', $data_txt[0]['bed_no'])}}" />
+                                            @else
+                                            <input type="number" class="form-control" name="bed_no" id="bed_no" value="{{old('bed_no')}}" />
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form_field">
+                                        <label>Daily Cost <span class="red">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa"></i> 
+                                            </div>
+                                            @if(!empty($data_txt))
+                                            <input maxlength="5" type="text" class="form-control" name="daily_cost" id="daily_cost" value="{{old('daily_cost', $data_txt[0]['daily_cost'])}}" />
+                                            @else
+                                            <input maxlength="5" type="text" class="form-control" name="daily_cost" id="daily_cost" value="{{old('daily_cost')}}" />
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         @include('elements.error')

@@ -14,6 +14,8 @@ class RoomType extends Migration {
         Schema::create('room_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('room_type');
+            $table->tinyInteger('bed_no')->unsigned()->default(0);
+            $table->decimal('daily_cost', 5, 2)->unsigned()->default(0);
             $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

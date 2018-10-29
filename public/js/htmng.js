@@ -89,14 +89,14 @@ var htmng = {
             data: args,
             async: false,
             success: function (data) {
-                if (btnId.attr('data-var') == 0) {
+                if (btnId.attr('data-var') == 1) {
                     btnId.text("Inactive");
-                    btnId.attr('data-var', 1);
+                    btnId.attr('data-var', 0);
                     btnId.addClass("btn-default");
                     btnId.removeClass("btn-success");
                 } else {
                     btnId.text("Active");
-                    btnId.attr('data-var', 0);
+                    btnId.attr('data-var', 1);
                     btnId.addClass("btn-success");
                     btnId.removeClass("btn-default");
                 }

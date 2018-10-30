@@ -12,7 +12,7 @@ class Room extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'room_name', 'room_type', 'chair_no', 'table_no', 'bed_no', 'floor_no', 'room_size', 'daily_cost', 'monthly_cost', 'yearly_cost', 'description', 'hotel_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'
+        'id', 'room_name', 'room_type', 'chair_no', 'table_no', 'bed_no', 'floor_no', 'room_size', 'daily_cost', 'monthly_cost', 'yearly_cost', 'description', 'hotel_id', 'user_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'
     ];
 
     /**

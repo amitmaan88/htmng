@@ -25,6 +25,7 @@ class CreateRoomsTable extends Migration {
             $table->decimal('yearly_cost', 5, 2)->unsigned()->default(0);
             $table->text('description')->nullable();
             $table->integer('hotel_id')->unsigned()->default(0);
+            $table->integer('user_id')->unsigned()->default(0);
             $table->string('room_photo', 150)->nullable();
             $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();

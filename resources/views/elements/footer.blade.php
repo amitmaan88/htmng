@@ -64,6 +64,12 @@ $(document).ready(function () {
     $(".chosen-search-input").on('change', function () {
         $("#food_menu select.chosen-select").val('').trigger("liszt:updated");
     });
+    $("#room_type").change(function(){
+        htmng.loadRoomTypeDetails($(this));
+    });
+    $(".user").change(function(){
+        htmng.userAssignRoom($(this));
+    });
 
 });
 function allowDrop(ev) {

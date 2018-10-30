@@ -240,6 +240,41 @@ class RoomController extends Controller {
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function rmtype(Request $request) {
+        if ($request->ajax()) {
+            $room = $this->roomTypeRepo->find($request->id);
+
+            return response()->json(['response' => $room, 'status' => 'success', 'code' => '200', 'data' => $room->id]);
+        }
+        return response()->json(['status' => 'fail', 'code' => '104']);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function assignusrroom(Request $request) {
+        if ($request->ajax()) {
+            $room = $this->roomRepo->find($request->room_id);
+            //pr($room,1);
+            $roomUser = $param = array();
+            if ($room->count() > 0) {
+                $param['id'] = $request->room_id;                
+                $param['user_id'] = $request->user_id;
+                $roomUser = $this->roomRepo->editAdd($param);
+            }
+
+            return response()->json(['response' => "Tenant assigned to the room", 'status' => 'success', 'code' => '200', 'data' => $room->id]);
+        }
+        return response()->json(['response' => "Tenant not assigned or already assigned to the room", 'status' => 'fail', 'code' => '104']);
+    }
+
+    /**
      * Management of room types
      *
      * @param  \Illuminate\Http\Request  $request

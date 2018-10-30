@@ -56,10 +56,10 @@
                                             </td>
                                             <td class="col-xs-2">
                                                 <div class="form-group form_field">
-                                                    <select class="form-control" name="user_id" id="user_id">
+                                                    <select class="form-control user" name="user_id" id="user_id" data-rm-id="{{$val->id}}">
                                                         <option value="">Select</option>
                                                         @foreach($userList as $uk=>$uv)
-                                                        <option value="{{$uv->id}}" {{ (old('user_id')==$uv->id)?'selected="selected"':'' }} >{{$uv->name}}</option>
+                                                        <option value="{{$uv->id}}" {{ (old('user_id')==$uv->id || $val->user_id==$uv->id)?'selected=selected':'' }} >{{$uv->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

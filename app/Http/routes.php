@@ -16,6 +16,8 @@ Route::post('/complaint/cstatus', array('as' => 'complaint.changeStatus', 'uses'
 Route::post('/room/rtype', array('as' => 'room.rtype', 'uses' => 'RoomController@rtype'));
 Route::post('/room/rent', array('as' => 'room.rent', 'uses' => 'RoomController@rent'));
 
+Route::post('/room/rmtype', array('as' => 'room.rmtype', 'uses' => 'RoomController@rmtype'));
+Route::post('/room/assignusrroom', array('as' => 'room.assignusrroom', 'uses' => 'RoomController@assignusrroom'));
 
 Route::get('/notice/template', array('as' => 'notice.template', 'uses' => 'NoticeController@template'));
 Route::post('/notice/template', array('as' => 'notice.template', 'uses' => 'NoticeController@template'));

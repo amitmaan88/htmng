@@ -122,10 +122,10 @@ var htmng = {
     },
     complaintStatus: function (selId) {
 
-        var args = {            
+        var args = {
             '_token': $('meta[name="token"]').attr('content'),
             'status': selId.val(),
-            'id': selId.attr('data-id'),            
+            'id': selId.attr('data-id'),
         };
         var url = "/complaint";
         $.ajax({
@@ -134,7 +134,58 @@ var htmng = {
             data: args,
             async: false,
             success: function (data) {
-                
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 500) {
+                    alert('Internal error: ' + jqXHR.responseText);
+                } else {
+                    alert('Unexpected error.');
+                }
+            }
+
+        });
+    },
+    loadRoomTypeDetails: function (obj) {
+        var args = {
+            '_token': $('meta[name="token"]').attr('content'),
+            'id': obj.val(),            
+        };
+        var url = "/room";
+        $.ajax({
+            url: this.baseUrl + url + '/rmtype',
+            type: "POST",
+            data: args,
+            async: false,
+            success: function (dat) {
+                var data = dat.response;                
+                $("#bed_no").val(data.bed_no);
+                $("#daily_cost").val(data.daily_cost);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 500) {
+                    alert('Internal error: ' + jqXHR.responseText);
+                } else {
+                    alert('Unexpected error.');
+                }
+            }
+
+        });
+    },
+    userAssignRoom: function (obj) {
+        var args = {
+            '_token': $('meta[name="token"]').attr('content'),
+            'user_id': obj.val(),            
+            'room_id': obj.attr('data-rm-id'),
+        };
+        var url = "/room";
+        $.ajax({
+            url: this.baseUrl + url + '/assignusrroom',
+            type: "POST",
+            data: args,
+            async: false,
+            success: function (dat) {
+                var data = dat.response;                
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.status == 500) {

@@ -44,7 +44,7 @@
                                     <tbody>
                                         <?php
                                         $userType = staticDropdown("userType");
-                                        $Status = staticDropdown("status");
+                                        $Status = array_reverse(staticDropdown("status"));
                                         ?>
                                         @foreach($data as $k=>$val)
                                         <tr class="gradeA {{($k%2==0?'even':'odd')}}">
@@ -56,7 +56,7 @@
                                             <td class="col-xs-3">
                                                 <a href="{{url('/users/'.$val->id.'/edit')}}"><button type="button" class="btn btn-primary"><i class="fa fa-btn fa-edit"></i> Edit</button></a>
                                                 <button type="button" class="btn btn-danger deleteBtn" data-id="{{$val->id}}"><i class="fa fa-btn fa-trash-o"></i> Delete</button>
-                                                <button data-url="{{'/users'}}" type="button" class="btn {{($val->status == 1)?'btn-success':'btn-default'}} actinc" data-var="{{($val->status == 1)?0:1}}" data-id="{{$val->id}}"> {{$Status[$val->status]}}</button>
+                                                <button data-url="{{'/users'}}" type="button" class="btn {{($val->status == 1)?'btn-default':'btn-success'}} actinc" data-var="{{($val->status == 1)?0:1}}" data-id="{{$val->id}}"> {{$Status[$val->status]}}</button>
 
                                             </td>
                                         </tr>

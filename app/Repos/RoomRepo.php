@@ -4,6 +4,7 @@ namespace App\Repos;
 
 use App\Room;
 
+
 class RoomRepo extends Repo {
 
     public function __construct(Room $model) {
@@ -44,5 +45,7 @@ class RoomRepo extends Repo {
         $querySql = $qry->get();
         return $querySql;
     }
+    
+    
 
 }

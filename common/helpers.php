@@ -7,6 +7,10 @@
  * @param string $empty Additional value added the drop down optional
  * @return array $dropdown
  */
+use Jimmyjs\ReportGenerator\ReportMedia\PdfReport;
+use Jimmyjs\ReportGenerator\ReportMedia\ExcelReport;
+use Jimmyjs\ReportGenerator\ReportMedia\CSVReport;
+
 function staticDropdown($type, $empty = ''): array {
     $dropdown = array();
     if ($empty != '')
@@ -37,4 +41,19 @@ function pr($array, $exit = 0) {
     echo "</pre>";
     if ($exit == 1)
         exit;
+}
+
+function genRep($headers, $data, $type) {
+   
+    switch ($type) {
+        case 'pdf':$pdf = new PdfReport();
+            break;
+        case 'excel':$excel = new ExcelReport();
+            break;
+        case 'csv':$csv = new CSVReport();
+            break;
+        default:break;
+    }
+    
+    return 0;
 }

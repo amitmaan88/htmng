@@ -312,9 +312,9 @@ class RoomController extends Controller {
 
     public function roomrent(Request $request) {
         $records['pageHeading'] = 'Room Management: Rent';
-        $records['PageTitle'] = $this->siteTitle . ROOMRE_SUB_TITLE;
+        $records['PageTitle'] = $this->siteTitle . ROOMRE_SUB_TITLE;        
         $records['userDetail'] = $this->userRepo->find(auth()->user()->id);
-        $records['hotelDetail'] = $this->hotelRepo->find(auth()->user()->id);
+        $records['hotelDetail'] = $this->hotelRepo->find(auth()->user()->id);        
         return view('room/roomrent', $records);
     }
 

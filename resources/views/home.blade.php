@@ -8,6 +8,9 @@
                 <h2>Dashboard</h2>
                 @include('elements.message')
             </div>
+            <div class="col-md-12">
+                <div class="pull-right"><button class="btn btn-danger" onclick="document.location.href='{{route('room.roomrent')}}';">Pay Rent</button></div>
+            </div>
         </div>
         <!-- /. ROW  -->
         <hr />

@@ -35,20 +35,12 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td width="332" colspan="3" valign="top">
-                                                    <p>
-                                                        <strong>TENANT</strong>
-                                                        :
+                                                <td width="162">
+                                                    <p align="right">
+                                                        <strong>TENANT</strong>                                                        
                                                     </p>
                                                     <p>{{$userDetail['address']}}</p>
-                                                </td>
-                                                <td width="340" colspan="6" valign="top">
-                                                    <p>
-                                                        <strong>LANDLORD</strong>
-                                                        :
-                                                    </p>
-                                                    <p>{{$hotelDetail['hotel_address']}}</p>
-                                                </td>
+                                                </td>                                                
                                             </tr>
                                             <tr>
                                                 <td width="162">
@@ -58,22 +50,10 @@
                                                 </td>
                                                 <td width="510" colspan="8">
                                                     <p>
-                                                        $
+                                                        &#8377;
                                                     </p>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td width="526" colspan="7">
-                                                    <p align="right">
-                                                        <strong></strong>
-                                                    </p>
-                                                </td>
-                                                <td width="146" colspan="2">
-                                                    <p align="center">
-                                                        Dollars<strong></strong>
-                                                    </p>
-                                                </td>
-                                            </tr>
+                                            </tr>                                            
                                             <tr>
                                                 <td width="162">
                                                     <p align="right">
@@ -82,11 +62,8 @@
                                                 </td>
                                                 <td width="510" colspan="8">
                                                     <p>
-                                                        690 Candlelight Drive
-                                                    </p>
-                                                    <p>
-                                                        Katy, TX 77493
-                                                    </p>
+                                                        {{$hotelDetail['hotel_address']}}
+                                                    </p>                                                    
                                                 </td>
                                             </tr>
                                             <tr>
@@ -101,6 +78,9 @@
                                                     </p>
                                                 </td>
                                                 <td width="127" colspan="2">
+                                                    <p align="center">
+                                                        <strong>{{date('M-Y', strtotime(RENT_START_MONTH))}}</strong>
+                                                    </p>
                                                 </td>
                                                 <td width="127" colspan="4">
                                                     <p align="center">
@@ -109,7 +89,7 @@
                                                 </td>
                                                 <td width="127">
                                                     <p align="center">
-                                                        <strong></strong>
+                                                        <strong>{{date('M-Y', strtotime(RENT_START_MONTH .'+'.RENT_DURATION .'months'))}}</strong>
                                                     </p>
                                                 </td>
                                             </tr>
@@ -121,60 +101,33 @@
                                                 </td>
                                                 <td width="127">
                                                     <p align="center">
-                                                        <strong>□ </strong>
+                                                        <strong><input class="form-control" name="payrent" id="payrentCash" type="radio" value="1" /> </strong>
                                                         Cash<strong></strong>
                                                     </p>
                                                 </td>
                                                 <td width="127" colspan="2">
                                                     <p align="center">
-                                                        □ Credit Card
+                                                        <strong><input class="form-control" name="payrent" id="payrentCard" type="radio" value="2" /> </strong>
+                                                        Credit/Debit Card<strong></strong>
                                                     </p>
                                                 </td>
                                                 <td width="127" colspan="4">
                                                     <p align="center">
-                                                        <strong>□ </strong>
-                                                        Check<strong></strong>
+                                                        <strong><input class="form-control" name="payrent" id="payrentCheque" type="radio" value="3" /> </strong>
+                                                        Cheque<strong></strong>
                                                     </p>
-                                                </td>
-                                                <td width="127">
+                                                </td>                                                
+                                                <td width="127" colspan="4">
                                                     <p align="center">
-                                                        <strong>□ </strong>
-                                                        Money order<strong></strong>
+                                                        <strong><input class="form-control" name="payrent" id="payrentOnline" type="radio" value="4" /> </strong>
+                                                        Net Banking<strong></strong>
                                                     </p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td width="162">
-                                                    <p align="right">
-                                                        <strong>PAID BY</strong>
-                                                    </p>
-                                                </td>
-                                                <td width="170" colspan="2">
-                                                    <p align="center">
-                                                        <strong></strong>
-                                                    </p>
-                                                </td>
-                                                <td width="170" colspan="2">
-                                                    <p align="center">
-                                                        <strong>RECEIVED BY</strong>
-                                                    </p>
-                                                </td>
-                                                <td width="170" colspan="4">
-                                                    <p align="center">
-                                                        <strong></strong>
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td width="672" colspan="9">
-                                                    <p align="center">
-                                                        <em>THANK YOU FOR YOUR BUSINESS</em>
-                                                    </p>
-                                                </td>
-                                            </tr>
+                                                </td>                                                
+                                            </tr>                                                                                        
                                         </tbody>
                                     </table>
                                 </div>
+                                @if(auth()->user()->user_type_id === 2)  
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">                                        
@@ -183,6 +136,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                         </form>
                     </div>
                     @include('elements.error')

@@ -20,3 +20,5 @@ define('USERU_SUB_TITLE', "- User Management");
 define('HOME_SUB_TITLE', "");
 define('HOTEL_PG', "PG");
 define('NOTICE_DAYS', 30);
+define('RENT_START_MONTH', "January");
+define('RENT_DURATION', 1);
